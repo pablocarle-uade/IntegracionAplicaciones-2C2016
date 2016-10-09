@@ -1,5 +1,5 @@
 package edu.uade.ida.deposito.model;
 
-public class PurchaseOrder {
+public class Usuario {
 
 }

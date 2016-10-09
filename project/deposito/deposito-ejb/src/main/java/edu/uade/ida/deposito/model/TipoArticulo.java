@@ -10,9 +10,9 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class ArticleType {
+public class TipoArticulo {
 
 	@Id
-	private int articleTypeId;
+	private int idTipoArticulo;
 	
 }
