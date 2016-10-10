@@ -4,6 +4,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import ar.edu.uade.ia.grupo1.deposito.model.Articulo;
+
 @RequestScoped
 public class ArticuloRepository {
 

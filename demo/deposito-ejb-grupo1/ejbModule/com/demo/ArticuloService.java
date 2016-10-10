@@ -19,7 +19,7 @@ public class ArticuloService {
     
     public void getArticulo() {
     	try {
-    		System.out.println("ENCONTRADO ===> " + articuloRepository.findById(1L).descripcion);
+    		System.out.println("ENCONTRADO ===> " + articuloRepository.findById(1L).getDescripcion());
     	} catch (Exception ex) {
     		ex.printStackTrace();
     		System.out.println("Conectando a: " + ex.getMessage());
