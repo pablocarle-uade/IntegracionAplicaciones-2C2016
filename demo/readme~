@@ -1,0 +1,12 @@
+IMPORTANT!! => Look at screenshots (wildfly config, queue config, etc)
+
+DataSource name: java:/SQLSERVERDS
+
+Test rest service: 
+http://localhost:8080/deposito-web-grupo1/rest/fulldemo/demo
+
+Test async JMS:
+http://localhost:8080/deposito-web-grupo1/TestServlet
+
+Test JSP page:
+http://localhost:8080/deposito-web-grupo1/
