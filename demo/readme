@@ -1,6 +1,6 @@
 IMPORTANT!! => Look at screenshots (wildfly config, queue config, etc)
 
-DataSource name: java:/SQLSERVERDS
+DataSource name: java:/DEPOSITODSGRUPOUNO
 
 Test rest service: 
 http://localhost:8080/deposito-web-grupo1/rest/fulldemo/demo
