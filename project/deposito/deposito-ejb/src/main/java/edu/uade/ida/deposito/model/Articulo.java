@@ -16,7 +16,7 @@ public class Articulo {
 	private String codigo;
 	private String descripcion;
 	private String uom;
-	private TipoArticulo tipo;
+	// private TipoArticulo tipo;
 	private int stockCompra;
 	private int stockDisponible;
 	
@@ -72,12 +72,12 @@ public class Articulo {
 	public void setUom(String uom) {
 		this.uom = uom;
 	}
-	public TipoArticulo getTipo() {
-		return tipo;
-	}
-	public void setTipo(TipoArticulo tipo) {
-		this.tipo = tipo;
-	}
+//	public TipoArticulo getTipo() {
+//		return tipo;
+//	}
+//	public void setTipo(TipoArticulo tipo) {
+//		this.tipo = tipo;
+//	}
 	public int getStockCompra() {
 		return stockCompra;
 	}
