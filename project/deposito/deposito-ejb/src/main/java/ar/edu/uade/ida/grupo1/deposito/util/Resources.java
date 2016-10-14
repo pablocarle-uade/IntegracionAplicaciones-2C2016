@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.uade.ida.deposito.util;
+package ar.edu.uade.ida.grupo1.deposito.util;
 
 import java.util.logging.Logger;
 

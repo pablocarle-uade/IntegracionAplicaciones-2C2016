@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.uade.ida.deposito.rest;
+package ar.edu.uade.ida.grupo1.deposito.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

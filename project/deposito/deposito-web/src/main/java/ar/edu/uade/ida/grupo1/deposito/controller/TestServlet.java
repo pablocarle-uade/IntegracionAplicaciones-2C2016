@@ -1,4 +1,4 @@
-package edu.uade.ida.deposito.controller;
+package ar.edu.uade.ida.grupo1.deposito.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

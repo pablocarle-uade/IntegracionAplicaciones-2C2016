@@ -14,14 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.uade.ida.deposito.service;
-
-import edu.uade.ida.deposito.model.Member;
+package ar.edu.uade.ida.grupo1.deposito.service;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
+import ar.edu.uade.ida.grupo1.deposito.model.Member;
+
 import java.util.logging.Logger;
 
 // The @Stateless annotation eliminates the need for manual transaction demarcation

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.uade.ida.deposito.model;
+package ar.edu.uade.ida.grupo1.deposito.model;
 
 import java.io.Serializable;
 

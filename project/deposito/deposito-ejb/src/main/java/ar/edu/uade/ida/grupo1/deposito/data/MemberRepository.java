@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.uade.ida.deposito.data;
+package ar.edu.uade.ida.grupo1.deposito.data;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -22,9 +22,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.List;
 
-import edu.uade.ida.deposito.model.Member;
+import ar.edu.uade.ida.grupo1.deposito.model.Member;
+
+import java.util.List;
 
 @ApplicationScoped
 public class MemberRepository {

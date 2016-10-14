@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.uade.ida.deposito.rest;
+package ar.edu.uade.ida.grupo1.deposito.rest;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -40,9 +40,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import edu.uade.ida.deposito.data.MemberRepository;
-import edu.uade.ida.deposito.model.Member;
-import edu.uade.ida.deposito.service.MemberRegistration;
+import ar.edu.uade.ida.grupo1.deposito.data.MemberRepository;
+import ar.edu.uade.ida.grupo1.deposito.model.Member;
+import ar.edu.uade.ida.grupo1.deposito.service.MemberRegistration;
 
 /**
  * JAX-RS Example

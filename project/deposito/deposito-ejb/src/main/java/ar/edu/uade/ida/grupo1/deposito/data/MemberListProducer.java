@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.uade.ida.deposito.data;
+package ar.edu.uade.ida.grupo1.deposito.data;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -23,9 +23,10 @@ import javax.enterprise.event.Reception;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.List;
 
-import edu.uade.ida.deposito.model.Member;
+import ar.edu.uade.ida.grupo1.deposito.model.Member;
+
+import java.util.List;
 
 @RequestScoped
 public class MemberListProducer {
