@@ -34,6 +34,8 @@ import javax.persistence.PersistenceContext;
  * &#064;Inject
  * private EntityManager em;
  * </pre>
+ * 
+ * TODO Agregar lectura de Properties de configuracion de servers
  */
 public class Resources {
 
