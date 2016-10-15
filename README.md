@@ -8,13 +8,15 @@ como Maven project por configuraciones especificas de proyecto de Eclipse.
 
 ### Datasource: depositoDS
 
+Configurar el datasource con este nombre en la consola de administracion de wildfly
+
 ## Configuración de interfaces
 
 ### Entrada
 
 #### Solicitudes de Stock
 
-JMS Queue: stockRequestQueue
+JMS Queue: ColaSolicitudesArticulos
 
 ### Salida
 
