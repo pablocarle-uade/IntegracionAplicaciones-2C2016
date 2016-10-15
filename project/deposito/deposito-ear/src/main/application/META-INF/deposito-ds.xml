@@ -20,29 +20,16 @@
    AS. -->
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
-
-   <!-- The datasource is bound into JNDI at this location. We reference this in META-INF/persistence.xml -->
-
-	<datasource jndi-name="java:jboss/datasources/depositoDS"
-		pool-name="deposito" enabled="true" use-java-context="true">
-		<connection-url>jdbc:h2:mem:deposito;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1</connection-url>
-		<driver>h2</driver>
-		<security>
-			<user-name>sa</user-name>
-			<password>sa</password>
-		</security>
-	</datasource>
-  <!--
-  <datasource jndi-name="java:jboss/datasources/depositoDS" pool-name="depositoDS" enabled="true" use-java-context="true">
-	<connection-url>jdbc:sqlserver://172.16.48.189:1433;DatabaseName=MyDatabase</connection-url>
-	<driver-class>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver-class>
-	<driver>sqljdbc42.jar</driver>
-	<security>
-		<user-name>admin</user-name>
-		<password>admin</password>
-	</security>
-  </datasource>
-  -->
-
+   <persistence-unit name="primary">
+      <!-- If you are running in a production environment, add a managed 
+         data source, this example data source is just for development and testing! -->
+      <!-- The datasource is deployed as <EAR>/META-INF/deposito-ds.xml, you
+         can find it in the source at ear/src/main/application/META-INF/deposito-ds.xml -->
+      <jta-data-source>java:jboss/datasources/depositoDS</jta-data-source>
+      <properties>
+         <!-- Properties for Hibernate -->
+         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+         <property name="hibernate.show_sql" value="true" />
+      </properties>
+   </persistence-unit>
 </datasources>
- 

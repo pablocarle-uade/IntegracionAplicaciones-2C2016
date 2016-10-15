@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>EntregaArticulos</display-name>
+    <servlet-name>EntregaArticulos</servlet-name>
+    <servlet-class>edu.uade.ida.deposito.controller.EntregaArticulos</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EntregaArticulos</servlet-name>
+    <url-pattern>/EntregaArticulos</url-pattern>
+  </servlet-mapping>
 </web-app>

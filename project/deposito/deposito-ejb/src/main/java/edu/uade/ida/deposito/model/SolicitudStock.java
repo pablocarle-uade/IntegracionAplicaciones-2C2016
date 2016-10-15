@@ -11,8 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import edu.uade.ida.deposito.dto.SolicitudStockDTO;
+
 @Entity
-public class SolicitudStock {
+public class SolicitudStock implements HasDTO<SolicitudStockDTO> {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -58,5 +60,11 @@ public class SolicitudStock {
 
 	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
+	}
+
+	@Override
+	public SolicitudStockDTO getDTO() {
+		//TODO
+		return new SolicitudStockDTO();
 	}
 }
