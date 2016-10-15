@@ -81,6 +81,8 @@
                 <configuration>
                     <filename>${project.artifactId}.ear</filename>
                     <skip>false</skip>
+                    <username>admin</username>
+                    <password>123456</password>
                 </configuration>
             </plugin>
         </plugins>

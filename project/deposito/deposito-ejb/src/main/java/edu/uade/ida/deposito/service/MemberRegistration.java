@@ -14,20 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.edu.uade.ida.grupo1.deposito.rest;
+package edu.uade.ida.deposito.service;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
-/**
- * A class extending {@link Application} and annotated with @ApplicationPath is the Java EE 7 "no XML" approach to activating
- * JAX-RS.
- * 
- * <p>
- * Resources are served relative to the servlet path specified in the {@link ApplicationPath} annotation.
- * </p>
- */
-@ApplicationPath("/rest")
-public class JaxRsActivator extends Application {
-    /* class body intentionally left blank */
+import edu.uade.ida.deposito.model.Member;
+
+import java.util.logging.Logger;
+
+// The @Stateless annotation eliminates the need for manual transaction demarcation
+@Stateless
+public class MemberRegistration {
+
+    @Inject
+    private Logger log;
+
+    @Inject
+    private EntityManager em;
+
+    @Inject
+    private Event<Member> memberEventSrc;
+
+    public void register(Member member) throws Exception {
+        log.info("Registering " + member.getName());
+        em.persist(member);
+        memberEventSrc.fire(member);
+    }
+    
+    public MemberRegistration() {
+    	super();
+    }
 }

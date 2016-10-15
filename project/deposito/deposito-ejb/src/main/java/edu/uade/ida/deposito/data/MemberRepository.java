@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.edu.uade.ida.grupo1.deposito.data;
+package edu.uade.ida.deposito.data;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,7 +23,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import ar.edu.uade.ida.grupo1.deposito.model.Member;
+import edu.uade.ida.deposito.model.Member;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ar.edu.uade.ida.grupo1.deposito.model;
+package edu.uade.ida.deposito.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

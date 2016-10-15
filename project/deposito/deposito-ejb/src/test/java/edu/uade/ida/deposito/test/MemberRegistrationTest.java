@@ -31,9 +31,9 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import ar.edu.uade.ida.grupo1.deposito.model.Member;
-import ar.edu.uade.ida.grupo1.deposito.service.MemberRegistration;
-import ar.edu.uade.ida.grupo1.deposito.util.Resources;
+import edu.uade.ida.deposito.model.Member;
+import edu.uade.ida.deposito.service.MemberRegistration;
+import edu.uade.ida.deposito.util.Resources;
 
 @RunWith(Arquillian.class)
 public class MemberRegistrationTest {

@@ -1,4 +1,4 @@
-package ar.edu.uade.ida.grupo1.deposito.model;
+package edu.uade.ida.deposito.model;
 
 import java.math.BigDecimal;
 import java.util.List;
