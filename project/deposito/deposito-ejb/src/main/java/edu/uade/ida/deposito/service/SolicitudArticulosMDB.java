@@ -59,9 +59,12 @@ public class SolicitudArticulosMDB implements MessageListener {
 				log.info("Solicitud de " + request.getCantidad() + " unidades de articulo con id " + request.getIdArticulo());
 				Articulo articulo = ar.getPorId(String.valueOf(request.getIdArticulo()));
 				if (articulo == null) {
-					//TODO error?
+					//FIXME Como se maneja esta situacion?
+					em.persist(new SolicitudArticulo(null, request.getCantidad(), SolicitudArticulo.ESTADO_NO_CUMPLIDO));
+					log.info("No se encontro articulo solicitado con id " + request.getIdArticulo());
 				} else {
-					em.persist(new SolicitudArticulo());
+					em.persist(new SolicitudArticulo(articulo, request.getCantidad(), SolicitudArticulo.ESTADO_PENDIENTE));
+					log.info("Guardada solicitud de articulo");
 				}
 			} catch (JsonSyntaxException | JMSException e) {
 				log.log(Level.WARNING, "Error en parse de mensaje solicitud de articulo", e);

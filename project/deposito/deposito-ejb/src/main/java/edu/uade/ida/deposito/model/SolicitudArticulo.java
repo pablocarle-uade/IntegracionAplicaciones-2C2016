@@ -9,18 +9,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 
 @Entity
 public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 	
+	public static final transient String ESTADO_PENDIENTE = "pendiente";
+	public static final transient String ESTADO_NO_CUMPLIDO = "no_cumplido";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idSolicitudStock;
-	@OneToOne
-	private EstadoSolicitudStock estado;
+	@Column
+	private String estado;
 	@Column
 	private Date fechaCreacion = Calendar.getInstance().getTime();
 	@ManyToOne
@@ -32,22 +34,15 @@ public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 		super();
 	}
 	
-	public SolicitudArticulo(EstadoSolicitudStock estado, Articulo articulo, int cantidad) {
+	public SolicitudArticulo(Articulo articulo, int cantidad, String estado) {
 		super();
-		this.estado = estado;
 		this.articulo = articulo;
+		this.cantidad = cantidad;
+		this.estado = estado;
 	}
 
 	public int getIdSolicitudStock() {
 		return idSolicitudStock;
-	}
-
-	public EstadoSolicitudStock getEstado() {
-		return estado;
-	}
-
-	public void setEstado(EstadoSolicitudStock estado) {
-		this.estado = estado;
 	}
 
 	public void setIdSolicitudStock(int idSolicitudStock) {
@@ -77,10 +72,51 @@ public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
+	@Override
+	public String toString() {
+		return "SolicitudArticulo [idSolicitudStock=" + idSolicitudStock + ", estado=" + estado + ", articulo="
+				+ articulo + ", cantidad=" + cantidad + "]";
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fechaCreacion == null) ? 0 : fechaCreacion.hashCode());
+		result = prime * result + idSolicitudStock;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SolicitudArticulo other = (SolicitudArticulo) obj;
+		if (fechaCreacion == null) {
+			if (other.fechaCreacion != null)
+				return false;
+		} else if (!fechaCreacion.equals(other.fechaCreacion))
+			return false;
+		if (idSolicitudStock != other.idSolicitudStock)
+			return false;
+		return true;
+	}
 
 	@Override
 	public SolicitudArticuloDTO getDTO() {
-		//TODO
 		return new SolicitudArticuloDTO();
 	}
 }
