@@ -1,9 +1,13 @@
 package edu.uade.ida.deposito.service;
 
+import java.util.logging.Logger;
+
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.inject.Inject;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.TextMessage;
 
 /**
  * Message-Driven Bean implementation class for: SolicitudArticulosMDB
@@ -16,19 +20,24 @@ import javax.jms.MessageListener;
 		mappedName = "java:/jms/queue/ColaSolicitudesArticulos")
 public class SolicitudArticulosMDB implements MessageListener {
 
+	@Inject
+	private Logger log;
+	
     /**
      * Default constructor. 
      */
     public SolicitudArticulosMDB() {
-        // TODO Auto-generated constructor stub
+    	super();
     }
 	
 	/**
      * @see MessageListener#onMessage(Message)
      */
     public void onMessage(Message message) {
-        // TODO Auto-generated method stub
-        
+    	if (message instanceof TextMessage) {
+    		
+    	} else {
+    		log.warning("Se recibio un mensaje no TextMessage");
+    	}
     }
-
 }

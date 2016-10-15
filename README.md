@@ -10,6 +10,10 @@ como Maven project por configuraciones especificas de proyecto de Eclipse.
 
 Configurar el datasource con este nombre en la consola de administracion de wildfly
 
+### Logging
+
+
+
 ## Configuración de interfaces
 
 ### Entrada
