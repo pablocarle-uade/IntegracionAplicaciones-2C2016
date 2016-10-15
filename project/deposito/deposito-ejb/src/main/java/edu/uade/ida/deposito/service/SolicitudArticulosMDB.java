@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
+import javax.persistence.EntityManager;
 
 /**
  * Message-Driven Bean implementation class for: SolicitudArticulosMDB
@@ -34,6 +35,7 @@ public class SolicitudArticulosMDB implements MessageListener {
      * @see MessageListener#onMessage(Message)
      */
     public void onMessage(Message message) {
+    	log.info("Recibido mensaje solicitud de stock");
     	if (message instanceof TextMessage) {
     		
     	} else {

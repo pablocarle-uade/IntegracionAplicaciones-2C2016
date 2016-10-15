@@ -16,7 +16,7 @@ public class TestServlet extends HttpServlet {
      * Default constructor. 
      */
     public TestServlet() {
-        // TODO Auto-generated constructor stub
+    	super();
     }
 
 	/**
