@@ -6,6 +6,7 @@
 		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
 		omit-xml-declaration="true" />
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Entrega de Articulos</title>
@@ -14,9 +15,7 @@
 	</SCRIPT>
 </head>
 <body>
-	<div>
-		<h1>Articulos pendientes de entrega</h1>
-	</div>
+	<h1 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Articulos pendientes de entrega</h1>
 	<main>
 		<section>
 			<form name="" id="" action="/EntregaArticulos" method="post">

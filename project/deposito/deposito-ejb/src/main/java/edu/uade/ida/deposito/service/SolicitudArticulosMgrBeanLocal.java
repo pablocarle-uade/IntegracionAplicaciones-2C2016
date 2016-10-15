@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import edu.uade.ida.deposito.dto.SolicitudStockDTO;
+import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 
 @Local
 public interface SolicitudArticulosMgrBeanLocal {
 	
-	public List<SolicitudStockDTO> getSolicitudesStockPendientes();
+	public List<SolicitudArticuloDTO> getSolicitudesStockPendientes();
 
 }

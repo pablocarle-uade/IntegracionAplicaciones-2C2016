@@ -11,10 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import edu.uade.ida.deposito.dto.SolicitudStockDTO;
+import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 
 @Entity
-public class SolicitudStock implements HasDTO<SolicitudStockDTO> {
+public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -25,11 +25,19 @@ public class SolicitudStock implements HasDTO<SolicitudStockDTO> {
 	private Date fechaCreacion = Calendar.getInstance().getTime();
 	@ManyToOne
 	private Articulo articulo;
+	@Column
+	private int cantidad;
 	
-	public SolicitudStock() {
+	public SolicitudArticulo() {
 		super();
 	}
 	
+	public SolicitudArticulo(EstadoSolicitudStock estado, Articulo articulo, int cantidad) {
+		super();
+		this.estado = estado;
+		this.articulo = articulo;
+	}
+
 	public int getIdSolicitudStock() {
 		return idSolicitudStock;
 	}
@@ -62,9 +70,17 @@ public class SolicitudStock implements HasDTO<SolicitudStockDTO> {
 		this.articulo = articulo;
 	}
 
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
 	@Override
-	public SolicitudStockDTO getDTO() {
+	public SolicitudArticuloDTO getDTO() {
 		//TODO
-		return new SolicitudStockDTO();
+		return new SolicitudArticuloDTO();
 	}
 }

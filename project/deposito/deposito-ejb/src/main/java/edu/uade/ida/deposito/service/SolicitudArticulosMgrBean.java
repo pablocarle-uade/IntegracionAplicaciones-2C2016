@@ -5,7 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-import edu.uade.ida.deposito.dto.SolicitudStockDTO;
+import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 
 /**
  * Session Bean implementation class SolicitudArticulosMgrBean
@@ -13,7 +13,7 @@ import edu.uade.ida.deposito.dto.SolicitudStockDTO;
 @Stateless
 @LocalBean
 public class SolicitudArticulosMgrBean implements SolicitudArticulosMgrBeanLocal {
-
+	
     /**
      * Default constructor. 
      */
@@ -22,7 +22,7 @@ public class SolicitudArticulosMgrBean implements SolicitudArticulosMgrBeanLocal
     }
 
 	@Override
-	public List<SolicitudStockDTO> getSolicitudesStockPendientes() {
+	public List<SolicitudArticuloDTO> getSolicitudesStockPendientes() {
 		// TODO Auto-generated method stub
 		return null;
 	}

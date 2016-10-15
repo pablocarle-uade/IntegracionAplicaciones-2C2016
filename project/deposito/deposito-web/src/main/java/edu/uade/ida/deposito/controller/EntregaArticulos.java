@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uade.ida.deposito.dto.SolicitudStockDTO;
+import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosMgrBeanLocal;
 
 /**
@@ -45,7 +45,7 @@ public class EntregaArticulos extends HttpServlet {
 	}
 
 	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<SolicitudStockDTO> solicitudesPendientes = bean.getSolicitudesStockPendientes();
+		List<SolicitudArticuloDTO> solicitudesPendientes = bean.getSolicitudesStockPendientes();
 		request.setAttribute("solicitudesPendientes", solicitudesPendientes);
 		request.getRequestDispatcher("/jsp/entregaArticulos.jsp").forward(request, response);
 	}
