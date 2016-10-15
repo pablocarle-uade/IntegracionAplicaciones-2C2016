@@ -15,21 +15,21 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!-- This is an unmanaged datasource. It should be used for proofs of concept 
-   or testing only. It uses H2, an in memory database that ships with JBoss 
-   AS. -->
-<datasources xmlns="http://www.jboss.org/ironjacamar/schema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.jboss.org/ironjacamar/schema http://docs.jboss.org/ironjacamar/schema/datasources_1_0.xsd">
+<persistence version="2.1"
+   xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+        http://xmlns.jcp.org/xml/ns/persistence
+        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
    <persistence-unit name="primary">
       <!-- If you are running in a production environment, add a managed 
          data source, this example data source is just for development and testing! -->
       <!-- The datasource is deployed as <EAR>/META-INF/deposito-ds.xml, you
          can find it in the source at ear/src/main/application/META-INF/deposito-ds.xml -->
-      <jta-data-source>java:jboss/datasources/depositoDS</jta-data-source>
+      <jta-data-source>java:/depositoDS</jta-data-source>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
          <property name="hibernate.show_sql" value="true" />
       </properties>
    </persistence-unit>
-</datasources>
+</persistence>
