@@ -23,7 +23,7 @@
 					Admin <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="www.google.com">Cargar maestro de rodamientos</a></li>
+					<li><a href="./EntregaArticulos">Entrega de Articulos</a></li>
 					<li><a href="www.google.com">Generar cotizaciones pendientes</a></li>
 					<li><a href="www.google.com">Generar órdenes de compra pendientes</a></li>
 				</ul>
