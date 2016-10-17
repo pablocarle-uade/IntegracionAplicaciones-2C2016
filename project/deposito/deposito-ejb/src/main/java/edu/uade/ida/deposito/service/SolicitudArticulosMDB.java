@@ -70,9 +70,8 @@ public class SolicitudArticulosMDB implements MessageListener {
 	private void procesarSolicitudStock(SolicitudArticuloRequest request) {
 		Articulo articulo = ar.getPorId(String.valueOf(request.getIdArticulo()));
 		if (articulo == null) {
-			//FIXME Como se maneja esta situacion?
-			em.persist(new SolicitudArticulo(null, request.getCantidad(), SolicitudArticulo.ESTADO_NO_CUMPLIDO));
-			log.info("No se encontro articulo solicitado con id " + request.getIdArticulo());
+			//No se crea solicitud de articulo
+			log.warning("No se encontro articulo solicitado con id " + request.getIdArticulo());
 		} else {
 			em.persist(new SolicitudArticulo(articulo, request.getCantidad(), SolicitudArticulo.ESTADO_PENDIENTE));
 			log.info("Guardada solicitud de articulo");

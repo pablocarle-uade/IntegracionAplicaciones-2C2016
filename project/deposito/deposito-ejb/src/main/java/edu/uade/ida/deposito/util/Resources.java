@@ -47,4 +47,10 @@ public class Resources {
     public Logger produceLog(InjectionPoint injectionPoint) {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }
+    
+    @Produces
+    public ConfigHolder getConfigHolder() {
+    	//TODO ConfigHolder (que lea properties de config varias del server)
+    	return null;
+    }
 }

@@ -1,7 +1,11 @@
 package edu.uade.ida.deposito.dto;
 
-public class SolicitudArticuloRequest {
+import java.io.Serializable;
 
+public class SolicitudArticuloRequest implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	private int idArticulo;
 	private int cantidad;
 	

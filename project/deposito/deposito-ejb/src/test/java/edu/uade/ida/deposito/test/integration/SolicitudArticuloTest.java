@@ -77,6 +77,7 @@ public class SolicitudArticuloTest {
 		connection.start();
 		Message request = session.createTextMessage(messageBody);
 		Message response = requestor.request(request);
+		
 		assertEquals("Should have responded with same message but got " + ((TextMessage) response).getText(), messageBody, ((TextMessage) response).getText());
 	}
 	
