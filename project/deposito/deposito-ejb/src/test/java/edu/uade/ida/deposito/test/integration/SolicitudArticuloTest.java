@@ -70,6 +70,7 @@ public class SolicitudArticuloTest {
 	
 	@Test
 	public void testSolicitudStockArticuloNoExiste() throws Exception {
+		//Prueba de la conexion, ya que no esperamos resultado alguno de interface JMS
 		String messageBody = "{'idArticulo': 0, 'cantidad': 5}";
 		Connection connection = factory.createConnection();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
