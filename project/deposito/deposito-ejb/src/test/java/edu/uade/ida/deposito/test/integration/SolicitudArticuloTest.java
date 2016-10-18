@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.jms.CompletionListener;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Message;
+import javax.jms.MessageProducer;
 import javax.jms.Queue;
-import javax.jms.QueueRequestor;
-import javax.jms.QueueSession;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.persistence.EntityManager;
@@ -26,7 +26,11 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 import edu.uade.ida.deposito.data.ArticuloRepository;
+import edu.uade.ida.deposito.data.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequest;
@@ -36,6 +40,7 @@ import edu.uade.ida.deposito.model.HasDTO;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
 import edu.uade.ida.deposito.service.SolicitudArticulosMDB;
+import edu.uade.ida.deposito.util.ConfigHolder;
 import edu.uade.ida.deposito.util.Resources;
 
 @RunWith(Arquillian.class)
@@ -43,15 +48,19 @@ public class SolicitudArticuloTest {
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
-		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test.war")
+		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test2.war")
 				.addClasses(SolicitudArticulo.class, SolicitudArticuloRequest.class, SolicitudArticuloDTO.class, SolicitudArticulosMDB.class, Resources.class)
 				.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource("test-ds.xml", "test-ds.xml");
 		archive.addClass(ArticuloRepository.class);
+		archive.addClass(SolicitudArticuloRepository.class);
 		archive.addClass(ArticuloDTO.class);
 		archive.addClasses(CaracteristicaArticulo.class, TipoDeArticulo.class, Articulo.class);
 		archive.addClass(HasDTO.class);
+		archive.addClass(ConfigHolder.class);
+		archive.addClass(Gson.class);
+		archive.addClass(JsonSyntaxException.class);
 		return archive
 				;
 	}
@@ -74,12 +83,25 @@ public class SolicitudArticuloTest {
 		String messageBody = "{'idArticulo': 0, 'cantidad': 5}";
 		Connection connection = factory.createConnection();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		QueueRequestor requestor = new QueueRequestor((QueueSession) session, csa);
 		connection.start();
-		Message request = session.createTextMessage(messageBody);
-		Message response = requestor.request(request);
-		
-		assertEquals("Should have responded with same message but got " + ((TextMessage) response).getText(), messageBody, ((TextMessage) response).getText());
+		MessageProducer producer = session.createProducer(csa);
+		TextMessage message = session.createTextMessage();
+		message.setText(messageBody);
+		producer.send(message, new CompletionListener() {
+			
+			@Override
+			public void onException(Message message, Exception exception) {
+				exception.printStackTrace();
+				fail(exception.getMessage());
+			}
+			
+			@Override
+			public void onCompletion(Message message) {
+				SolicitudArticulo sa = em.find(SolicitudArticulo.class, 0);
+				assertNull(sa);
+			}
+		});
+		connection.close();
 	}
 	
 	@Test
@@ -89,23 +111,25 @@ public class SolicitudArticuloTest {
 		String messageBody = "{'idArticulo': 1, 'cantidad': 5}";
 		Connection connection = factory.createConnection();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		QueueRequestor requestor = new QueueRequestor((QueueSession) session, csa);
 		connection.start();
-		Message request = session.createTextMessage(messageBody);
-		Message response = requestor.request(request);
-		
-	}
-	
-	@Test
-	public void testSolicitudStockCantidadCero() {
-		//El articulo existe
-		crearArticuloTest();
-	}
-	
-	@Test
-	public void testSolicitudStockCantidadNegativa() {
-		crearArticuloTest();
-		//El articulo existe
+		MessageProducer producer = session.createProducer(csa);
+		TextMessage message = session.createTextMessage();
+		message.setText(messageBody);
+		producer.send(message, new CompletionListener() {
+			
+			@Override
+			public void onException(Message message, Exception exception) {
+				exception.printStackTrace();
+				fail(exception.getMessage());
+			}
+			
+			@Override
+			public void onCompletion(Message message) {
+				SolicitudArticulo sa = em.find(SolicitudArticulo.class, 1);
+				assertNotNull(sa);
+			}
+		});
+		connection.close();
 	}
 	
 	private void crearArticuloTest() {
