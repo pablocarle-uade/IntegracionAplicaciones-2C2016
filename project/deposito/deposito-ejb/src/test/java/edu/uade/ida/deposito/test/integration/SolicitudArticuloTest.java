@@ -1,6 +1,8 @@
 package edu.uade.ida.deposito.test.integration;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.util.logging.Logger;
@@ -16,6 +18,7 @@ import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.persistence.EntityManager;
+import javax.transaction.UserTransaction;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import edu.uade.ida.deposito.data.ArticuloRepository;
@@ -61,6 +65,7 @@ public class SolicitudArticuloTest {
 		archive.addClass(ConfigHolder.class);
 		archive.addClass(Gson.class);
 		archive.addClass(JsonSyntaxException.class);
+		archive.addClass(JsonParseException.class);
 		return archive
 				;
 	}
@@ -71,7 +76,10 @@ public class SolicitudArticuloTest {
 	@Inject
 	EntityManager em;
 	
-	@Resource(mappedName = "/queue/ColaSolicitudesArticulos")
+	@Inject
+	UserTransaction transaction;
+	
+	@Resource(mappedName = "java:/jms/queue/ColaSolicitudesArticulos")
 	private Queue csa;
 
 	@Resource(mappedName = "/ConnectionFactory")
