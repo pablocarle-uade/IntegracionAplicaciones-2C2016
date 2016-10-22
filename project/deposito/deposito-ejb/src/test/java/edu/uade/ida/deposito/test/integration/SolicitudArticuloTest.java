@@ -26,6 +26,8 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -85,10 +87,30 @@ public class SolicitudArticuloTest {
 	@Resource(mappedName = "/ConnectionFactory")
 	private ConnectionFactory factory;
 	
+	@Before
+	public void prepare() throws Exception {
+		deleteArticulos();
+		crearArticuloTest();
+		transaction.begin();
+		em.joinTransaction();
+	}
+	
+	@After
+	public void endTransaction() throws Exception {
+		transaction.commit();
+	}
+	
+	private void deleteArticulos() throws Exception {
+		transaction.begin();
+		em.joinTransaction();
+		em.createQuery("delete from Articulo").executeUpdate();
+		transaction.commit();
+	}
+
 	@Test
 	public void testSolicitudStockArticuloNoExiste() throws Exception {
 		//Prueba de la conexion, ya que no esperamos resultado alguno de interface JMS
-		String messageBody = "{'idArticulo': 0, 'cantidad': 5}";
+		String messageBody = "{'idArticulo': '0', 'cantidad': 5, 'idModulo': 'G01'}";
 		Connection connection = factory.createConnection();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		connection.start();
@@ -114,9 +136,7 @@ public class SolicitudArticuloTest {
 	
 	@Test
 	public void testSolicitudStockArticuloExiste() throws Exception {
-		//Primero creo un articulo y lo guardo en bd
-		crearArticuloTest();
-		String messageBody = "{'idArticulo': 1, 'cantidad': 5}";
+		String messageBody = "{'idArticulo': '123', 'cantidad': 5, 'idModulo': 'G02'}";
 		Connection connection = factory.createConnection();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		connection.start();
@@ -140,15 +160,17 @@ public class SolicitudArticuloTest {
 		connection.close();
 	}
 	
-	private void crearArticuloTest() {
+	private void crearArticuloTest() throws Exception {
 		Articulo a = new Articulo();
-		a.setId(1L);
 		a.setCodigo("123");
 		a.setDescripcion("Articulo de prueba");
 		a.setMarca("Marca");
 		a.setOrigen("origen");
 		a.setPrecio(new BigDecimal(50.0));
 		a.setUrlImagen("unaimagen.com");
+		transaction.begin();
+		em.joinTransaction();
 		em.persist(a);
+		transaction.commit();
 	}
 }

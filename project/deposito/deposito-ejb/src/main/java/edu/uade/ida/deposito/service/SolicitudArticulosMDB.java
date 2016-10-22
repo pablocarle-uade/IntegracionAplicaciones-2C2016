@@ -68,7 +68,7 @@ public class SolicitudArticulosMDB implements MessageListener {
     }
 
 	public void procesarSolicitudStock(SolicitudArticuloRequest request) {
-		Articulo articulo = ar.getPorId(String.valueOf(request.getIdArticulo()));
+		Articulo articulo = ar.getPorCodigo(request.getIdArticulo());
 		if (articulo == null) {
 			//No se crea solicitud de articulo
 			log.warning("No se encontro articulo solicitado con id " + request.getIdArticulo());

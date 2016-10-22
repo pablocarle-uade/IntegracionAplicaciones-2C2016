@@ -3,6 +3,7 @@ package edu.uade.ida.deposito.data;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import edu.uade.ida.deposito.model.Articulo;
 
@@ -24,6 +25,12 @@ public class ArticuloRepository {
 	}
 	
 	public Articulo getPorId(String id) {
-		return null;
+		return em.find(Articulo.class, Integer.valueOf(id));
+	}
+
+	public Articulo getPorCodigo(String codigo) {
+		Query q = em.createQuery("from Articulo where codigo = :codigo");
+		q.setParameter("codigo", codigo);
+		return (Articulo) q.getSingleResult();
 	}
 }
