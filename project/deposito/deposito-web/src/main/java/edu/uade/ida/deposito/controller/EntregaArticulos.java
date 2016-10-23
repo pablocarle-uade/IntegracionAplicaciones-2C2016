@@ -41,7 +41,14 @@ public class EntregaArticulos extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Procesar entregas seleccionadas
-		
+		procesarEntregas(request, response);
+	}
+
+	private void procesarEntregas(HttpServletRequest request, HttpServletResponse response) {
+		/*
+		 * TODO
+		 * Obtener lista de solicitudes que se procesan
+		 * */
 	}
 
 	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

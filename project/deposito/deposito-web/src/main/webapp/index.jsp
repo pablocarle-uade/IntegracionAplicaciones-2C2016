@@ -23,7 +23,7 @@
 					Admin <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="./EntregaArticulos">Entrega de Articulos</a></li>
+					<li><a href="./EntregaArticulos" title="Gestionar solicitudes de articulos">Entrega de Articulos</a></li>
 					<li><a href="www.google.com">Generar cotizaciones pendientes</a></li>
 					<li><a href="www.google.com">Generar órdenes de compra pendientes</a></li>
 				</ul>
@@ -40,10 +40,10 @@
 			</button>
 			<button class="btn btn-group">
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					Clientes <span class="caret"></span>
+					Tests <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="./ingresarDatosDeCliente.jsp">Crear/Modificar cliente</a></li>
+					<li><a href="./ingresarDatosDeCliente.jsp">Generar Solicitud Articulo</a></li>
 					<li><a href="http://localhost:8080/tpads-cpr-server/GenerarRemitosAClientesService">Generar remitos a clientes</a></li>
 					<li><a href="http://localhost:8080/tpads-cpr-server/GenerarFacturasService">Generar facturas a clientes</a></li>
 				</ul>

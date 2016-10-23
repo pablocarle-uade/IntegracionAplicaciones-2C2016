@@ -116,7 +116,7 @@ public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 	}
 
 	@Override
-	public SolicitudArticuloDTO getDTO() {
-		return new SolicitudArticuloDTO();
+	public SolicitudArticuloDTO getDTO() { 
+		return new SolicitudArticuloDTO(idSolicitudStock, articulo.getDTO(), estado, fechaCreacion, cantidad);
 	}
 }

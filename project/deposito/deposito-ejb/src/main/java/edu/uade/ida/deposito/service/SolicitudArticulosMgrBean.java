@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
+import edu.uade.ida.deposito.data.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
+import edu.uade.ida.deposito.util.DTOUtil;
 
 /**
  * Session Bean implementation class SolicitudArticulosMgrBean
@@ -13,6 +16,9 @@ import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 @Stateless
 @LocalBean
 public class SolicitudArticulosMgrBean implements SolicitudArticulosMgrBeanLocal {
+	
+	@Inject
+	private SolicitudArticuloRepository sar;
 	
     /**
      * Default constructor. 
@@ -23,7 +29,6 @@ public class SolicitudArticulosMgrBean implements SolicitudArticulosMgrBeanLocal
 
 	@Override
 	public List<SolicitudArticuloDTO> getSolicitudesStockPendientes() {
-		// TODO Auto-generated method stub
-		return null;
+		return DTOUtil.getDTOs(sar.getPorEstado("pendiente", "no_cumplido"), SolicitudArticuloDTO.class);
 	}
 }

@@ -6,11 +6,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import edu.uade.ida.deposito.dto.ArticuloDTO;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Entity
-public class Articulo {
+public class Articulo implements HasDTO<ArticuloDTO> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -135,5 +138,11 @@ public class Articulo {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	@Override
+	public ArticuloDTO getDTO() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
