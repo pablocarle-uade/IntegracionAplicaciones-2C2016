@@ -55,7 +55,7 @@
 	  <li class="active"><a href="#">Home</a></li>
 	</ul>
 	<ul class="list-group">
-	  <li class="list-group-item list-group-item-success"><a href="./comparativaDePreciosSearch.jsp">Listado/comparativa de precios</a></li>
+	  <li class="list-group-item list-group-item-success"><a href="./jsp/nuevoArticulo.jsp">Crear nuevo artículo</a></li>
 	  <li class="list-group-item list-group-item-danger"><a href="./nuevaSolicitudDeCotizacion.jsp">Ingresar solicitud de cotizacion</a></li>
 	  <li class="list-group-item list-group-item-info"><a href="./listarCotizaciones.jsp">Ver cotizaciones</a></li>
 	  <li class="list-group-item list-group-item-warning"><a href="./nuevaOrdenDePedido.jsp">Ingresar orden de pedido</a></li>
