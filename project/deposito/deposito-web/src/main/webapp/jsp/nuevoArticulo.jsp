@@ -14,7 +14,7 @@
 	<!-- codigo, descripcion, marca, precio, urlImagen, origen, tipo -->
 	<h1>Crear nuevo artículo</h1>
 	<br>
-	<div id="articuloBasePropertiesContainer" class="form-group">
+	<div id="articuloBasePropertiesContainer" class="form-group basePropertiesContainer">
 		<div class="col-lg-8">
 			<div class="input-group col s12">
 				<span class="input-group-addon">Código</span>
@@ -44,18 +44,16 @@
 			<div class="form-group col s12">
 				<label for="tipo">Tipo</label> 
 				<select name="tipo" id="tipo">
-					<option value="1">ELECTRODOMESTICO</option>
-					<option value="2">MODA</option>
-					<option value="3">MUEBLE</option>
-					<option value="4">NIÑOS</option>
+					<option value="ELECTRO">ELECTRO</option>
+					<option value="MODA">MODA</option>
+					<option value="MUEBLE">MUEBLE</option>
+					<option value="NIÑOS">NIÑOS</option>
 				</select>
 			</div>
-            <br/>
-			<button class="btn waves-effect waves-light btn" id="btnNextStepAfterBaseProperties" type="button">Siguiente</button>
 			<br/><br/>
 		</div>
 	</div>
-	<div id="articuloModaPropertiesContainer">
+	<div id="MODAPropertiesContainer" class="propertiesContainer">
 		<div class="col-lg-8">
 			<div class="input-group col s12">
 				<span class="input-group-addon">Color</span> 
@@ -65,18 +63,104 @@
 				<span class="input-group-addon">Talle</span>
 				<input name="talle" type="text" class="form-control" />
 			</div>
-            <br/>
-			<button class="btn waves-effect waves-light btn" id="btnNextStepAfterSpecificProperties" type="button">Siguiente</button>
+			<br/><br/>
 		</div>
 	</div>
+	<div id="MUEBLEPropertiesContainer" class="propertiesContainer">
+		<div class="col-lg-8">
+			<div class="input-group col s12">
+				<span class="input-group-addon">Material</span> 
+				<input name="material" type="text" class="form-control" />
+			</div>
+			<br/><br/>
+		</div>
+	</div>
+	<div id="NIÑOSPropertiesContainer" class="propertiesContainer">
+		<div class="col-lg-8">
+			<div class="input-group col s12">
+				<span class="input-group-addon">Edad Recomendada</span> 
+				<input name="edadRecomendada" type="number" class="form-control" />
+			</div>
+			<br/><br/>
+		</div>
+	</div>
+	<div id="ELECTROPropertiesContainer" class="propertiesContainer">
+		<div class="col-lg-8">
+			<div class="input-group col s12">
+				<span class="input-group-addon">Ficha Técnica</span>
+				<textarea name="descripcion" rows="10" class="form-control"></textarea> 
+			</div>
+			<br/><br/>
+		</div>
+	</div>
+	<div class="col-lg-8">
+		<button class="btn waves-effect waves-light btn btnAddProperty" type="button">Agregar Propiedades Extra (opcional)</button>
+		<br/><br/>	
+	</div>
+	<div class="col-lg-8">
+		<button class="btn waves-effect waves-light btn btnAddProperty" type="button">Crear</button>
+		<br/><br/>	
+	</div>	
+	
+<!-- 	<div id="EXTRAPropertiesContainer" class="form-group"> -->
+<!-- 		<div class="col-lg-8"> -->
+<!-- 			<div class="input-group"> -->
+<!-- 				<input class="input-group-addon" type="text" value="Ficha Técnica"/> -->
+<!-- 				<input name="edadRecomendada" type="text" class="form-control" /> -->
+<!-- 			</div> -->
+<!--             <br/> -->
+<!-- 			<button class="btn waves-effect waves-light btn btnNextStepAfterSpecificProperties" type="button">Siguiente</button> -->
+<!-- 			<br/><br/> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+	<div id="EXTRAPropertiesContainer" class="form-group propertiesContainer"></div>	
+
+	<div id="hidden" style="display:none"></div>
 
 <script type="text/javascript">
   $(document).ready(function() {
-  	alert("on_load_");
+  	
+	init();  
+	  
   	$("#btnNextStepAfterBaseProperties").click(function() {
-        alert("Next after base => ...")
+        var tipoArticulo = $("#tipo").val();
+        loadSpecificProperties(tipoArticulo);
     });
+  	
+  	$("#tipo").on("change", function() {
+  		var tipoArticulo = this.value;
+  		loadSpecificProperties(tipoArticulo);
+    });
+  	
+  	$(".btnAddProperty").on("click", function() {
+  		$("#EXTRAPropertiesContainer")
+  		    .append("<br/><br/>")
+  		    .append("<div class='col-lg-8'>" + 
+  		    			"<div class='input-group'>" + 
+  		    				"<span class='input-group-addon'>Nombre Propiedad</span>" +
+		  		    	    "<input type='text' class='form-control' placeholder='Indique nombre propiedad' /> " +
+		  		    	    "<span class='input-group-addon' style='border-left: 0; border-right: 0;'>Valor</span>" +
+			  				"<input type='text' class='form-control' placeholder='Indique el valor' /> " +
+	  					"</div>" +
+			  		"</div>");
+  		$("#EXTRAPropertiesContainer").show();
+  	});
+  	
   });
+  
+  function init() {
+  	$(".propertiesContainer").hide();
+  	loadSpecificProperties($("#tipo").val()); 
+  }
+  
+  function loadSpecificProperties(tipoArticulo) {
+	    $(".propertiesContainer").hide(); // hide all others
+	    var specificPropertiesContainerId = tipoArticulo + "PropertiesContainer";
+        $("#" + specificPropertiesContainerId).show();
+  }
+  
+  // APPEND => $("#extraPropertiesContainer").append("<input class='form-control' type='text' value='INSERTED'/><br/><br/>");
 
 </script>
 	
