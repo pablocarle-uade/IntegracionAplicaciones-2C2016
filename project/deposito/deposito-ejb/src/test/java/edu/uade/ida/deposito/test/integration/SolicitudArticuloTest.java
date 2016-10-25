@@ -41,7 +41,6 @@ import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequest;
 import edu.uade.ida.deposito.model.Articulo;
-import edu.uade.ida.deposito.model.CaracteristicaArticulo;
 import edu.uade.ida.deposito.model.HasDTO;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
@@ -62,7 +61,6 @@ public class SolicitudArticuloTest {
 		archive.addClass(ArticuloRepository.class);
 		archive.addClass(SolicitudArticuloRepository.class);
 		archive.addClass(ArticuloDTO.class);
-		archive.addClasses(CaracteristicaArticulo.class, TipoDeArticulo.class, Articulo.class);
 		archive.addClass(HasDTO.class);
 		archive.addClass(ConfigHolder.class);
 		archive.addClass(Gson.class);
@@ -162,7 +160,7 @@ public class SolicitudArticuloTest {
 	
 	private void crearArticuloTest() throws Exception {
 		Articulo a = new Articulo();
-		a.setCodigo("123");
+		a.setCodArticulo("123");
 		a.setDescripcion("Articulo de prueba");
 		a.setMarca("Marca");
 		a.setOrigen("origen");

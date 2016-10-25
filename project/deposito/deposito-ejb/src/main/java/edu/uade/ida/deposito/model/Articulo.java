@@ -1,10 +1,17 @@
 package edu.uade.ida.deposito.model;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
@@ -18,15 +25,19 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String codigo;
+	private String codArticulo;
 	private String descripcion;
 	private String marca;
 	private BigDecimal precio;
 	private String urlImagen;
 	private String origen;
 	private TipoDeArticulo tipo;
-	@OneToMany
-	private List<CaracteristicaArticulo> caracteristicas;
+    @ElementCollection
+    @MapKeyColumn(name="nombre")
+    @Column(name="valor")
+    @CollectionTable(name="articulo_datosExtra", joinColumns=@JoinColumn(name="datoExtra_id"))
+	private Map<String, String> datosExtra = new HashMap<String, String>();
+
 	// TODO uom, stockCompra, stockDisponible
 
 	// Características específicas según tipo artículo (cargar data)
@@ -86,25 +97,17 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 		this.tipo = tipo;
 	}
 
-	public List<CaracteristicaArticulo> getCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public void setCaracteristicas(List<CaracteristicaArticulo> caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-
 	@Override
 	public String toString() {
-		return "Articulo [codigo=" + codigo + ", descripcion=" + descripcion + "]";
+		return "Articulo [codigo=" + codArticulo + ", descripcion=" + descripcion + "]";
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public String getCodArticulo() {
+		return codArticulo;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCodArticulo(String codArticulo) {
+		this.codArticulo = codArticulo;
 	}
 
 	public String getDescripcion() {
@@ -119,7 +122,7 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((codArticulo == null) ? 0 : codArticulo.hashCode());
 		return result;
 	}
 
@@ -132,10 +135,10 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 		if (getClass() != obj.getClass())
 			return false;
 		Articulo other = (Articulo) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (codArticulo == null) {
+			if (other.codArticulo != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
+		} else if (!codArticulo.equals(other.codArticulo))
 			return false;
 		return true;
 	}
@@ -144,5 +147,13 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	public ArticuloDTO getDTO() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Map<String, String> getDatosExtra() {
+		return datosExtra;
+	}
+
+	public void setDatosExtra(Map<String, String> datosExtra) {
+		this.datosExtra = datosExtra;
 	}
 }
