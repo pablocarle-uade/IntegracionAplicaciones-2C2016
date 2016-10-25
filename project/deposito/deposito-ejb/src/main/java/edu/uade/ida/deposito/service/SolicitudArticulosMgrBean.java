@@ -31,4 +31,10 @@ public class SolicitudArticulosMgrBean implements SolicitudArticulosMgrBeanLocal
 	public List<SolicitudArticuloDTO> getSolicitudesStockPendientes() {
 		return DTOUtil.getDTOs(sar.getPorEstado("pendiente", "no_cumplido"), SolicitudArticuloDTO.class);
 	}
+
+	@Override
+	public void procesarEntregasArticulos() {
+		// TODO Auto-generated method stub
+		
+	}
 }

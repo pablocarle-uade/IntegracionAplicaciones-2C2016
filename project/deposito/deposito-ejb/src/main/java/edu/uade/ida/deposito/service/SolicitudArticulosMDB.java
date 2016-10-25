@@ -56,7 +56,7 @@ public class SolicitudArticulosMDB implements MessageListener {
     		Gson gson = new Gson();
     		try {
 				SolicitudArticuloRequest request = gson.fromJson(((TextMessage) message).getText(), SolicitudArticuloRequest.class);
-				log.info("Solicitud de " + request.getCantidad() + " unidades de articulo con id " + request.getIdArticulo());
+				log.info("Solicitud de " + request.getCantidad() + " unidades de articulo con id " + request.getCodArticulo());
 				procesarSolicitudStock(request);
 			} catch (JsonSyntaxException | JMSException e) {
 				log.log(Level.WARNING, "Error en parse de mensaje solicitud de articulo", e);
@@ -68,10 +68,10 @@ public class SolicitudArticulosMDB implements MessageListener {
     }
 
 	public void procesarSolicitudStock(SolicitudArticuloRequest request) {
-		Articulo articulo = ar.getPorCodigo(request.getIdArticulo());
+		Articulo articulo = ar.getPorCodigo(request.getCodArticulo());
 		if (articulo == null) {
 			//No se crea solicitud de articulo
-			log.warning("No se encontro articulo solicitado con id " + request.getIdArticulo());
+			log.warning("No se encontro articulo solicitado con id " + request.getCodArticulo());
 		} else {
 			em.persist(new SolicitudArticulo(articulo, request.getCantidad(), SolicitudArticulo.ESTADO_PENDIENTE));
 			log.info("Guardada solicitud de articulo");

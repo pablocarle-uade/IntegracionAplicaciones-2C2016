@@ -40,15 +40,22 @@
 							]]>
 						</jsp:scriptlet>
 							<li>
-								<input type="checkbox" name="" id="" />
+								<input type="checkbox" 
+										name=<jsp:expression>"checkEntrega" + sad.getIdSolicitudArticulo()</jsp:expression> 
+										id=<jsp:expression>"checkEntrega" + sad.getIdSolicitudArticulo()</jsp:expression> 
+								/>
 								<div>
-									<h3>Titulo del Articulo<!--<jsp:expression>sad.getArticulo()</jsp:expression>--></h3>
+									<h3><jsp:expression>sad.getArticulo().getCodArticulo()</jsp:expression></h3>
 									<p>
-										Descripcion de articulo
-										Pedido por 5 unidades
+										<jsp:expression>sad.getArticulo().getDescripcion()</jsp:expression>
+										<br>
+										<jsp:expression>"Pedido por: " + sad.getCantidad()</jsp:expression>
 									</p>
 								</div>
-								<input type="text" name="" value="" />
+								<input type="text" 
+										name=<jsp:expression>"numStock" + sad.getIdSolicitudArticulo()</jsp:expression> 
+										value=<jsp:expression><!-- TODO Obtener cuanto se puede otorgar --></jsp:expression> 
+								/>
 							</li>
 						<jsp:scriptlet>
 									}

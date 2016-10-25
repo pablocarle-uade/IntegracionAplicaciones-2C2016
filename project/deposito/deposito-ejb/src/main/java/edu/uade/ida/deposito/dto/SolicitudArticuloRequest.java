@@ -7,19 +7,11 @@ public class SolicitudArticuloRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String idModulo;
-	private String idArticulo;
+	private String codArticulo;
 	private int cantidad;
 	
 	public SolicitudArticuloRequest() {
 		super();
-	}
-
-	public String getIdArticulo() {
-		return idArticulo;
-	}
-
-	public void setIdArticulo(String idArticulo) {
-		this.idArticulo = idArticulo;
 	}
 
 	public int getCantidad() {
@@ -36,5 +28,13 @@ public class SolicitudArticuloRequest implements Serializable {
 
 	public void setIdModulo(String idModulo) {
 		this.idModulo = idModulo;
+	}
+
+	public String getCodArticulo() {
+		return codArticulo;
+	}
+
+	public void setCodArticulo(String codArticulo) {
+		this.codArticulo = codArticulo;
 	}
 }

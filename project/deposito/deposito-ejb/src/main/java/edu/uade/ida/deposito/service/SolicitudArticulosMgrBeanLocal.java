@@ -11,4 +11,6 @@ public interface SolicitudArticulosMgrBeanLocal {
 	
 	public List<SolicitudArticuloDTO> getSolicitudesStockPendientes();
 
+	public void procesarEntregasArticulos();
+	
 }

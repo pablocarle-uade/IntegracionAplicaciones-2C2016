@@ -23,7 +23,7 @@ public class SolicitudArticuloRepository {
 	@SuppressWarnings("unchecked")
 	public List<SolicitudArticulo> getPorEstado(String... estados) {
 		List<SolicitudArticulo> retList = new ArrayList<>();
-		Query q = em.createQuery("from SolicitudArticulo where estado in :estados");
+		Query q = em.createQuery("from SolicitudArticulo where estado in (:estados)");
 		q.setParameter("estados", estados);
 		retList.addAll(q.getResultList());
 		return retList;
