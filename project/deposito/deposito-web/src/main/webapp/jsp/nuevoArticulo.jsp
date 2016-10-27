@@ -19,7 +19,7 @@
 			<div class="col-lg-8">
 				<div class="input-group col s12">
 					<span class="input-group-addon">Código</span>
-					 <input name="codArticulo" type="number" class="form-control" />
+					 <input name="codArticulo" type="number" class="form-control" required />
 				</div>
 				<div class="input-group col s12">
 					<span class="input-group-addon">Descripción</span>
@@ -27,15 +27,15 @@
 				</div>
 				<div class="input-group col s12">
 					<span class="input-group-addon">Marca</span> 
-					<input name="marca" type="text" class="form-control" />
+					<input name="marca" type="text" class="form-control" required />
 				</div>
 				<div class="input-group col s12">
 					<span class="input-group-addon">Precio</span> 
-					<input name="precio" type="number" class="form-control" />
+					<input name="precio" type="number" class="form-control" required />
 				</div>
 				<div class="input-group col s12">
 					<span class="input-group-addon">Origen</span> 
-					<input name="origen" type="text" class="form-control" />
+					<input name="origen" type="text" class="form-control" required />
 				</div>
 				<div class="input-group col s12">
 					<span class="input-group-addon">Imagen</span> 
@@ -97,7 +97,7 @@
 			<div class="col-lg-8">
 				<div class="input-group col s12">
 					<span class="input-group-addon">Ficha Técnica</span>
-					<textarea name="descripcion" rows="10" class="form-control"></textarea> 
+					<textarea name="fichaTecnica" rows="10" class="form-control"></textarea> 
 				</div>
 				<br/><br/>
 			</div>
@@ -114,7 +114,7 @@
 	
 	<div class="col-lg-8">
 		<br/>
-		<button id="btnCreateArticulo" class="btn waves-effect waves-light btn" type="button">Crear Artículo</button>
+		<button id="btnCreateArticulo" class="btn-primary waves-effect waves-light btn" type="button">Crear Artículo</button>
 		<br/><br/>	
 	</div>	
 		
@@ -128,25 +128,24 @@
 	init();  
 	  
   	$("#btnNextStepAfterBaseProperties").click(function() {
-        var tipoArticulo = $("#tipo").val();
+        var tipoArticulo = getTipoDeArticulo();
         loadSpecificProperties(tipoArticulo);
     });
   	
   	$("#tipo").on("change", function() {
-  		var tipoArticulo = this.value;
-  		loadSpecificProperties(tipoArticulo);
+  		loadSpecificProperties(this.value);
     });
   	  	
   	$(".btnAddProperty").on("click", function() {
   		maxPropertyIndex = maxPropertyIndex + 1;
   		$("#EXTRAPropertiesContainer")
-  		    .append("<div class='col-lg-8' id='extraProperty_" + maxPropertyIndex + "'>" +
+  		    .append("<div class='col-lg-8 extraPropertyContainer' id='extraProperty_" + maxPropertyIndex + "'>" +
   		    		    "<br/>" +
   		    			"<div class='input-group'>" + 
   		    				"<span class='input-group-addon'>Nombre Propiedad</span>" +
-		  		    	    "<input type='text' name='propertyName' class='form-control' placeholder='Indique nombre propiedad' /> " +
+		  		    	    "<input type='text' class='form-control propertyName' placeholder='Indique nombre propiedad' /> " +
 		  		    	    "<span class='input-group-addon' style='border-left: 0; border-right: 0;'>Valor</span>" +
-			  				"<input type='text' name='propertyValue' class='form-control' placeholder='Indique el valor' /> " +
+			  				"<input type='text' class='form-control propertyValue' placeholder='Indique el valor' /> " +
 			  				"<span onclick='removeAdditionalProperty(" + maxPropertyIndex + ")' class='input-group-addon btnDeleteProperty' style='border-left: 0; border-right: 0;'>Eliminar</span>" +
 	  					"</div>" +
 			  		"</div>");
@@ -182,8 +181,9 @@
 	  	var articulo = { datosExtra : {} };
 	  	addFormDataPropertiesToJsonObject("articuloBasePropertiesForm", articulo);
 	  	addFormDataPropertiesToJsonObject(getTipoDeArticulo() + "PropertiesForm", articulo.datosExtra);
-	  	addFormDataPropertiesToJsonObject("EXTRAPropertiesForm", articulo.datosExtra);
-	  	alert(JSON.stringify(articulo));  	
+	  	addExtraPropertiesToJsonObject(articulo.datosExtra);
+
+	  	alert("Service payload: " + JSON.stringify(articulo));  	
   }
 
   function addFormDataPropertiesToJsonObject(formId, jsonObject) {
@@ -197,6 +197,14 @@
 			}
 			jsonObject[elementName] = elementValue;
 		}
+  }
+  
+  function addExtraPropertiesToJsonObject(jsonObject) {
+	  $(".extraPropertyContainer").each(function() {
+	  		var propertyName = $("#" + $(this).attr("id") + " .propertyName").val();
+	  		var propertyValue = $("#" + $(this).attr("id") + " .propertyValue").val();
+			jsonObject[propertyName] = propertyValue;
+	  });
   }
   
 </script>
