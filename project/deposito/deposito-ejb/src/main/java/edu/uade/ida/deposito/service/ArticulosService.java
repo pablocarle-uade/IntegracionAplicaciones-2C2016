@@ -39,5 +39,9 @@ public class ArticulosService implements ArticulosServiceLocal, ArticulosService
         return dto;
 	}
 
-
+	@Override
+	public int getStockDisponible(ArticuloDTO articulo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import edu.uade.ida.deposito.data.SolicitudArticuloRepository;
+import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.util.DTOUtil;
 
@@ -33,7 +34,7 @@ public class SolicitudArticulosMgrBean implements SolicitudArticulosMgrBeanLocal
 	}
 
 	@Override
-	public void procesarEntregasArticulos() {
+	public void procesarEntregasArticulos(List<EntregaArticuloDTO> entregas) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -8,7 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosMgrBeanLocal;
 
@@ -49,10 +51,14 @@ public class EntregaArticulos extends HttpServlet {
 		 * TODO
 		 * Obtener lista de solicitudes que se procesan
 		 * */
+		List<EntregaArticuloDTO> entregas = null;
+		bean.procesarEntregasArticulos(entregas);
 	}
 
 	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<SolicitudArticuloDTO> solicitudesPendientes = bean.getSolicitudesStockPendientes();
+		HttpSession session = request.getSession(true);
+		session.setAttribute("solicitudesPendientes", solicitudesPendientes);
 		request.setAttribute("solicitudesPendientes", solicitudesPendientes);
 		request.getRequestDispatcher("/jsp/entregaArticulos.jsp").forward(request, response);
 	}
