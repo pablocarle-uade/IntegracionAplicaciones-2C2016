@@ -12,7 +12,7 @@
 </head>
 <body>
 	<!-- codigo, descripcion, marca, precio, urlImagen, origen, tipo -->
-	<h1>Crear nuevo artículo</h1>
+	<h2>Crear nuevo artículo</h2>
 	<br>
 	<form id="articuloBasePropertiesForm">
 		<div id="articuloBasePropertiesContainer" class="form-group basePropertiesContainer">

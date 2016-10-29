@@ -16,7 +16,7 @@
 </head>
 <body>
 	<!-- codigo, descripcion, marca, precio, urlImagen, origen, tipo -->
-	<h4>Artículos</h4>
+	<h2>Artículos</h2>
 	<br>
 	<table id="example" class="display" cellspacing="0" width="80%">
         <thead>
