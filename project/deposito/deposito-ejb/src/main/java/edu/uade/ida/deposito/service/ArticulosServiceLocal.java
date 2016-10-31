@@ -15,4 +15,11 @@ public interface ArticulosServiceLocal {
 	 */
 	int getStockDisponible(ArticuloDTO articulo);
 	
+	/**
+	 * Crear lista de articulos default del sistema
+	 * 
+	 * @return Cantidad de articulos creados
+	 */
+	int createArticulosDefault();
+	
 }

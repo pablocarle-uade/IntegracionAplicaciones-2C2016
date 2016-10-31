@@ -35,6 +35,7 @@ public class SolicitudArticulosMgrBean implements SolicitudArticulosMgrBeanLocal
 
 	@Override
 	public void procesarEntregasArticulos(List<EntregaArticuloDTO> entregas) {
+		
 		// TODO Auto-generated method stub
 		
 	}

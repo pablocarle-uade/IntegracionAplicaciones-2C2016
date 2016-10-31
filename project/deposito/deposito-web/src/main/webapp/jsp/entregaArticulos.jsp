@@ -17,9 +17,6 @@
 		<script src="./resources/js/bootstrap.min.js"></script>
 		<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
 		<title>Entrega de Articulos</title>
-		<SCRIPT type="text/javascript">
-	
-		</SCRIPT>
 	</head>
 	<body>
 		<jsp:scriptlet>
@@ -30,7 +27,7 @@
 		<h1 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Articulos pendientes de entrega</h1>
 		<main>
 			<section>
-				<div id="mainList" >
+				<div id="mainList" class="form-group basePropertiesContainer" >
 					<form name="solicitudArticulosForm" id="solicitudArticulosForm" action="/EntregaArticulos" method="post">
 						<ul>
 						<jsp:scriptlet>
@@ -39,7 +36,7 @@
 									for (SolicitudArticuloDTO sad : solicitudesPendientes) {
 							]]>
 						</jsp:scriptlet>
-							<li>
+							<li style="float: left;">
 								<input type="checkbox" 
 										name=<jsp:expression>"checkEntrega" + sad.getIdSolicitudArticulo()</jsp:expression> 
 										id=<jsp:expression>"checkEntrega" + sad.getIdSolicitudArticulo()</jsp:expression> 
@@ -67,6 +64,10 @@
 				</div>
 			</section>
 		</main>
+		
+		<script language="javascript" >
+
+		</script>
 	</body>
 	</html>
 </jsp:root>

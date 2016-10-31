@@ -23,6 +23,7 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String codArticulo;
+	private String nombre;
 	private String descripcion;
 	private String marca;
 	private BigDecimal precio;
@@ -152,5 +153,13 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 
 	public void setDatosExtra(Map<String, String> datosExtra) {
 		this.datosExtra = datosExtra;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 }

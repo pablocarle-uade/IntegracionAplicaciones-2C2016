@@ -3,15 +3,19 @@ package edu.uade.ida.deposito.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.ws.rs.Consumes;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
-@Path("/demo")
+import edu.uade.ida.deposito.service.ArticulosServiceLocal;
+
+@Path("/articulos")
 public class ArticulosController {
+	
+	@Inject
+	private ArticulosServiceLocal as;
 	
 	class Demo {
 		String one = "First name";
@@ -64,6 +68,15 @@ public class ArticulosController {
 	@Produces("application/json")
 	public List<Demo> jsonDemo() {
 		return Arrays.asList(new Demo(), new Demo(), new Demo(), new Demo());
+	}
+	
+	@POST
+	@Path("/createAll")
+	@Produces("application/json")
+	public String createAll() {
+		
+		//TODO Crear los articulos por default (los de la planilla)
+		return "";
 	}
 
 }

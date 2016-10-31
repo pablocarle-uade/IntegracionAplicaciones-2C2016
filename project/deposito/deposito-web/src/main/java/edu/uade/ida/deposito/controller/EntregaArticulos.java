@@ -1,6 +1,8 @@
 package edu.uade.ida.deposito.controller;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,9 +59,18 @@ public class EntregaArticulos extends HttpServlet {
 
 	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<SolicitudArticuloDTO> solicitudesPendientes = bean.getSolicitudesStockPendientes();
+		Collections.sort(solicitudesPendientes, new SolicitudArticuloComparator());
 		HttpSession session = request.getSession(true);
 		session.setAttribute("solicitudesPendientes", solicitudesPendientes);
 		request.setAttribute("solicitudesPendientes", solicitudesPendientes);
 		request.getRequestDispatcher("/jsp/entregaArticulos.jsp").forward(request, response);
+	}
+	
+	private static class SolicitudArticuloComparator implements Comparator<SolicitudArticuloDTO> {
+
+		@Override
+		public int compare(SolicitudArticuloDTO o1, SolicitudArticuloDTO o2) {
+			return -1 * o1.getFechaCreacion().compareTo(o2.getFechaCreacion());
+		}
 	}
 }
