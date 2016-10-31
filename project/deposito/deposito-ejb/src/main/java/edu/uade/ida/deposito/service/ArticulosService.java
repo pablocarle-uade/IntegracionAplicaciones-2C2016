@@ -28,10 +28,11 @@ public class ArticulosService implements ArticulosServiceLocal, ArticulosService
         final Articulo articulo = new Articulo();
         articulo.setCodArticulo(dto.getCodArticulo());
         articulo.setDescripcion(dto.getDescripcion());
+        articulo.setNombre(dto.getNombre());
         articulo.setMarca(dto.getMarca());
         articulo.setOrigen(dto.getOrigen());
         articulo.setPrecio(dto.getPrecio());
-        articulo.setTipo(TipoDeArticulo.valueOf(dto.getTipo()));
+        articulo.setTipo(TipoDeArticulo.parse(dto.getTipo()));
         articulo.setUrlImagen(dto.getUrlImagen());
         articulo.setDatosExtra(dto.getDatosExtra());
         em.persist(articulo);

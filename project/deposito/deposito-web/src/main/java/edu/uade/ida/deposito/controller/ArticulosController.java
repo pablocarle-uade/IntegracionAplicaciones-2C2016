@@ -2,6 +2,7 @@ package edu.uade.ida.deposito.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -13,6 +14,9 @@ import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 
 @Path("/articulos")
 public class ArticulosController {
+	
+	@Inject
+	private Logger log;
 	
 	@Inject
 	private ArticulosServiceLocal as;
@@ -74,9 +78,9 @@ public class ArticulosController {
 	@Path("/createAll")
 	@Produces("application/json")
 	public String createAll() {
-		
-		//TODO Crear los articulos por default (los de la planilla)
-		return "";
+		log.info("createAll (defaults)");
+		as.createArticulosDefault();
+		return "{data: 'ok'}";
 	}
 
 }
