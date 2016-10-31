@@ -58,6 +58,7 @@ public class ArticulosService implements ArticulosServiceLocal, ArticulosService
 		for (int i = 0; i < articulosDefault.length; i++) {
 			crearArticulo(articulosDefault[i]);
 		}
+		log.info("Creados " + articulosDefault.length + " articulos");
 		return articulosDefault.length;
 	}
 }

@@ -10,7 +10,7 @@ public enum TipoDeArticulo {
 	}
 	
 	public static TipoDeArticulo parse(String nombre) {
-		if (nombre is null)
+		if (nombre == null)
 			throw new NullPointerException("nombre no puede ser null");
 		if (nombre.equalsIgnoreCase("electro"))
 			return TipoDeArticulo.ELECTRODOMESTICO;
