@@ -1,42 +1,50 @@
 package edu.uade.ida.deposito.service;
 
-import java.util.logging.Logger;
+import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
+import edu.uade.ida.deposito.data.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
+import edu.uade.ida.deposito.util.DTOUtil;
 
 /**
- * Servicio para administracion de solicitudes de articulos
- * (generar entregas de articulos, generar solicitudes de compras
- * basadas en solicitudes de articulos)
- * 
- * TODO Ver de pasar la creacion de solicitudes de articulos tambien
- * 
- * @author pabloc
- *
+ * Session Bean implementation class SolicitudArticulosMgrBean
  */
 @Stateless
+@LocalBean
 public class SolicitudArticulosService implements SolicitudArticulosServiceLocal {
+	
+	@Inject
+	private SolicitudArticuloRepository sar;
+	
+    /**
+     * Default constructor. 
+     */
+    public SolicitudArticulosService() {
+    	super();
+    }
 
-	@Inject
-	private Logger log;
-	
-	@Inject
-	private EntityManager em;
-	
-	public SolicitudArticulosService() {
-		super();
+	@Override
+	public List<SolicitudArticuloDTO> getSolicitudesStockPendientes() {
+		return DTOUtil.getDTOs(sar.getPorEstado("pendiente", "no_cumplido"), SolicitudArticuloDTO.class);
+	}
+
+	@Override
+	public void procesarEntregasArticulos(List<EntregaArticuloDTO> entregas) {
+		
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public SolicitudArticuloDTO createSolicitudArticulo(ArticuloDTO articulo, int cantidad) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -51,6 +59,4 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }

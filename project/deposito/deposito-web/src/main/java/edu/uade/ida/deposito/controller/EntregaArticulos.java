@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
-import edu.uade.ida.deposito.service.SolicitudArticulosMgrBeanLocal;
+import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
 /**
  * Servlet implementation class EntregaArticulos
@@ -23,7 +23,7 @@ public class EntregaArticulos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private SolicitudArticulosMgrBeanLocal bean;
+	private SolicitudArticulosServiceLocal bean;
 	
     /**
      * @see HttpServlet#HttpServlet()
