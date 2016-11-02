@@ -4,21 +4,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
-import javax.persistence.EntityManager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
-import edu.uade.ida.deposito.data.ArticuloRepository;
+import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequest;
-import edu.uade.ida.deposito.model.Articulo;
-import edu.uade.ida.deposito.model.SolicitudArticulo;
 
 /**
  * Message-Driven Bean implementation class for: SolicitudArticulosMDB
@@ -34,11 +33,8 @@ public class SolicitudArticulosMDB implements MessageListener {
 	@Inject
 	private Logger log;
 	
-	@Inject
-	private EntityManager em;
-	
-	@Inject
-	private ArticuloRepository ar;
+	@EJB
+	private SolicitudArticulosServiceLocal sas;
 	
     /**
      * Default constructor. 
@@ -68,13 +64,13 @@ public class SolicitudArticulosMDB implements MessageListener {
     }
 
 	public void procesarSolicitudStock(SolicitudArticuloRequest request) {
-		Articulo articulo = ar.getPorCodigo(request.getCodArticulo());
-		if (articulo == null) {
-			//No se crea solicitud de articulo
-			log.warning("No se encontro articulo solicitado con id " + request.getCodArticulo());
-		} else {
-			em.persist(new SolicitudArticulo(articulo, request.getCantidad(), SolicitudArticulo.ESTADO_PENDIENTE, request.getIdDespacho()));
-			log.info("Guardada solicitud de articulo");
+		try {
+			SolicitudArticuloDTO sad = sas.createSolicitudArticulo(new ArticuloDTO(request.getCodArticulo()), request.getCantidad(), request.getIdDespacho());
+			//TODO Comunicar a logistica y monitoreo
+			log.info("Generada correctamente la solicitud de articulo " + sad);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.log(Level.WARNING, "Ocurrio un problema al registrar SolicitudDeArticulo: " + e.getMessage(), e);
 		}
 	}
 }

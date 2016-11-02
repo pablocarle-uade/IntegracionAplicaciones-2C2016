@@ -66,14 +66,27 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			throw new Exception("idModuloSolicitante es requerido");
 		Articulo articuloEnt = ar.getPorCodigo(articulo.getCodArticulo());
 		if (articuloEnt != null) {
-			SolicitudArticuloDTO sad = new SolicitudArticuloDTO();
-			SolicitudArticulo sa = new SolicitudArticulo(articuloEnt, cantidad, SolicitudArticulo.ESTADO_PENDIENTE, idModuloSolicitante);
-			em.persist(sa);
-			sad.setIdSolicitudArticulo(sa.getIdSolicitudStock());
-			return sad;
+			return createSolicitudArticulo(articuloEnt, cantidad, idModuloSolicitante);
+			
 		} else {
 			throw new Exception("No se encontro articulo con codigo " + articulo.getCodArticulo());
 		}
+	}
+
+	private SolicitudArticuloDTO createSolicitudArticulo(Articulo articuloEnt, int cantidad, String idModuloSolicitante) throws Exception {
+		List<SolicitudArticulo> pendientesModulo = sar.getPendientesModuloArticulo(idModuloSolicitante, articuloEnt.getCodArticulo());
+		SolicitudArticuloDTO sad = new SolicitudArticuloDTO();
+		if (pendientesModulo.isEmpty()) {
+			SolicitudArticulo sa = new SolicitudArticulo(articuloEnt, cantidad, SolicitudArticulo.ESTADO_PENDIENTE, idModuloSolicitante);
+			em.persist(sa);
+			sad.setIdSolicitudArticulo(sa.getIdSolicitudStock());
+		} else {
+			SolicitudArticulo sa = pendientesModulo.get(0); //Deberia ser uno solo ya fue
+			sa.setCantidad(sa.getCantidad() + cantidad);
+			em.merge(sa);
+			sad = sa.getDTO();
+		}
+		return sad;
 	}
 
 	@Override

@@ -28,4 +28,21 @@ public class SolicitudArticuloRepository {
 		retList.addAll(q.getResultList());
 		return retList;
 	}
+	
+	/**
+	 * Obtener solicitudes de articulos pendientes por modulo y articulo
+	 * 
+	 * @param idModulo El id del modulo
+	 * @param codArticulo El codigo de articulo
+	 * @return Lista de solicitudes de articulos o lista vacia
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SolicitudArticulo> getPendientesModuloArticulo(String idModulo, String codArticulo) {
+		List<SolicitudArticulo> retList = new ArrayList<>();
+		Query q = em.createQuery("from SolicitudArticulo where estado = " + SolicitudArticulo.ESTADO_PENDIENTE + " and idModuloSolicitante = :idModulo and articulo.codArticulo = :codArticulo");
+		q.setParameter("idModulo", idModulo);
+		q.setParameter("codArticulo", codArticulo);
+		retList.addAll(q.getResultList());
+		return retList;
+	}
 }

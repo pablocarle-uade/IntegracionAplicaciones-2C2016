@@ -26,6 +26,12 @@ public class SolicitudArticuloDTO implements Serializable {
 		this.fechaCreacion = fechaCreacion;
 		this.cantidad = cantidad;
 	}
+	
+	@Override
+	public String toString() {
+		return "SolicitudArticuloDTO [idSolicitudArticulo=" + idSolicitudArticulo + ", articulo=" + articulo
+				+ ", estado=" + estado + ", fechaCreacion=" + fechaCreacion + ", cantidad=" + cantidad + "]";
+	}
 
 	public int getIdSolicitudArticulo() {
 		return idSolicitudArticulo;
