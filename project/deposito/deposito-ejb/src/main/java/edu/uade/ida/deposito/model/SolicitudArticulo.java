@@ -17,6 +17,7 @@ public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 	
 	public static final transient String ESTADO_PENDIENTE = "pendiente";
 	public static final transient String ESTADO_NO_CUMPLIDO = "no_cumplido";
+	public static final transient String ESTADO_ENTREGADO = "entregado";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

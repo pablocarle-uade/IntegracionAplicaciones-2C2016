@@ -10,7 +10,7 @@
 				omit-xml-declaration="true" />
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<script src="./resources/js/jquery-1.11.1.min.js"></script>
 		<link rel="stylesheet" href="./resources/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="./resources/css/bootstrap-theme.min.css"/>
@@ -38,7 +38,7 @@
 						</jsp:scriptlet>
 							<li style="float: left;">
 								<input type="checkbox" 
-										name=<jsp:expression>"checkEntrega" + sad.getIdSolicitudArticulo()</jsp:expression> 
+										name=<jsp:expression>"checkEntrega" + sad.getIdSolicitudArticulo()</jsp:expression>
 										id=<jsp:expression>"checkEntrega" + sad.getIdSolicitudArticulo()</jsp:expression> 
 								/>
 								<div>

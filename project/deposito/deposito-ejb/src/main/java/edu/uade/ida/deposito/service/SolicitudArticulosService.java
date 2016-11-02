@@ -48,7 +48,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 
 	@Override
 	public List<SolicitudArticuloDTO> getSolicitudesStockPendientes() {
-		return DTOUtil.getDTOs(sar.getPorEstado("pendiente", "no_cumplido"), SolicitudArticuloDTO.class);
+		return DTOUtil.getDTOs(sar.getPorEstado(SolicitudArticulo.ESTADO_PENDIENTE, SolicitudArticulo.ESTADO_NO_CUMPLIDO), SolicitudArticuloDTO.class);
 	}
 
 	@Override

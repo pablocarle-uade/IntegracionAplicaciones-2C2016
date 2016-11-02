@@ -43,7 +43,7 @@
 					Tests <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="./ingresarDatosDeCliente.jsp">Generar Solicitud Articulo</a></li>
+					<li><a href="#" onclick="">Generar Solicitud Articulo</a></li>
 					<li><a href="http://localhost:8080/tpads-cpr-server/GenerarRemitosAClientesService">Generar remitos a clientes</a></li>
 					<li><a href="http://localhost:8080/tpads-cpr-server/GenerarFacturasService">Generar facturas a clientes</a></li>
 				</ul>

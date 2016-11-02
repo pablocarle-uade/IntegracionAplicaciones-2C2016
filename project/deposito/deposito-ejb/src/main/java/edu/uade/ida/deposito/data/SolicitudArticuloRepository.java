@@ -1,6 +1,7 @@
 package edu.uade.ida.deposito.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -24,7 +25,7 @@ public class SolicitudArticuloRepository {
 	public List<SolicitudArticulo> getPorEstado(String... estados) {
 		List<SolicitudArticulo> retList = new ArrayList<>();
 		Query q = em.createQuery("from SolicitudArticulo where estado in (:estados)");
-		q.setParameter("estados", estados);
+		q.setParameter("estados", Arrays.asList(estados));
 		retList.addAll(q.getResultList());
 		return retList;
 	}
