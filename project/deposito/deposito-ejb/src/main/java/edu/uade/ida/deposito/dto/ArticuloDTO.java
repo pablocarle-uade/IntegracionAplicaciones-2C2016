@@ -38,6 +38,10 @@ public class ArticuloDTO implements Serializable {
 		this.datosExtra = datosExtra;
 	}
 
+	public ArticuloDTO(String codArticulo) {
+		this.codArticulo = codArticulo;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -28,8 +28,14 @@ public class ArticuloRepository {
 		return em.find(Articulo.class, Integer.valueOf(id));
 	}
 
+	/**
+	 * Buscar articulo por codArticulo
+	 * 
+	 * @param codigo codArticulo a buscar
+	 * @return
+	 */
 	public Articulo getPorCodigo(String codigo) {
-		Query q = em.createQuery("from Articulo where codigo = :codigo");
+		Query q = em.createQuery("from Articulo where codArticulo = :codigo");
 		q.setParameter("codigo", codigo);
 		return (Articulo) q.getSingleResult();
 	}
