@@ -11,9 +11,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import edu.uade.ida.deposito.data.SolicitudArticuloRequest;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
+import edu.uade.ida.deposito.dto.SolicitudArticuloRequest;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
@@ -98,7 +98,7 @@ public class ArticulosController {
 	public String createSolicitudArticuloTest(SolicitudArticuloRequest request) {
 		log.info("crear solicitud de articulo test: " + request);
 		try {
-			SolicitudArticuloDTO sad = sas.createSolicitudArticulo(new ArticuloDTO(String.valueOf(request.getCodArticulo())), request.getCantidad());
+			SolicitudArticuloDTO sad = sas.createSolicitudArticulo(new ArticuloDTO(String.valueOf(request.getCodArticulo())), request.getCantidad(), request.getIdDespacho());
 			log.info("creada solicitud de articulo con id " + sad.getIdSolicitudArticulo());
 			return "{data: 'ok'}";
 		} catch (Exception e) {

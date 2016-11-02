@@ -27,7 +27,7 @@ public interface SolicitudArticulosServiceLocal {
 	 * @return
 	 * @throws Exception 
 	 */
-	public SolicitudArticuloDTO createSolicitudArticulo(ArticuloDTO articulo, int cantidad) throws Exception;
+	public SolicitudArticuloDTO createSolicitudArticulo(ArticuloDTO articulo, int cantidad, String idModuloSolicitante) throws Exception;
 	
 	/**
 	 * TODO Definir argumentos

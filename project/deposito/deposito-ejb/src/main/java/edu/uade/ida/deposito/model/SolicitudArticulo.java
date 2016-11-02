@@ -29,16 +29,19 @@ public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 	private Articulo articulo;
 	@Column
 	private int cantidad;
+	@Column(nullable=false)
+	private String idModuloSolicitante;
 	
 	public SolicitudArticulo() {
 		super();
 	}
 	
-	public SolicitudArticulo(Articulo articulo, int cantidad, String estado) {
+	public SolicitudArticulo(Articulo articulo, int cantidad, String estado, String idModuloSolicitante) {
 		super();
 		this.articulo = articulo;
 		this.cantidad = cantidad;
 		this.estado = estado;
+		this.idModuloSolicitante = idModuloSolicitante;
 	}
 
 	public int getIdSolicitudStock() {
@@ -81,6 +84,14 @@ public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 		this.estado = estado;
 	}
 	
+	public String getIdModuloSolicitante() {
+		return idModuloSolicitante;
+	}
+
+	public void setIdModuloSolicitante(String idModuloSolicitante) {
+		this.idModuloSolicitante = idModuloSolicitante;
+	}
+
 	@Override
 	public String toString() {
 		return "SolicitudArticulo [idSolicitudStock=" + idSolicitudStock + ", estado=" + estado + ", articulo="

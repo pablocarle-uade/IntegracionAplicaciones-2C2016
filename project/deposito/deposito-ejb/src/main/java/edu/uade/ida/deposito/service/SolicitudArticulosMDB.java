@@ -73,7 +73,7 @@ public class SolicitudArticulosMDB implements MessageListener {
 			//No se crea solicitud de articulo
 			log.warning("No se encontro articulo solicitado con id " + request.getCodArticulo());
 		} else {
-			em.persist(new SolicitudArticulo(articulo, request.getCantidad(), SolicitudArticulo.ESTADO_PENDIENTE));
+			em.persist(new SolicitudArticulo(articulo, request.getCantidad(), SolicitudArticulo.ESTADO_PENDIENTE, request.getIdDespacho()));
 			log.info("Guardada solicitud de articulo");
 		}
 	}

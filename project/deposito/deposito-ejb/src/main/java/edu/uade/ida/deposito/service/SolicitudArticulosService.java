@@ -59,11 +59,15 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	@Override
-	public SolicitudArticuloDTO createSolicitudArticulo(ArticuloDTO articulo, int cantidad) throws Exception {
+	public SolicitudArticuloDTO createSolicitudArticulo(ArticuloDTO articulo, int cantidad, String idModuloSolicitante) throws Exception {
+		if (cantidad <= 0)
+			throw new Exception("cantidad no puede ser menor a 0");
+		if (idModuloSolicitante == null || idModuloSolicitante.length() == 0)
+			throw new Exception("idModuloSolicitante es requerido");
 		Articulo articuloEnt = ar.getPorCodigo(articulo.getCodArticulo());
 		if (articuloEnt != null) {
 			SolicitudArticuloDTO sad = new SolicitudArticuloDTO();
-			SolicitudArticulo sa = new SolicitudArticulo(articuloEnt, cantidad, SolicitudArticulo.ESTADO_PENDIENTE);
+			SolicitudArticulo sa = new SolicitudArticulo(articuloEnt, cantidad, SolicitudArticulo.ESTADO_PENDIENTE, idModuloSolicitante);
 			em.persist(sa);
 			sad.setIdSolicitudArticulo(sa.getIdSolicitudStock());
 			return sad;
