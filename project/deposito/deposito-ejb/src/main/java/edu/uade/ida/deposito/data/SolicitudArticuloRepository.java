@@ -39,7 +39,7 @@ public class SolicitudArticuloRepository {
 	@SuppressWarnings("unchecked")
 	public List<SolicitudArticulo> getPendientesModuloArticulo(String idModulo, String codArticulo) {
 		List<SolicitudArticulo> retList = new ArrayList<>();
-		Query q = em.createQuery("from SolicitudArticulo where estado = " + SolicitudArticulo.ESTADO_PENDIENTE + " and idModuloSolicitante = :idModulo and articulo.codArticulo = :codArticulo");
+		Query q = em.createQuery("from SolicitudArticulo where estado = '" + SolicitudArticulo.ESTADO_PENDIENTE + "' and idModuloSolicitante = :idModulo and articulo.codArticulo = :codArticulo");
 		q.setParameter("idModulo", idModulo);
 		q.setParameter("codArticulo", codArticulo);
 		retList.addAll(q.getResultList());
