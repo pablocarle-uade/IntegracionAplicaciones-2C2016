@@ -7,52 +7,57 @@
 <script src="../resources/js/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css" />
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jqc-1.12.3/dt-1.10.12/b-1.2.2/r-2.1.0/rr-1.1.2/sc-1.4.2/se-1.2.0/datatables.min.css"/> -->
-<!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs/jqc-1.12.3/dt-1.10.12/b-1.2.2/r-2.1.0/rr-1.1.2/sc-1.4.2/se-1.2.0/datatables.min.js"></script> -->
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script src="../resources/js/bootstrap.min.js"></script>
 <title>Artículos</title>
 </head>
 <body>
-	<!-- Search panel with basic properties HERE -->
+	<!-- Search panel with basic properties HERE background: #D3D3D3; -->
 	<h2>Artículos</h2>
-	<br>
-<div>
-	<div class="row" class="col-sm-12">
-		<div class="col-sm-6">
+<div style="padding: 10px;border: 5px solid gray;margin: 0;" >
+	<div class="row" class="col-sm-12 bg-primary">
+		<div class="col-sm-3">
 			<div class="input-group">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Go!</button>
-				</span> <input type="text" class="form-control" placeholder="Search for...">
+					<button class="btn btn-sm" type="button">Código</button>
+				</span> 
+				<input type="text" class="form-control input-sm">
 			</div>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-3">
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for...">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Go!</button>
+					<button class="btn btn-sm" type="button">Nombre</button>
 				</span>
+				<input type="text" class="form-control input-sm">
 			</div>
 		</div>
-	</div>
-	<br>
-	<div class="row" class="col-sm-12">
-		<div class="col-sm-6">
+		<div class="col-sm-3">
 			<div class="input-group">
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Go!</button>
-				</span> <input type="text" class="form-control" placeholder="Search for...">
+					<button class="btn btn-sm" type="button">Marca</button>
+				</span> 
+				<input type="text" class="form-control input-sm">
 			</div>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-1">
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for...">
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Go!</button>
-				</span>
+				<select name="tipo" id="tipo" class="select-sm">
+				    <option value="">Todo Tipo</option>
+					<option value="Electro">Electro</option>
+					<option value="Moda">Moda</option>
+					<option value="Mueble">Mueble</option>
+					<option value="Niños">Niños</option>
+				</select>
 			</div>
 		</div>
+		<div class="col-sm-1">
+			<button id="btnClean" class="btn-default waves-effect waves-light btn" type="button">Limpiar</button>
+		</div>	
+		<div class="col-sm-1">
+			<button id="btnSearch" class="btn-primary waves-effect waves-light btn" type="button">Buscar</button>
+		</div>	
 	</div>
 </div>
 	<br/>
@@ -67,16 +72,6 @@
                 <th>Url Imagen</th>
             </tr>
         </thead>
-        <tfoot>
-            <tr>
-                <th>Id</th>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Marca</th>
-                <th>Precio</th>
-                <th>Url Imagen</th>
-            </tr>
-        </tfoot>
     </table>
 
 <script type="text/javascript">
@@ -85,6 +80,8 @@
 		
 		  $('#articulosTable').DataTable({
 				"dom" : 'lrtip',
+				"bInfo" : false,
+				"bLengthChange": false,
 				processing: true,
 			    // serverSide: true,
 			    "ajax": {
