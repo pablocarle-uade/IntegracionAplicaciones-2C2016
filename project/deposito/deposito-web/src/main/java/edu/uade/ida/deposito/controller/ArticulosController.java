@@ -1,6 +1,8 @@
 package edu.uade.ida.deposito.controller;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -89,6 +91,19 @@ public class ArticulosController {
 		log.info("create solicitud articulos test (defaults)");
 		as.createArticulosDefault();
 		return "{data: 'ok'}";
+	}	
+	
+	@GET
+	@Path("/articulos/search")
+	@Produces("application/json")
+	public List<ArticuloDTO> search() {
+		
+		final ArticuloDTO articulo1 =  new ArticuloDTO(1L, "HEL_032", "HELADERA", "En oferta", "GAFA", new BigDecimal("1200"),
+				"http://url.com", "ARGENTINA", "ELECTRO", new HashMap<String, String>());
+		final ArticuloDTO articulo2 =  new ArticuloDTO(2L, "REM_01", "REMERA", "En 12 cuotas", "NIKE", new BigDecimal("120"),
+				"http://url.com", "ARGENTINA", "MODA", new HashMap<String, String>());
+		
+		return Arrays.asList(articulo1, articulo2);
 	}
 
 	@POST
