@@ -50,10 +50,10 @@ public class ArticulosService implements ArticulosServiceLocal, ArticulosService
 	@Override
 	public int createArticulosDefault() {
 		ArticuloDTO[] articulosDefault = new ArticuloDTO[]{
-				new ArticuloDTO(-1, "1351953", "Aire Acondicionado Split WBC 12B-13B 2645 F/C", "4 modos de operación diferentes: Frío, deshumidificación, ventilación y calor", "Whirlpool", new BigDecimal("4633"), "url", "Argentina", TipoDeArticulo.ELECTRODOMESTICO.toString(), null),
-				new ArticuloDTO(-1, "3122", "Musculosa Pale", "Musculosa Basement con Breteles", "Basement", new BigDecimal("79"), "url", "Brasil", TipoDeArticulo.MODA.toString(), null),
-				new ArticuloDTO(-1, "1857363", "Mesa para TV 21\" wengue", "Mesa para TV", "Mica", new BigDecimal("409"), "url", "Argentina", TipoDeArticulo.MUEBLE.toString(), null),
-				new ArticuloDTO(-1, "1858018", "Coche Paraguas Gris", "Coche Paraguas", "Love", new BigDecimal("529"), "url", "China", TipoDeArticulo.NIÑOS.toString(), null)
+				new ArticuloDTO(-1, "1351953", "Aire Acondicionado Split WBC 12B-13B 2645 F/C", "4 modos de operación diferentes: Frío, deshumidificación, ventilación y calor", "Whirlpool", new BigDecimal("4633"), "url", "Argentina", TipoDeArticulo.Electro.toString(), null),
+				new ArticuloDTO(-1, "3122", "Musculosa Pale", "Musculosa Basement con Breteles", "Basement", new BigDecimal("79"), "url", "Brasil", TipoDeArticulo.Moda.toString(), null),
+				new ArticuloDTO(-1, "1857363", "Mesa para TV 21\" wengue", "Mesa para TV", "Mica", new BigDecimal("409"), "url", "Argentina", TipoDeArticulo.Mueble.toString(), null),
+				new ArticuloDTO(-1, "1858018", "Coche Paraguas Gris", "Coche Paraguas", "Love", new BigDecimal("529"), "url", "China", TipoDeArticulo.Niños.toString(), null)
 		};
 		log.info("Crear articulos default");
 		for (int i = 0; i < articulosDefault.length; i++) {

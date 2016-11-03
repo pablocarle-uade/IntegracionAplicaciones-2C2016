@@ -22,6 +22,10 @@
 					 <input name="codArticulo" type="number" class="form-control" required />
 				</div>
 				<div class="input-group col s12">
+					<span class="input-group-addon">Nombre</span> 
+					<input name="nombre" type="text" class="form-control" required />
+				</div>
+				<div class="input-group col s12">
 					<span class="input-group-addon">Descripción</span>
 					<textarea name="descripcion" rows="3" class="form-control"></textarea>
 				</div>
@@ -45,10 +49,10 @@
 				<div class="form-group col s12">
 					<label for="tipo">Tipo</label> 
 					<select name="tipo" id="tipo">
-						<option value="ELECTRO">ELECTRO</option>
-						<option value="MODA">MODA</option>
-						<option value="MUEBLE">MUEBLE</option>
-						<option value="NIÑOS">NIÑOS</option>
+						<option value="Electro">Electro</option>
+						<option value="Moda">Moda</option>
+						<option value="Mueble">Mueble</option>
+						<option value="Niños">Niños</option>
 					</select>
 				</div>
 				<br/><br/>

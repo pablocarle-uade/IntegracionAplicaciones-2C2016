@@ -88,7 +88,7 @@
 				processing: true,
 			    // serverSide: true,
 			    "ajax": {
-			         url: '/deposito-web/rest/demo/articulos/search', 
+			         url: '/deposito-web/rest/articulos/search', 
 		        	 dataFilter: function(data) {
 	 		            var result = {};
 	 		        	var json = $.parseJSON( data );
@@ -113,7 +113,7 @@
 			  });
 		
 		var selected = [];
-		$('#example tbody').on('click', 'tr', function() {
+		$('#articulosTable tbody').on('click', 'tr', function() {
 			var id = this.id;
 			var index = $.inArray(id, selected);
 			if (index === -1) { selected.push(id); } 

@@ -94,7 +94,7 @@ public class ArticulosController {
 	}	
 	
 	@GET
-	@Path("/articulos/search")
+	@Path("/search")
 	@Produces("application/json")
 	public List<ArticuloDTO> search() {
 		

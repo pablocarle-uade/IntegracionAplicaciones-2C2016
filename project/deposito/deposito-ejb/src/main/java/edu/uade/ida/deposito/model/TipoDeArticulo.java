@@ -1,7 +1,7 @@
 package edu.uade.ida.deposito.model;
 
 public enum TipoDeArticulo {
-    ELECTRODOMESTICO("ELECTRO"), MODA("MODA"), MUEBLE("MUEBLE"), NIÑOS("NIÑOS");
+    Electro("Electro"), Moda("Moda"), Mueble("Mueble"), Niños("Niños");
 	
 	private String nombre;
 	
@@ -13,13 +13,13 @@ public enum TipoDeArticulo {
 		if (nombre == null)
 			throw new NullPointerException("nombre no puede ser null");
 		if (nombre.equalsIgnoreCase("electro"))
-			return TipoDeArticulo.ELECTRODOMESTICO;
+			return TipoDeArticulo.Electro;
 		else if (nombre.equalsIgnoreCase("moda"))
-			return TipoDeArticulo.MODA;
+			return TipoDeArticulo.Moda;
 		else if (nombre.equalsIgnoreCase("mueble"))
-			return TipoDeArticulo.MUEBLE;
+			return TipoDeArticulo.Mueble;
 		else if (nombre.equalsIgnoreCase("niños"))
-			return TipoDeArticulo.NIÑOS;
+			return TipoDeArticulo.Niños;
 		else
 			throw new RuntimeException("No se reconoce tipo " + nombre);
 	}
