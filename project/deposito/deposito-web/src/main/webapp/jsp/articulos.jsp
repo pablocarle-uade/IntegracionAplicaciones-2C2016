@@ -15,51 +15,53 @@
 <body>
 	<!-- Search panel with basic properties HERE background: #D3D3D3; -->
 	<h2>Artículos</h2>
-<div style="padding: 10px;border: 5px solid gray;margin: 0;" >
-	<div class="row" class="col-sm-12 bg-primary">
-		<div class="col-sm-3">
-			<div class="input-group">
-				<span class="input-group-btn">
-					<button class="btn btn-sm" type="button">Código</button>
-				</span> 
-				<input type="text" class="form-control input-sm">
+	<form id="searchForm">
+		<div style="padding: 10px;border: 5px solid gray;margin: 0;" >
+			<div class="row" class="col-sm-12 bg-primary">
+				<div class="col-sm-3">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-sm" type="button">Código</button>
+						</span> 
+						<input name="codArticulo" type="text" class="form-control input-sm">
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-sm" type="button">Nombre</button>
+						</span>
+						<input name="nombre" type="text" class="form-control input-sm">
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button class="btn btn-sm" type="button">Marca</button>
+						</span> 
+						<input name="marca" type="text" class="form-control input-sm">
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<div class="input-group">
+						<select name="tipo" id="tipo" class="select-sm">
+						    <option value="">Todo Tipo</option>
+							<option value="Electro">Electro</option>
+							<option value="Moda">Moda</option>
+							<option value="Mueble">Mueble</option>
+							<option value="Niños">Niños</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<button id="btnClean" class="btn-default waves-effect waves-light btn" type="button">Limpiar</button>
+				</div>	
+				<div class="col-sm-1">
+					<button id="btnSearch" class="btn-primary waves-effect waves-light btn" type="button">Buscar</button>
+				</div>	
 			</div>
 		</div>
-		<div class="col-sm-3">
-			<div class="input-group">
-				<span class="input-group-btn">
-					<button class="btn btn-sm" type="button">Nombre</button>
-				</span>
-				<input type="text" class="form-control input-sm">
-			</div>
-		</div>
-		<div class="col-sm-3">
-			<div class="input-group">
-				<span class="input-group-btn">
-					<button class="btn btn-sm" type="button">Marca</button>
-				</span> 
-				<input type="text" class="form-control input-sm">
-			</div>
-		</div>
-		<div class="col-sm-1">
-			<div class="input-group">
-				<select name="tipo" id="tipo" class="select-sm">
-				    <option value="">Todo Tipo</option>
-					<option value="Electro">Electro</option>
-					<option value="Moda">Moda</option>
-					<option value="Mueble">Mueble</option>
-					<option value="Niños">Niños</option>
-				</select>
-			</div>
-		</div>
-		<div class="col-sm-1">
-			<button id="btnClean" class="btn-default waves-effect waves-light btn" type="button">Limpiar</button>
-		</div>	
-		<div class="col-sm-1">
-			<button id="btnSearch" class="btn-primary waves-effect waves-light btn" type="button">Buscar</button>
-		</div>	
-	</div>
-</div>
+	</form>
 	<br/>
 	<table id="articulosTable" class="display" style="width:80%" >
         <thead>
@@ -83,12 +85,18 @@
 				"bInfo" : false,
 				"bLengthChange": false,
 				processing: true,
-			    // serverSide: true,
 			    "ajax": {
 			         url: '/deposito-web/rest/articulos/search', 
+			         "type": "POST",
+			         "bInfo" : false,
+			         "data": function (d) { // post search data as json
+			        	 var searchParams = {}
+			        	 addFormDataPropertiesToJsonObject("searchForm", searchParams)
+			        	 return JSON.stringify(searchParams);
+			         },
 		        	 dataFilter: function(data) {
 	 		            var result = {};
-	 		        	var json = $.parseJSON( data );
+	 		        	var json = $.parseJSON(data);
 	 		        	result.recordsTotal = data.length;
 	 		        	result.data = json;
 	 		            return JSON.stringify(result);
@@ -119,6 +127,19 @@
 		});
 		// ~
 	});
+	
+	function addFormDataPropertiesToJsonObject(formId, jsonObject) {
+		var formData = $("#" + formId).serializeArray();
+		for (i = 0; i < formData.length; i++) {
+			var elementName = formData[i].name;
+			var elementValue = formData[i].value;
+			var $element = $("#" + formId + " [name='" + elementName + "']");
+			if ($element.is("input") && ($element.attr("type") == "number")) {
+				elementValue = parseFloat(elementValue);
+			}
+			jsonObject[elementName] = elementValue;
+		}
+	}
 </script>
 
 </body>

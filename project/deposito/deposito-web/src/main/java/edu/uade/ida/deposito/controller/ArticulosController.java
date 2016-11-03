@@ -93,11 +93,13 @@ public class ArticulosController {
 		return "{data: 'ok'}";
 	}	
 	
-	@GET
+	@POST
 	@Path("/search")
 	@Produces("application/json")
-	public List<ArticuloDTO> search() {
-		
+	public List<ArticuloDTO> search(String search) {
+		log.info("RECEIVED SEARCH => " + search);
+		// en el log anduvo:  RECEIVED SEARCH => {"codArticulo":"","nombre":"","marca":"","tipo":""}
+		// VER BIEN Q COLUMNAS SE MUESTRANN, PARAM searchDTO,...---, BUSCAR => Reload
 		final ArticuloDTO articulo1 =  new ArticuloDTO(1L, "HEL_032", "HELADERA", "En oferta", "GAFA", new BigDecimal("1200"),
 				"http://url.com", "ARGENTINA", "ELECTRO", new HashMap<String, String>());
 		final ArticuloDTO articulo2 =  new ArticuloDTO(2L, "REM_01", "REMERA", "En 12 cuotas", "NIKE", new BigDecimal("120"),
