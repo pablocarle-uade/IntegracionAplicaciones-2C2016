@@ -4,7 +4,8 @@
 			id: "G01",
 			restEndpoint: {
 				url: "http://locahost:8080",
-				resource: "/rest/nuevoArticulo"
+				resource: "/rest/nuevoArticulo",
+				method: "post"
 			},
 			jmsEndpoint: {
 				jmsQueue: "",
@@ -17,7 +18,8 @@
 			id: "G02",
 			restEndpoint: {
 				url: "http://locahost:8080",
-				resource: "/rest/nuevoArticulo"
+				resource: "/rest/nuevoArticulo",
+				method: "post"
 			},
 			jmsEndpoint: {
 				jmsQueue: "",

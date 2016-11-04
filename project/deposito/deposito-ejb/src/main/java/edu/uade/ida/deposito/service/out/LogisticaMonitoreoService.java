@@ -26,8 +26,8 @@ import javax.jms.TextMessage;
 import com.google.gson.Gson;
 
 import edu.uade.ida.deposito.dto.MensajeAuditDTO;
-import edu.uade.ida.deposito.util.ConfigHolder;
 import edu.uade.ida.deposito.util.EscapeUtil;
+import edu.uade.ida.deposito.util.config.ConfigHolder;
 
 /**
  * Session Bean implementation class LogisticaMonitoreoService

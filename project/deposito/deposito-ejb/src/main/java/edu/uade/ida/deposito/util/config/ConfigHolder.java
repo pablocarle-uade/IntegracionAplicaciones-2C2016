@@ -1,35 +1,27 @@
-package edu.uade.ida.deposito.util;
+package edu.uade.ida.deposito.util.config;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import com.google.gson.Gson;
 
 public class ConfigHolder {
 	
 	public enum ConfigType {
 		DESPACHO, PORTAL, LOGISTICA;
 	}
+
+	private static Gson gson = new Gson();
 	
 	private static Properties despachosConfig;
 	private static Properties portalesConfig;
 	private static Properties logisticaConfig;
 
 	static {
-		InputStream isDespachos = ConfigHolder.class.getClassLoader().getResourceAsStream("despachos.properties");
-		InputStream isPortales = ConfigHolder.class.getClassLoader().getResourceAsStream("portales.properties");
-		InputStream isLogistica = ConfigHolder.class.getClassLoader().getResourceAsStream("logistica.properties");
+		InputStream isDespachos = ConfigHolder.class.getClassLoader().getResourceAsStream("despacho.json");
+		InputStream isPortales = ConfigHolder.class.getClassLoader().getResourceAsStream("portales.json");
+		InputStream isLogistica = ConfigHolder.class.getClassLoader().getResourceAsStream("logistica.json");
 		
-		despachosConfig = new Properties();
-		portalesConfig = new Properties();
-		logisticaConfig = new Properties();
-		
-		try {
-			despachosConfig.load(isDespachos);
-			portalesConfig.load(isPortales);
-			logisticaConfig.load(isLogistica);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public ConfigHolder() {

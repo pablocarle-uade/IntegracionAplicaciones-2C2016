@@ -45,8 +45,8 @@ import edu.uade.ida.deposito.model.HasDTO;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
 import edu.uade.ida.deposito.service.SolicitudArticulosMDB;
-import edu.uade.ida.deposito.util.ConfigHolder;
 import edu.uade.ida.deposito.util.Resources;
+import edu.uade.ida.deposito.util.config.ConfigHolder;
 
 @RunWith(Arquillian.class)
 public class SolicitudArticuloTest {
