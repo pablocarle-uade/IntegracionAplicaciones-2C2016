@@ -16,6 +16,8 @@ import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
+import edu.uade.ida.deposito.service.out.LogisticaMonitoreoServiceLocal;
+import edu.uade.ida.deposito.service.out.NivelAudit;
 import edu.uade.ida.deposito.util.DTOUtil;
 
 /**
@@ -33,6 +35,9 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	
 	@Inject
 	private EntityManager em;
+	
+	@Inject
+	private LogisticaMonitoreoServiceLocal lms;
 	
 	@SuppressWarnings("unused")
 	@Inject
@@ -86,6 +91,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			em.merge(sa);
 			sad = sa.getDTO();
 		}
+		lms.enviarAudit(NivelAudit.INFO, "Registrada solicitud de articulos de despacho " + idModuloSolicitante + " por " + cantidad + " de articulo " + articuloEnt.getCodArticulo());
 		return sad;
 	}
 

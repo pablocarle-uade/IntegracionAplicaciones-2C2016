@@ -10,18 +10,9 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Queue;
-import javax.jms.Session;
-import javax.jms.TextMessage;
 
 import com.google.gson.Gson;
 
@@ -43,11 +34,11 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	@Inject
 	private Logger log;
 	
-	@Resource(mappedName = "java:/jms/queue/ColaSolicitudesArticulos") //TODO Obtener por contexto porque hay que levantar de config
-	private Queue csa;
-
-	@Resource(mappedName = "/ConnectionFactory")
-	private ConnectionFactory factory;
+//	@Resource(mappedName = "java:/jms/queue/ColaSolicitudesArticulos") //TODO Obtener por contexto porque hay que levantar de config
+//	private Queue csa;
+//
+//	@Resource(mappedName = "/ConnectionFactory")
+//	private ConnectionFactory factory;
 	
 	ConfigHolder config; //TODO Inject
 	
@@ -55,11 +46,6 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
     	super();
     }
     
-    @PostConstruct
-    public void onPostConstruct() {
-    	//TODO Conexion? 
-    }
-
 	@Override
 	public void enviarAudit(NivelAudit nivel, String mensaje) {
 		Modo modo = getModo();
@@ -101,19 +87,19 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	}
 	
 	private void enviarAuditAsync(NivelAudit nivel, String mensaje) {
-		try {
-			Connection con = factory.createConnection();
-			Session session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			con.start();
-			MessageProducer producer = session.createProducer(csa);
-			TextMessage tm = session.createTextMessage();
-			tm.setText(gson.toJson(buildMensaje(nivel, mensaje)));
-			producer.send(tm);
-			con.close();
-		} catch (JMSException e) {
-			log.log(Level.WARNING, "Error enviando audit async", e);
-			e.printStackTrace();
-		}
+//		try {
+//			Connection con = factory.createConnection();
+//			Session session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
+//			con.start();
+//			MessageProducer producer = session.createProducer(csa);
+//			TextMessage tm = session.createTextMessage();
+//			tm.setText(gson.toJson(buildMensaje(nivel, mensaje)));
+//			producer.send(tm);
+//			con.close();
+//		} catch (JMSException e) {
+//			log.log(Level.WARNING, "Error enviando audit async", e);
+//			e.printStackTrace();
+//		}
 	}
 	
 	private MensajeAuditDTO buildMensaje(NivelAudit nivel, String mensaje) {
