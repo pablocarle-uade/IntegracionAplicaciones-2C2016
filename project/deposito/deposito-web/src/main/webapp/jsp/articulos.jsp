@@ -23,7 +23,7 @@
 						<span class="input-group-btn">
 							<button class="btn btn-sm" type="button">Código</button>
 						</span> 
-						<input name="codArticulo" type="text" class="form-control input-sm">
+						<input name="codArticulo" type="text" class="form-control input-sm searchPanelControl">
 					</div>
 				</div>
 				<div class="col-sm-3">
@@ -31,7 +31,7 @@
 						<span class="input-group-btn">
 							<button class="btn btn-sm" type="button">Nombre</button>
 						</span>
-						<input name="nombre" type="text" class="form-control input-sm">
+						<input name="nombre" type="text" class="form-control input-sm searchPanelControl">
 					</div>
 				</div>
 				<div class="col-sm-3">
@@ -39,12 +39,12 @@
 						<span class="input-group-btn">
 							<button class="btn btn-sm" type="button">Marca</button>
 						</span> 
-						<input name="marca" type="text" class="form-control input-sm" value="LEMARCARATRETAWTGTIRE">
+						<input name="marca" type="text" class="form-control input-sm searchPanelControl">
 					</div>
 				</div>
 				<div class="col-sm-1">
 					<div class="input-group">
-						<select name="tipo" id="tipo" class="select-sm">
+						<select name="tipo" id="tipo" class="select-sm searchPanelControl">
 						    <option value="">Todo Tipo</option>
 							<option value="Electro">Electro</option>
 							<option value="Moda">Moda</option>
@@ -54,7 +54,7 @@
 					</div>
 				</div>
 				<div class="col-sm-1">
-					<button id="btnClean" class="btn-default waves-effect waves-light btn" type="button">Limpiar</button>
+					<button id="btnCleanSearch" class="btn-default waves-effect waves-light btn" type="button">Limpiar</button>
 				</div>	
 				<div class="col-sm-1">
 					<button id="btnSearch" class="btn-primary waves-effect waves-light btn" type="button">Buscar</button>
@@ -80,7 +80,7 @@
 
 	$(document).ready(function() {
 		
-		  $('#articulosTable').DataTable({
+		  $("#articulosTable").DataTable({
 				"dom" : 'lrtip',
 				"bInfo" : false,
 			    "bLengthChange": false,
@@ -120,12 +120,21 @@
 			  });
 		
 		var selected = [];
-		$('#articulosTable tbody').on('click', 'tr', function() {
+		$("#articulosTable tbody").on("click", "tr", function() {
 			var id = this.id;
 			var index = $.inArray(id, selected);
 			if (index === -1) { selected.push(id); } 
 			else { selected.splice(index, 1); }
 			$(this).toggleClass('selected');
+		});
+		
+		$("#btnSearch").on("click", function() {
+			// reload table => search on ajax call
+			$("#articulosTable").DataTable().ajax.reload();
+		});
+		
+		$("#btnCleanSearch").on("click", function() {
+			$(".searchPanelControl").val("");
 		});
 		// ~
 	});
