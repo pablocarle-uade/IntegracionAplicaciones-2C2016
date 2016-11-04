@@ -1,0 +1,13 @@
+{
+	servers: [
+		{
+			id: "G01",
+			jmsEndpoint: {
+				jmsQueue: "",
+				jmsTopic: "",
+				user: "",
+				password: ""
+			}
+		}
+	]
+}
