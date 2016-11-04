@@ -70,7 +70,7 @@
 			aria-expanded="true">Acciones<span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			<li><a href="#">Acción sobre lo seleccionado</a></li>
+			<li><a id="actionOnItems" href="#">Acción sobre lo seleccionado</a></li>
 			<li><a href="#">Otra acción sobre lo seleccionado</a></li>
 		</ul>
 	</div>
@@ -151,6 +151,10 @@
 			
 			$("#btnCleanSearch").on("click", function() {
 				$(".searchPanelControl").val("");
+			});
+			
+			$("#actionOnItems").on("click", function() {
+				alert("Action on items => " + selected.toString());
 			});
 			// ~
 	});
