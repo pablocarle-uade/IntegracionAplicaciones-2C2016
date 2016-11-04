@@ -39,7 +39,7 @@
 						<span class="input-group-btn">
 							<button class="btn btn-sm" type="button">Marca</button>
 						</span> 
-						<input name="marca" type="text" class="form-control input-sm">
+						<input name="marca" type="text" class="form-control input-sm" value="LEMARCARATRETAWTGTIRE">
 					</div>
 				</div>
 				<div class="col-sm-1">
@@ -67,11 +67,11 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Tipo</th>
                 <th>Código</th>
-                <th>Descripción</th>
+                <th>Nombre</th>
                 <th>Marca</th>
                 <th>Precio</th>
-                <th>Url Imagen</th>
             </tr>
         </thead>
     </table>
@@ -83,11 +83,13 @@
 		  $('#articulosTable').DataTable({
 				"dom" : 'lrtip',
 				"bInfo" : false,
-				"bLengthChange": false,
-				processing: true,
+			    "bLengthChange": false,
+			    "autoWidth": true,
+			    processing: true,
 			    "ajax": {
 			         url: '/deposito-web/rest/articulos/search', 
 			         "type": "POST",
+			         "contentType": "application/json",
 			         "bInfo" : false,
 			         "data": function (d) { // post search data as json
 			        	 var searchParams = {}
@@ -103,12 +105,12 @@
 			 		 }
 			    },
 			    columns: [
-					{ data: 'id' },
-					{ data: 'codArticulo' },
-					{ data: 'descripcion' },
-					{ data: 'marca' },
-					{ data: 'precio' },
-					{ data: 'urlImagen' }
+					{ data: "id", width: "5%" },
+					{ data: "tipo", width: "10%" },
+					{ data: "codArticulo", width: "15%" },
+					{ data: "nombre", width: "40%" },
+					{ data: "marca", width: "20%" },
+					{ data: "precio", width: "10%", render: function (value) { return "$" + value; }  }
 			    ],
 				"rowCallback" : function(row, data) {
 					if ($.inArray(data.DT_RowId, selected) !== -1) {

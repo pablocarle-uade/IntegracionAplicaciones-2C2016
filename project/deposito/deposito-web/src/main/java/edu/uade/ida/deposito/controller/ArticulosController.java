@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequest;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
@@ -96,11 +97,10 @@ public class ArticulosController {
 	@POST
 	@Path("/search")
 	@Produces("application/json")
-	public List<ArticuloDTO> search(String search) {
-		log.info("RECEIVED SEARCH => " + search);
-		// en el log anduvo:  RECEIVED SEARCH => {"codArticulo":"","nombre":"","marca":"","tipo":""}
-		// VER BIEN Q COLUMNAS SE MUESTRANN, PARAM searchDTO,...---, BUSCAR => Reload
-		final ArticuloDTO articulo1 =  new ArticuloDTO(1L, "HEL_032", "HELADERA", "En oferta", "GAFA", new BigDecimal("1200"),
+	@Consumes("application/json")
+	public List<ArticuloDTO> search(SearchArticulosDTO searchArticulosDTO) {
+		// BUSCAR POSTA AUNQ SEA TODOS, BUSCAR => Reload
+		final ArticuloDTO articulo1 =  new ArticuloDTO(1L, "HEL_032", "HELADERA", "En oferta", "GAFA", new BigDecimal("1200.80"),
 				"http://url.com", "ARGENTINA", "ELECTRO", new HashMap<String, String>());
 		final ArticuloDTO articulo2 =  new ArticuloDTO(2L, "REM_01", "REMERA", "En 12 cuotas", "NIKE", new BigDecimal("120"),
 				"http://url.com", "ARGENTINA", "MODA", new HashMap<String, String>());
