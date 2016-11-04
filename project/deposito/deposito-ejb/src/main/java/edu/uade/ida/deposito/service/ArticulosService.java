@@ -1,18 +1,22 @@
 package edu.uade.ida.deposito.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import edu.uade.ida.deposito.data.ArticuloRepository;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
+import edu.uade.ida.deposito.util.DTOUtil;
 
 @Stateless
-public class ArticulosService implements ArticulosServiceLocal, ArticulosServiceRemote {
+public class ArticulosService implements ArticulosServiceLocal {
 	
     @Inject
     private Logger log;
@@ -20,7 +24,9 @@ public class ArticulosService implements ArticulosServiceLocal, ArticulosService
 	@Inject
 	private EntityManager em;
 	
-	// TODO: Change response type to CrearArticuloResponseDTO, handle errors
+	@Inject 
+	private ArticuloRepository ar;
+	
 	@Override
 	public ArticuloDTO crearArticulo(ArticuloDTO dto) {
 		log.info("Se ha solicitado crear artículo: " + dto.getCodArticulo());
@@ -39,6 +45,12 @@ public class ArticulosService implements ArticulosServiceLocal, ArticulosService
         dto.setId(articulo.getId());
 
         return dto;
+	}
+	
+	@Override
+	public List<ArticuloDTO> buscarArticulos(SearchArticulosDTO searchArticulosDTO) {
+		List<Articulo> articulos = ar.findAll(); // TODO Search (criteria / hql)
+		return DTOUtil.getDTOs(articulos, ArticuloDTO.class);
 	}
 
 	@Override
@@ -62,4 +74,5 @@ public class ArticulosService implements ArticulosServiceLocal, ArticulosService
 		log.info("Creados " + articulosDefault.length + " articulos");
 		return articulosDefault.length;
 	}
+
 }

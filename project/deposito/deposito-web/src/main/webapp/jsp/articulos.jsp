@@ -118,6 +118,7 @@
 	 		            return JSON.stringify(result);
 			 		 }
 			    },
+			    rowId: 'id',
 			    columns: [
 					{ defaultContent: "", orderable: false, className: 'select-checkbox', width: "1%" },       
 					{ data: "id", width: "4%" },

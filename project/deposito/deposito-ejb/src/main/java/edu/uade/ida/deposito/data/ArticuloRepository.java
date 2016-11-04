@@ -1,5 +1,7 @@
 package edu.uade.ida.deposito.data;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -39,4 +41,8 @@ public class ArticuloRepository {
 		q.setParameter("codigo", codigo);
 		return (Articulo) q.getSingleResult();
 	}
+	
+	public List<Articulo> findAll() {
+		return em.createQuery("from " + Articulo.class.getSimpleName() + " a", Articulo.class).getResultList();
+	}	
 }

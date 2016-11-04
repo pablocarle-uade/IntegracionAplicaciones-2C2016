@@ -38,12 +38,6 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 
 	// TODO uom, stockCompra, stockDisponible
 
-	// Características específicas según tipo artículo (cargar data)
-	// MODA => color, talle
-	// MUEBLE => material
-	// ELECTRODOMESTICO => ficha técnica (modelo, tipo, capacidad, dimensiones, etc)
-	// NIÑOS => edadRecomendada
-
 	public Articulo() {
 	}
 
@@ -143,8 +137,9 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 
 	@Override
 	public ArticuloDTO getDTO() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String> datosExtra = this.datosExtra != null ? new HashMap<String, String>(this.datosExtra) : null;
+		return new ArticuloDTO(this.id, this.codArticulo, this.nombre, this.descripcion, this.marca, this.precio,
+				               this.urlImagen, this.origen, this.tipo.toString(), datosExtra);
 	}
 
 	public Map<String, String> getDatosExtra() {

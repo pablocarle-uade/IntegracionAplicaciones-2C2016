@@ -12,14 +12,14 @@ import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 @Local
 public interface SolicitudArticulosServiceLocal {
 	
-	public List<SolicitudArticuloDTO> getSolicitudesStockPendientes();
+	List<SolicitudArticuloDTO> getSolicitudesStockPendientes();
 
 	/**
 	 * Generar entregas de articulos
 	 * 
 	 * @param entregas
 	 */
-	public void procesarEntregasArticulos(List<EntregaArticuloDTO> entregas);
+	void procesarEntregasArticulos(List<EntregaArticuloDTO> entregas);		
 	
 	/**
 	 * @param articulo
@@ -27,7 +27,7 @@ public interface SolicitudArticulosServiceLocal {
 	 * @return
 	 * @throws Exception 
 	 */
-	public SolicitudArticuloDTO createSolicitudArticulo(ArticuloDTO articulo, int cantidad, String idModuloSolicitante) throws Exception;
+	SolicitudArticuloDTO createSolicitudArticulo(ArticuloDTO articulo, int cantidad, String idModuloSolicitante) throws Exception;
 	
 	/**
 	 * TODO Definir argumentos
@@ -36,13 +36,13 @@ public interface SolicitudArticulosServiceLocal {
 	 * @param cantidad
 	 * @return
 	 */
-	public SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad);
+	SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad);
 	
 	/**
 	 * TODO Definir argumentos
 	 * 
 	 * @return
 	 */
-	public EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO sa, int cantidadOverride);
+	EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO sa, int cantidadOverride);
 	
 }
