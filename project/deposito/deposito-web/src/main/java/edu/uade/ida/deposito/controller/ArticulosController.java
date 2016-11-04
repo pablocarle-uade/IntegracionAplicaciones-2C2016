@@ -99,7 +99,7 @@ public class ArticulosController {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public List<ArticuloDTO> search(SearchArticulosDTO searchArticulosDTO) {
-		// BUSCAR POSTA AUNQ SEA TODOS, BUSCAR => Reload
+		// BUSCAR POSTA AUNQ SEA TODOS
 		final ArticuloDTO articulo1 =  new ArticuloDTO(1L, "HEL_032", "HELADERA", "En oferta", "GAFA", new BigDecimal("1200.80"),
 				"http://url.com", "ARGENTINA", "ELECTRO", new HashMap<String, String>());
 		final ArticuloDTO articulo2 =  new ArticuloDTO(2L, "REM_01", "REMERA", "En 12 cuotas", "NIKE", new BigDecimal("120"),

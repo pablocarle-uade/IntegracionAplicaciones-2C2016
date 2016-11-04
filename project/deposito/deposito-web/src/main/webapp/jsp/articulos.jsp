@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css" />
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script src="../resources/js/bootstrap.min.js"></script>
 <title>Artículos</title>
@@ -62,10 +63,22 @@
 			</div>
 		</div>
 	</form>
-	<br/>
+	<br />
+	<div class="dropdown" style="margin-left: 10%;">
+		<button class="btn btn-success dropdown-toggle" type="button"
+			id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="true">Acciones<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			<li><a href="#">Acción sobre lo seleccionado</a></li>
+			<li><a href="#">Otra acción sobre lo seleccionado</a></li>
+		</ul>
+	</div>
+	<br />
 	<table id="articulosTable" class="display" style="width:80%" >
         <thead>
             <tr>
+                <th></th>
                 <th>Id</th>
                 <th>Tipo</th>
                 <th>Código</th>
@@ -81,7 +94,8 @@
 	$(document).ready(function() {
 		
 		  $("#articulosTable").DataTable({
-				"dom" : 'lrtip',
+			   "pageLength": 50,
+			    "dom" : 'lrtip',
 				"bInfo" : false,
 			    "bLengthChange": false,
 			    "autoWidth": true,
@@ -105,7 +119,8 @@
 			 		 }
 			    },
 			    columns: [
-					{ data: "id", width: "5%" },
+					{ defaultContent: "", orderable: false, className: 'select-checkbox', width: "1%" },       
+					{ data: "id", width: "4%" },
 					{ data: "tipo", width: "10%" },
 					{ data: "codArticulo", width: "15%" },
 					{ data: "nombre", width: "40%" },
@@ -119,24 +134,24 @@
 				}
 			  });
 		
-		var selected = [];
-		$("#articulosTable tbody").on("click", "tr", function() {
-			var id = this.id;
-			var index = $.inArray(id, selected);
-			if (index === -1) { selected.push(id); } 
-			else { selected.splice(index, 1); }
-			$(this).toggleClass('selected');
-		});
-		
-		$("#btnSearch").on("click", function() {
-			// reload table => search on ajax call
-			$("#articulosTable").DataTable().ajax.reload();
-		});
-		
-		$("#btnCleanSearch").on("click", function() {
-			$(".searchPanelControl").val("");
-		});
-		// ~
+			var selected = [];
+			$("#articulosTable tbody").on("click", "tr", function() {
+				var id = this.id;
+				var index = $.inArray(id, selected);
+				if (index === -1) { selected.push(id); } 
+				else { selected.splice(index, 1); }
+				$(this).toggleClass('selected');
+			});
+			
+			$("#btnSearch").on("click", function() {
+				// reload table => search on ajax call
+				$("#articulosTable").DataTable().ajax.reload();
+			});
+			
+			$("#btnCleanSearch").on("click", function() {
+				$(".searchPanelControl").val("");
+			});
+			// ~
 	});
 	
 	function addFormDataPropertiesToJsonObject(formId, jsonObject) {
