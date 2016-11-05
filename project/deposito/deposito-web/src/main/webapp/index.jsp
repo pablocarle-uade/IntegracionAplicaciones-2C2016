@@ -43,7 +43,7 @@
 					Tests <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="#" onclick="">Generar Solicitud Articulo</a></li>
+					<li><a href="#" onclick="return generarSolicitudArticuloTest();">Generar Solicitud Articulo</a></li>
 					<li><a href="http://localhost:8080/tpads-cpr-server/GenerarRemitosAClientesService">Generar remitos a clientes</a></li>
 					<li><a href="http://localhost:8080/tpads-cpr-server/GenerarFacturasService">Generar facturas a clientes</a></li>
 				</ul>
@@ -64,5 +64,32 @@
 	  <li class="list-group-item list-group-item-info"><a href="./listarFacturas.jsp">----</a></li>
 
 	</ul>
+	
+	<script type="text/javascript">
+		generarSolicitudArticuloTest = function() {
+			if (!testData) {
+				var testData = {
+							idDespacho: "G01",
+							codArticulo: "",
+							cantidad: 5
+						};
+			}
+			
+			$.ajax({url: "./rest/articulos/test/crearSolicitudArticulo",
+					type: "post",
+					dataType: "json",
+					contentType: "application/json",
+					success: function(data) {
+						alert("creada solicitud articulo test");
+						},
+					data: JSON.stringify(testData),
+					failure: function(e) {
+						alert("error " + e);
+						}
+					}
+			);
+			return true;
+		}
+	</script>
 </body>
 </html>
