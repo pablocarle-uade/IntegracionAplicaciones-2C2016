@@ -3,8 +3,6 @@ package edu.uade.ida.deposito.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uade.ida.deposito.model.HasDTO;
-
 public class DTOUtil {
 
 	private DTOUtil() {

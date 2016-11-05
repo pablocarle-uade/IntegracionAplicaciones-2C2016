@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.util.HasDTO;
 
 @Entity
 public class Articulo implements HasDTO<ArticuloDTO> {
@@ -30,13 +31,27 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	private String urlImagen;
 	private String origen;
 	private TipoDeArticulo tipo;
+	private Integer stock;
     @ElementCollection
     @MapKeyColumn(name="nombre")
     @Column(name="valor")
     @CollectionTable(name="articulo_datosExtra", joinColumns=@JoinColumn(name="datoExtra_id"))
 	private Map<String, String> datosExtra = new HashMap<String, String>();
 
-	// TODO uom, stockCompra, stockDisponible
+	public Articulo(String codArticulo, String nombre, String descripcion, String marca, BigDecimal precio,
+			String urlImagen, String origen, TipoDeArticulo tipo, Integer stock, Map<String, String> datosExtra) {
+		super();
+		this.codArticulo = codArticulo;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.marca = marca;
+		this.precio = precio;
+		this.urlImagen = urlImagen;
+		this.origen = origen;
+		this.tipo = tipo;
+		this.stock = stock;
+		this.datosExtra = datosExtra;
+	}
 
 	public Articulo() {
 	}
@@ -156,5 +171,13 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 }

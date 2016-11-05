@@ -35,16 +35,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
-import edu.uade.ida.deposito.data.ArticuloRepository;
-import edu.uade.ida.deposito.data.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
-import edu.uade.ida.deposito.dto.SolicitudArticuloRequest;
+import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
 import edu.uade.ida.deposito.model.Articulo;
-import edu.uade.ida.deposito.model.HasDTO;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
-import edu.uade.ida.deposito.service.SolicitudArticulosMDB;
+import edu.uade.ida.deposito.repository.ArticuloRepository;
+import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
+import edu.uade.ida.deposito.service.impl.SolicitudArticulosMDB;
+import edu.uade.ida.deposito.util.HasDTO;
 import edu.uade.ida.deposito.util.Resources;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 
@@ -54,7 +54,7 @@ public class SolicitudArticuloTest {
 	@Deployment
 	public static Archive<?> createDeployment() {
 		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test2.war")
-				.addClasses(SolicitudArticulo.class, SolicitudArticuloRequest.class, SolicitudArticuloDTO.class, SolicitudArticulosMDB.class, Resources.class)
+				.addClasses(SolicitudArticulo.class, SolicitudArticuloRequestDTO.class, SolicitudArticuloDTO.class, SolicitudArticulosMDB.class, Resources.class)
 				.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource("test-ds.xml", "test-ds.xml");

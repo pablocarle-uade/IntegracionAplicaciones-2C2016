@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
+import edu.uade.ida.deposito.util.HasDTO;
 
 @Entity
 public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {

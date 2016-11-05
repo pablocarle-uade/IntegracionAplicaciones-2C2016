@@ -1,4 +1,4 @@
-package edu.uade.ida.deposito.data;
+package edu.uade.ida.deposito.repository;
 
 import java.util.List;
 

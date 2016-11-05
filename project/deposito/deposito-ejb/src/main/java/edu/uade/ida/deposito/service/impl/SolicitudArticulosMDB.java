@@ -1,4 +1,4 @@
-package edu.uade.ida.deposito.service;
+package edu.uade.ida.deposito.service.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +17,8 @@ import com.google.gson.JsonSyntaxException;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
-import edu.uade.ida.deposito.dto.SolicitudArticuloRequest;
+import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
+import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
 /**
  * Message-Driven Bean implementation class for: SolicitudArticulosMDB
@@ -51,7 +52,7 @@ public class SolicitudArticulosMDB implements MessageListener {
     	if (message instanceof TextMessage) {
     		Gson gson = new Gson();
     		try {
-				SolicitudArticuloRequest request = gson.fromJson(((TextMessage) message).getText(), SolicitudArticuloRequest.class);
+				SolicitudArticuloRequestDTO request = gson.fromJson(((TextMessage) message).getText(), SolicitudArticuloRequestDTO.class);
 				log.info("Solicitud de " + request.getCantidad() + " unidades de articulo con id " + request.getCodArticulo());
 				procesarSolicitudStock(request);
 			} catch (JsonSyntaxException | JMSException e) {
@@ -63,7 +64,7 @@ public class SolicitudArticulosMDB implements MessageListener {
     	}
     }
 
-	public void procesarSolicitudStock(SolicitudArticuloRequest request) {
+	public void procesarSolicitudStock(SolicitudArticuloRequestDTO request) {
 		try {
 			SolicitudArticuloDTO sad = sas.createSolicitudArticulo(new ArticuloDTO(request.getCodArticulo()), request.getCantidad(), request.getIdDespacho());
 			//TODO Comunicar a logistica y monitoreo

@@ -1,4 +1,4 @@
-package edu.uade.ida.deposito.data;
+package edu.uade.ida.deposito.repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +38,7 @@ public class SolicitudArticuloRepository {
 	 * @return Lista de solicitudes de articulos o lista vacia
 	 */
 	@SuppressWarnings("unchecked")
-	public List<SolicitudArticulo> getPendientesModuloArticulo(String idModulo, String codArticulo) {
+	public List<SolicitudArticulo> getPendientesPorModuloYArticulo(String idModulo, String codArticulo) {
 		List<SolicitudArticulo> retList = new ArrayList<>();
 		Query q = em.createQuery("from SolicitudArticulo where estado = '" + SolicitudArticulo.ESTADO_PENDIENTE + "' and idModuloSolicitante = :idModulo and articulo.codArticulo = :codArticulo");
 		q.setParameter("idModulo", idModulo);

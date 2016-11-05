@@ -1,4 +1,4 @@
-package edu.uade.ida.deposito.model;
+package edu.uade.ida.deposito.util;
 
 public interface HasDTO<T> {
 

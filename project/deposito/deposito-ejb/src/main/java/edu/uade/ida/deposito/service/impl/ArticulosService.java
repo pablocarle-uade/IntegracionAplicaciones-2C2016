@@ -1,4 +1,4 @@
-package edu.uade.ida.deposito.service;
+package edu.uade.ida.deposito.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,11 +8,12 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import edu.uade.ida.deposito.data.ArticuloRepository;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
+import edu.uade.ida.deposito.repository.ArticuloRepository;
+import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 import edu.uade.ida.deposito.util.DTOUtil;
 
 @Stateless

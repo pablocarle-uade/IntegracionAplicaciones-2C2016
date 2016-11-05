@@ -1,4 +1,4 @@
-package edu.uade.ida.deposito.service;
+package edu.uade.ida.deposito.service.impl;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -8,16 +8,17 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import edu.uade.ida.deposito.data.ArticuloRepository;
-import edu.uade.ida.deposito.data.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
-import edu.uade.ida.deposito.service.out.LogisticaMonitoreoServiceLocal;
-import edu.uade.ida.deposito.service.out.NivelAudit;
+import edu.uade.ida.deposito.repository.ArticuloRepository;
+import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
+import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
+import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
+import edu.uade.ida.deposito.service.integration.NivelAudit;
 import edu.uade.ida.deposito.util.DTOUtil;
 
 /**
@@ -79,7 +80,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	private SolicitudArticuloDTO createSolicitudArticulo(Articulo articuloEnt, int cantidad, String idModuloSolicitante) throws Exception {
-		List<SolicitudArticulo> pendientesModulo = sar.getPendientesModuloArticulo(idModuloSolicitante, articuloEnt.getCodArticulo());
+		List<SolicitudArticulo> pendientesModulo = sar.getPendientesPorModuloYArticulo(idModuloSolicitante, articuloEnt.getCodArticulo());
 		SolicitudArticuloDTO sad = new SolicitudArticuloDTO();
 		if (pendientesModulo.isEmpty()) {
 			SolicitudArticulo sa = new SolicitudArticulo(articuloEnt, cantidad, SolicitudArticulo.ESTADO_PENDIENTE, idModuloSolicitante);
