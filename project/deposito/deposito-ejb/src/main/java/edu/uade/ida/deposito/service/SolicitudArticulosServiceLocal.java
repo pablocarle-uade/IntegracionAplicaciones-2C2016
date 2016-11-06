@@ -42,7 +42,8 @@ public interface SolicitudArticulosServiceLocal {
 	 * TODO Definir argumentos
 	 * 
 	 * @return
+	 * @throws Exception 
 	 */
-	EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO sa, int cantidadOverride);
+	EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO sa, int cantidadOverride) throws Exception;
 	
 }

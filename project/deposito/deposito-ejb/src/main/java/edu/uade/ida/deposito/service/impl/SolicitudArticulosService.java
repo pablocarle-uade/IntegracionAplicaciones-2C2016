@@ -13,6 +13,7 @@ import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
+import edu.uade.ida.deposito.model.EntregaArticulo;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
 import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
@@ -40,7 +41,6 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	@Inject
 	private LogisticaMonitoreoServiceLocal lms;
 	
-	@SuppressWarnings("unused")
 	@Inject
 	private Logger log;
 	
@@ -92,6 +92,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			em.merge(sa);
 			sad = sa.getDTO();
 		}
+		log.info("Registrada solicitud de articulos de despacho " + idModuloSolicitante + "por " + cantidad + " de articulo " + articuloEnt.getCodArticulo());
 		lms.enviarAudit(NivelAudit.INFO, "Registrada solicitud de articulos de despacho " + idModuloSolicitante + " por " + cantidad + " de articulo " + articuloEnt.getCodArticulo());
 		return sad;
 	}
@@ -103,8 +104,43 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	@Override
-	public EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO sa, int cantidadOverride) {
-		// TODO Auto-generated method stub
-		return null;
+	public EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO sa, int cantidadEntrega) throws Exception {
+		SolicitudArticulo saEnt = em.find(SolicitudArticulo.class, sa.getIdSolicitudArticulo());
+		if (saEnt != null) {
+			if (verificaStock(saEnt.getArticulo(), cantidadEntrega)) {
+				synchronized (this) {
+					if (verificaStock(saEnt.getArticulo(), cantidadEntrega)) {
+						return crearEntregaArticulo(saEnt, cantidadEntrega);
+					} else {
+						throw new Exception("No hay stock disponible"); //TODO Mensaje excepcion
+					}
+				}
+			} else {
+				throw new Exception("No hay stock disponible"); //TODO Mensaje excepcion
+			}
+		} else {
+			throw new Exception("No se encontro solicitud de articulo con id " + sa.getIdSolicitudArticulo());
+		}
+	}
+
+	private EntregaArticuloDTO crearEntregaArticulo(SolicitudArticulo sa, int cantidadEntrega) throws Exception {
+		EntregaArticulo ea = new EntregaArticulo(sa, cantidadEntrega);
+		sa.getArticulo().setStock(sa.getArticulo().getStock() - cantidadEntrega);
+		if (sa.getArticulo().getStock() < 0)
+			throw new Exception("Stock incorrecto");
+		em.merge(sa.getArticulo());
+		em.persist(ea);
+		return ea.getDTO();
+	}
+
+	/**
+	 * Verificar existencia de stock disponible para cumplir con entrega solicitada
+	 * 
+	 * @param articulo El articulo
+	 * @param cantidadEntrega La cantidad
+	 * @return
+	 */
+	private boolean verificaStock(Articulo articulo, int cantidadEntrega) {
+		return (articulo.getStock() - cantidadEntrega) >= 0;
 	}
 }

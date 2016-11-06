@@ -53,6 +53,9 @@ public class EntregaArticulos extends HttpServlet {
 		 * TODO
 		 * Obtener lista de solicitudes que se procesan
 		 * */
+		String idSolicitudArticuloStr = request.getParameter("idSolicitudArticulo");
+		
+		
 		List<EntregaArticuloDTO> entregas = null;
 		bean.procesarEntregasArticulos(entregas);
 	}

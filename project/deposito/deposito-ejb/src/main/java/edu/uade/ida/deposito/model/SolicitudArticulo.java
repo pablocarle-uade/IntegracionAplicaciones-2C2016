@@ -2,13 +2,16 @@ package edu.uade.ida.deposito.model;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.util.HasDTO;
@@ -33,6 +36,8 @@ public class SolicitudArticulo implements HasDTO<SolicitudArticuloDTO> {
 	private int cantidad;
 	@Column(nullable=false)
 	private String idModuloSolicitante;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<EntregaArticulo> entregas;
 	
 	public SolicitudArticulo() {
 		super();
