@@ -110,7 +110,10 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			if (verificaStock(saEnt.getArticulo(), cantidadEntrega)) {
 				synchronized (this) {
 					if (verificaStock(saEnt.getArticulo(), cantidadEntrega)) {
-						return crearEntregaArticulo(saEnt, cantidadEntrega);
+						EntregaArticuloDTO entregaArticulo = crearEntregaArticulo(saEnt, cantidadEntrega);
+						//Ya que la entrega de articulo se genero correctamnete, notificamos a los sistemas que correspondan
+						notificarEntregaArticulo(entregaArticulo);
+						return entregaArticulo;
 					} else {
 						throw new Exception("No hay stock disponible"); //TODO Mensaje excepcion
 					}
@@ -121,6 +124,11 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 		} else {
 			throw new Exception("No se encontro solicitud de articulo con id " + sa.getIdSolicitudArticulo());
 		}
+	}
+
+	private void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private EntregaArticuloDTO crearEntregaArticulo(SolicitudArticulo sa, int cantidadEntrega) throws Exception {
