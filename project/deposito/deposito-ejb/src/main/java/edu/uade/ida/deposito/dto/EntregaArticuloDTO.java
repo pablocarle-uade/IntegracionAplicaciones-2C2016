@@ -18,18 +18,20 @@ public class EntregaArticuloDTO implements Serializable {
 	private int cantidadAsignada;
 	private int codArticulo;
 	private int idSolicitudArticulo;
+	private String idModuloSolicitante;
 	
 	public EntregaArticuloDTO() {
 		super();
 	}
 
-	public EntregaArticuloDTO(int idEntregaArticulo, int idArticulo, int cantidadAsignada, int codArticulo, int idSolicitudArticulo) {
+	public EntregaArticuloDTO(int idEntregaArticulo, int idArticulo, int cantidadAsignada, int codArticulo, int idSolicitudArticulo, String idModuloSolicitante) {
 		super();
 		this.idEntregaArticulo = idEntregaArticulo;
 		this.idArticulo = idArticulo;
 		this.cantidadAsignada = cantidadAsignada;
 		this.codArticulo = codArticulo;
 		this.idSolicitudArticulo = idSolicitudArticulo;
+		this.idModuloSolicitante = idModuloSolicitante;
 	}
 
 	public int getIdArticulo() {
@@ -70,5 +72,13 @@ public class EntregaArticuloDTO implements Serializable {
 
 	public void setIdEntregaArticulo(int idEntregaArticulo) {
 		this.idEntregaArticulo = idEntregaArticulo;
+	}
+
+	public String getIdModuloSolicitante() {
+		return idModuloSolicitante;
+	}
+
+	public void setIdModuloSolicitante(String idModuloSolicitante) {
+		this.idModuloSolicitante = idModuloSolicitante;
 	}
 }

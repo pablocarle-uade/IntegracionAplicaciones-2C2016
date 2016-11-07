@@ -70,6 +70,7 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 		try {
 			URL url = new URL(auditServerRestEndpointUrl);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setDoOutput(true);
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type", "application/json");
 			OutputStream os = con.getOutputStream();

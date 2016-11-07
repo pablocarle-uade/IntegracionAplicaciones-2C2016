@@ -20,15 +20,18 @@ public class EntregaArticulo implements HasDTO<EntregaArticuloDTO> {
 	private SolicitudArticulo sa;
 	@Column
 	private int cantidadEntrega;
+	@Column
+	private String idModuloSolicitante;
 	
 	public EntregaArticulo() {
 		super();
 	}
 	
-	public EntregaArticulo(SolicitudArticulo sa, int cantidadEntrega) {
+	public EntregaArticulo(SolicitudArticulo sa, int cantidadEntrega, String idModuloSolicitante) {
 		super();
 		this.sa = sa;
 		this.cantidadEntrega = cantidadEntrega;
+		this.idModuloSolicitante = idModuloSolicitante;
 	}
 	
 	public int getIdEntregaArticulo() {
@@ -53,6 +56,14 @@ public class EntregaArticulo implements HasDTO<EntregaArticuloDTO> {
 
 	public void setCantidadEntrega(int cantidadEntrega) {
 		this.cantidadEntrega = cantidadEntrega;
+	}
+	
+	public String getIdModuloSolicitante() {
+		return idModuloSolicitante;
+	}
+
+	public void setIdModuloSolicitante(String idModuloSolicitante) {
+		this.idModuloSolicitante = idModuloSolicitante;
 	}
 
 	@Override

@@ -137,7 +137,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	private EntregaArticuloDTO crearEntregaArticulo(SolicitudArticulo sa, int cantidadEntrega) throws Exception {
-		EntregaArticulo ea = new EntregaArticulo(sa, cantidadEntrega);
+		EntregaArticulo ea = new EntregaArticulo(sa, cantidadEntrega, sa.getIdModuloSolicitante());
 		sa.getArticulo().setStock(sa.getArticulo().getStock() - cantidadEntrega);
 		if (sa.getArticulo().getStock() < 0)
 			throw new Exception("Stock incorrecto");
