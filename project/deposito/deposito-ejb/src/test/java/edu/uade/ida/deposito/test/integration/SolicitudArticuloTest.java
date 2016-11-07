@@ -165,7 +165,7 @@ public class SolicitudArticuloTest {
 		a.setMarca("Marca");
 		a.setOrigen("origen");
 		a.setPrecio(new BigDecimal(50.0));
-		a.setUrlImagen("unaimagen.com");
+		a.setFoto("unaimagen.com");
 		transaction.begin();
 		em.joinTransaction();
 		em.persist(a);

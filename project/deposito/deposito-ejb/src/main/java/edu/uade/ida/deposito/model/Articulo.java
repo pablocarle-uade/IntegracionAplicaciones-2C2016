@@ -28,7 +28,7 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	private String descripcion;
 	private String marca;
 	private BigDecimal precio;
-	private String urlImagen;
+	private String foto;
 	private String origen;
 	private TipoDeArticulo tipo;
 	private Integer stock;
@@ -39,14 +39,14 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	private Map<String, String> datosExtra = new HashMap<String, String>();
 
 	public Articulo(String codArticulo, String nombre, String descripcion, String marca, BigDecimal precio,
-			String urlImagen, String origen, TipoDeArticulo tipo, Integer stock, Map<String, String> datosExtra) {
+			String foto, String origen, TipoDeArticulo tipo, Integer stock, Map<String, String> datosExtra) {
 		super();
 		this.codArticulo = codArticulo;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.marca = marca;
 		this.precio = precio;
-		this.urlImagen = urlImagen;
+		this.foto = foto;
 		this.origen = origen;
 		this.tipo = tipo;
 		this.stock = stock;
@@ -80,12 +80,12 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 		this.precio = precio;
 	}
 
-	public String getUrlImagen() {
-		return urlImagen;
+	public String getFoto() {
+		return foto;
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	public String getOrigen() {
@@ -154,7 +154,7 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	public ArticuloDTO getDTO() {
 		Map<String, String> datosExtra = this.datosExtra != null ? new HashMap<String, String>(this.datosExtra) : null;
 		return new ArticuloDTO(this.id, this.codArticulo, this.nombre, this.descripcion, this.marca, this.precio,
-				               this.urlImagen, this.origen, this.tipo.toString(), this.stock, datosExtra);
+				               this.foto, this.origen, this.tipo.toString(), this.stock, datosExtra);
 	}
 
 	public Map<String, String> getDatosExtra() {

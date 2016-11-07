@@ -11,7 +11,6 @@
 <title>Nuevo Artículo</title>
 </head>
 <body>
-	<!-- codigo, descripcion, marca, precio, urlImagen, origen, tipo -->
 	<h2>Crear nuevo artículo</h2>
 	<br>
 	<form id="articuloBasePropertiesForm">
@@ -46,8 +45,8 @@
 					<input name="origen" type="text" class="form-control" required />
 				</div>
 				<div class="input-group col s12">
-					<span class="input-group-addon">Imagen</span> 
-					<input name="urlImagen" type="text" placeholder="(link)" class="form-control" />
+					<span class="input-group-addon">Foto (link)</span> 
+					<input name="foto" type="text" class="form-control" />
 				</div>
 				<br>
 				<div class="form-group col s12">

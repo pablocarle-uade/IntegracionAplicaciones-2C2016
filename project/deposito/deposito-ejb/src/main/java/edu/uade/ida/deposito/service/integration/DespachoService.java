@@ -42,7 +42,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 
 	@Override
 	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
-		
+		log.info("Notificando a despacho sobre nuevo artículo...");
 	}
     
 	@Override

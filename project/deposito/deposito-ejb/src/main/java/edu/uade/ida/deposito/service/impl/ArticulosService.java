@@ -2,7 +2,6 @@ package edu.uade.ida.deposito.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -17,7 +16,6 @@ import edu.uade.ida.deposito.model.TipoDeArticulo;
 import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
-import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoService;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
 import edu.uade.ida.deposito.service.integration.NivelAudit;
 import edu.uade.ida.deposito.util.DTOUtil;
@@ -45,7 +43,7 @@ public class ArticulosService implements ArticulosServiceLocal {
 		log.info("Se ha solicitado crear artículo: " + dto.getCodArticulo());
         try {
         	Articulo articulo = new Articulo(dto.getCodArticulo(), dto.getNombre(), dto.getDescripcion(), dto.getMarca(),
-										 	 dto.getPrecio(), dto.getUrlImagen(), dto.getOrigen(), TipoDeArticulo.parse(dto.getTipo()),
+										 	 dto.getPrecio(), dto.getFoto(), dto.getOrigen(), TipoDeArticulo.parse(dto.getTipo()),
 										 	 dto.getStock(), dto.getDatosExtra());
         	entityManager.persist(articulo);
         	dto.setId(articulo.getId());
