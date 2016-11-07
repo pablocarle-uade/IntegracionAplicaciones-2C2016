@@ -18,6 +18,7 @@ import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
 import edu.uade.ida.deposito.service.integration.NivelAudit;
+import edu.uade.ida.deposito.service.integration.PortalServiceLocal;
 import edu.uade.ida.deposito.util.DTOUtil;
 
 @Stateless
@@ -38,6 +39,9 @@ public class ArticulosService implements ArticulosServiceLocal {
 	@Inject
 	private DespachoServiceLocal despachoService;
 	
+	@Inject
+	private PortalServiceLocal portalService;
+	
 	@Override
 	public ArticuloDTO crearArticulo(ArticuloDTO dto) {
 		log.info("Se ha solicitado crear artículo: " + dto.getCodArticulo());
@@ -51,6 +55,7 @@ public class ArticulosService implements ArticulosServiceLocal {
         	this.logisticaYMonitoreoService.enviarAudit(NivelAudit.INFO, "Registrado nuevo artículo por " + "GO1" + ", código de artículo: " + articulo.getCodArticulo());        	
         	// notificar nuevo art a despacho y portal (los dos async)
         	this.despachoService.noticarNuevoArticulo(new NotificacionNuevoArticuloDTO());
+        	this.portalService.noticarNuevoArticulo(new NotificacionNuevoArticuloDTO());
         } catch(Exception ex) {
         	this.logisticaYMonitoreoService.enviarAudit(NivelAudit.ERROR, "Registrado error al crear nuevo artículo por " + "GO1");
         	log.info("Error al crear artículo: " + ex.getMessage());

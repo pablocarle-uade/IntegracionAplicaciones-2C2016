@@ -20,6 +20,8 @@ import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 import edu.uade.ida.deposito.util.config.ConfigModulo;
+import edu.uade.ida.deposito.service.integration.core.JMSClient;
+import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 
 /**
  * Session Bean implementation class DespachoService
@@ -28,6 +30,9 @@ import edu.uade.ida.deposito.util.config.ConfigModulo;
 @LocalBean
 public class DespachoService implements DespachoServiceRemote, DespachoServiceLocal {
 
+	@Inject
+	private JMSClient jmsClient;
+	
 	@Inject
 	private LogisticaMonitoreoServiceLocal lms;
 	
@@ -41,9 +46,22 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
     	super();
     }
 
+    // Config example:
+	// JMSClientConfiguration("json_payload_here", "/jms/queue/ColaSolicitudesArticulos", "http-remoting://192.168.0.43:8080", "20000", "jmsuser", "jmsuser"); 
+
 	@Override
 	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
-		log.info("Notificando a despacho sobre nuevo artículo...");
+		log.info("Notificando a Despachos sobre nuevo artículo...");
+		// TODO consider n modules
+		// TODO Fill with data from config holder, but now this is ok to change and test connection to other modules
+		// JMSClientConfiguration config = new JMSClientConfiguration("", "destination", "providerUrl", "timeout", "user", "");
+		JMSClientConfiguration config = new JMSClientConfiguration("json_payload_here", "/jms/queue/ColaSolicitudesArticulos", 
+											"http-remoting://192.168.0.43:8080", "20000", "jmsuser", "jmsuser");
+		try {
+			jmsClient.invoke(config);
+		} catch (Exception ex) {
+			log.info("Error notificando a Despachos sobre nuevo artículo: " + ex.getMessage());
+		}
 	}
     
 	@Override
