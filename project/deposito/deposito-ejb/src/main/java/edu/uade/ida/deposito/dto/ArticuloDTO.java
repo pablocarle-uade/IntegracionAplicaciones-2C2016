@@ -17,6 +17,7 @@ public class ArticuloDTO implements Serializable {
 	private String urlImagen;
 	private String origen;
 	private String tipo;
+	private Integer stock;
 	private Map<String, String> datosExtra;
 	
 	public ArticuloDTO() {
@@ -24,7 +25,7 @@ public class ArticuloDTO implements Serializable {
 	}
 
 	public ArticuloDTO(long id, String codArticulo, String nombre, String descripcion, String marca, BigDecimal precio,
-			String urlImagen, String origen, String tipo, Map<String, String> datosExtra) {
+			String urlImagen, String origen, String tipo, Integer stock, Map<String, String> datosExtra) {
 		super();
 		this.id = id;
 		this.codArticulo = codArticulo;
@@ -35,6 +36,7 @@ public class ArticuloDTO implements Serializable {
 		this.urlImagen = urlImagen;
 		this.origen = origen;
 		this.tipo = tipo;
+		this.setStock(stock);
 		this.datosExtra = datosExtra;
 	}
 
@@ -120,5 +122,13 @@ public class ArticuloDTO implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 }

@@ -154,7 +154,7 @@ public class Articulo implements HasDTO<ArticuloDTO> {
 	public ArticuloDTO getDTO() {
 		Map<String, String> datosExtra = this.datosExtra != null ? new HashMap<String, String>(this.datosExtra) : null;
 		return new ArticuloDTO(this.id, this.codArticulo, this.nombre, this.descripcion, this.marca, this.precio,
-				               this.urlImagen, this.origen, this.tipo.toString(), datosExtra);
+				               this.urlImagen, this.origen, this.tipo.toString(), this.stock, datosExtra);
 	}
 
 	public Map<String, String> getDatosExtra() {

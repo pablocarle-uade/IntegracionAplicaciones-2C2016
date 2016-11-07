@@ -38,6 +38,10 @@
 					<input name="precio" type="number" class="form-control" required />
 				</div>
 				<div class="input-group col s12">
+					<span class="input-group-addon">Stock</span> 
+					<input name="stock" type="number" class="form-control" required />
+				</div>
+				<div class="input-group col s12">
 					<span class="input-group-addon">Origen</span> 
 					<input name="origen" type="text" class="form-control" required />
 				</div>
@@ -59,8 +63,8 @@
 			</div>
 		</div>
 	</form>
-	<form id="MODAPropertiesForm">
-		<div id="MODAPropertiesContainer" class="propertiesContainer">
+	<form id="ModaPropertiesForm">
+		<div id="ModaPropertiesContainer" class="propertiesContainer">
 			<div class="col-lg-8">
 				<div class="input-group col s12">
 					<span class="input-group-addon">Color</span> 
@@ -74,8 +78,8 @@
 			</div>
 		</div>
 	</form>
-	<form id="MUEBLEPropertiesForm">
-		<div id="MUEBLEPropertiesContainer" class="propertiesContainer">
+	<form id="MueblePropertiesForm">
+		<div id="MueblePropertiesContainer" class="propertiesContainer">
 			<div class="col-lg-8">
 				<div class="input-group col s12">
 					<span class="input-group-addon">Material</span> 
@@ -85,8 +89,8 @@
 			</div>
 		</div>
 	</form>
-	<form id="NIÑOSPropertiesForm">
-		<div id="NIÑOSPropertiesContainer" class="propertiesContainer">
+	<form id="NiñosPropertiesForm">
+		<div id="NiñosPropertiesContainer" class="propertiesContainer">
 			<div class="col-lg-8">
 				<div class="input-group col s12">
 					<span class="input-group-addon">Edad Recomendada</span> 
@@ -96,8 +100,8 @@
 			</div>
 		</div>
 	</form>
-	<form id="ELECTROPropertiesForm">
-		<div id="ELECTROPropertiesContainer" class="propertiesContainer">
+	<form id="ElectroPropertiesForm">
+		<div id="ElectroPropertiesContainer" class="propertiesContainer">
 			<div class="col-lg-8">
 				<div class="input-group col s12">
 					<span class="input-group-addon">Ficha Técnica</span>
@@ -137,7 +141,7 @@
     });
   	
   	$("#tipo").on("change", function() {
-  		loadSpecificProperties(this.value);
+  		loadSpecificProperties(getTipoDeArticulo());
     });
   	  	
   	$(".btnAddProperty").on("click", function() {
@@ -147,7 +151,7 @@
   		    		    "<br/>" +
   		    			"<div class='input-group'>" + 
   		    				"<span class='input-group-addon'>Nombre Propiedad</span>" +
-		  		    	    "<input type='text' class='form-control propertyName' placeholder='Indique nombre propiedad' /> " +
+		  		    	    "<input type='text' class='form-control propertyName' placeholder='Indique nombre propiedad' required /> " +
 		  		    	    "<span class='input-group-addon' style='border-left: 0; border-right: 0;'>Valor</span>" +
 			  				"<input type='text' class='form-control propertyValue' placeholder='Indique el valor' /> " +
 			  				"<span onclick='removeAdditionalProperty(" + maxPropertyIndex + ")' class='input-group-addon btnDeleteProperty' style='border-left: 0; border-right: 0;'>Eliminar</span>" +
@@ -187,7 +191,20 @@
 	  	addFormDataPropertiesToJsonObject(getTipoDeArticulo() + "PropertiesForm", articulo.datosExtra);
 	  	addExtraPropertiesToJsonObject(articulo.datosExtra);
 
-	  	alert("Service payload: " + JSON.stringify(articulo));  	
+	  	// alert("Service payload: " + JSON.stringify(articulo));  
+	  	
+	  	 $.ajax({
+             url: '/deposito-web/rest/articulos/crearArticulo',
+             type: 'post',
+             contentType:"application/json; charset=utf-8",
+             success: function(response) {
+                 window.location.href = "/deposito-web/jsp/articulos.jsp";
+             },
+             error: function (response) {
+                 alert("No se pudo crear el artículo" + response);
+             },
+             data: JSON.stringify(articulo)
+         });	
   }
 
   function addFormDataPropertiesToJsonObject(formId, jsonObject) {
@@ -199,7 +216,7 @@
 			if ($element.is("input") && ($element.attr("type") == "number")) {
 				elementValue = parseFloat(elementValue);
 			}
-			jsonObject[elementName] = elementValue;
+			jsonObject[elementName] = elementValue;				
 		}
   }
   
