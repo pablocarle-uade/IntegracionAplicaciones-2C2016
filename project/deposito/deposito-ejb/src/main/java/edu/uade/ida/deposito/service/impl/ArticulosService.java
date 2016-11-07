@@ -54,8 +54,12 @@ public class ArticulosService implements ArticulosServiceLocal {
         	// sync/async configurable
         	// this.logisticaYMonitoreoService.enviarAudit(NivelAudit.INFO, "Registrado nuevo artículo por " + "GO1" + ", código de artículo: " + articulo.getCodArticulo());        	
         	// notificar nuevo art a despacho y portal (los dos async)
-        	this.despachoService.noticarNuevoArticulo(new NotificacionNuevoArticuloDTO());
-        	this.portalService.noticarNuevoArticulo(new NotificacionNuevoArticuloDTO());
+			NotificacionNuevoArticuloDTO notificacionNuevoArticulo = new NotificacionNuevoArticuloDTO("GO1",
+					articulo.getCodArticulo(), articulo.getNombre(), articulo.getDescripcion(), articulo.getMarca(),
+					articulo.getPrecio(), articulo.getFoto(), articulo.getOrigen(), articulo.getTipo().toString(),
+					articulo.getDatosExtra());
+        	this.despachoService.noticarNuevoArticulo(notificacionNuevoArticulo);
+        	this.portalService.noticarNuevoArticulo(notificacionNuevoArticulo);
         } catch(Exception ex) {
         	this.logisticaYMonitoreoService.enviarAudit(NivelAudit.ERROR, "Registrado error al crear nuevo artículo por " + "GO1");
         	log.info("Error al crear artículo: " + ex.getMessage());

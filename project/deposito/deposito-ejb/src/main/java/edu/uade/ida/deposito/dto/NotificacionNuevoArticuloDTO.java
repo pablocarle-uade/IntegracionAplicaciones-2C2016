@@ -8,7 +8,7 @@ public class NotificacionNuevoArticuloDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private long idDeposito;
+	private String idDeposito;
 	private String codArticulo;
 	private String nombre;
 	private String descripcion;
@@ -22,9 +22,8 @@ public class NotificacionNuevoArticuloDTO implements Serializable {
 	public NotificacionNuevoArticuloDTO() {
 	}
 	
-	public NotificacionNuevoArticuloDTO(long idDeposito, String codArticulo, String nombre, String descripcion,
+	public NotificacionNuevoArticuloDTO(String idDeposito, String codArticulo, String nombre, String descripcion,
 			String marca, BigDecimal precio, String foto, String origen, String tipo, Map<String, String> datosExtra) {
-		super();
 		this.idDeposito = idDeposito;
 		this.codArticulo = codArticulo;
 		this.nombre = nombre;
@@ -37,10 +36,10 @@ public class NotificacionNuevoArticuloDTO implements Serializable {
 		this.datosExtra = datosExtra;
 	}
 
-	public long getIdDeposito() {
+	public String getIdDeposito() {
 		return idDeposito;
 	}
-	public void setIdDeposito(long idDeposito) {
+	public void setIdDeposito(String idDeposito) {
 		this.idDeposito = idDeposito;
 	}
 	public String getCodArticulo() {
