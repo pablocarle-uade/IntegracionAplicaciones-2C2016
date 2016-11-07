@@ -6,6 +6,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import edu.uade.ida.deposito.util.config.ConfigHolder;
+
 
 @RequestScoped
 @Path("/admin")
@@ -13,13 +15,12 @@ import javax.ws.rs.Produces;
 @Consumes("application/json")
 public class AdminController {
 
-//	@Inject
-//	private ConfigHolder config;
+//	@Inject TODO
+	private ConfigHolder config;
 	
 	@GET
 	@Path("/reloadConfig")
 	public void reloadConfig() {
-		//TODO Reload config
+		config.reloadConfig();
 	}
-	
 }

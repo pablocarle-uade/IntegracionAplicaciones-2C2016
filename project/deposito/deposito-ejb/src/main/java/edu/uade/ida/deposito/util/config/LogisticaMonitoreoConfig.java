@@ -46,4 +46,11 @@ public class LogisticaMonitoreoConfig {
 		}
 		return retList;
 	}
+
+	public boolean isAsync() {
+		if (servers != null && !servers.isEmpty()) {
+			return servers.get(0).modo.equals("async");
+		}
+		return false;
+	}
 }

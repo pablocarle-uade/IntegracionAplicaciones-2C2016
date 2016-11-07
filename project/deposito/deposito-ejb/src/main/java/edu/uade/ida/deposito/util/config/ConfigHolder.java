@@ -47,5 +47,28 @@ public class ConfigHolder {
 		}
 		return retList;
 	}
-	
+
+	public String getRESTEndpointURL(ConfigModulo logistica) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public LogisticaMonitoreoConfig getLogisticaMonitoreoConfig() {
+		return logisticaConfig;
+	}
+
+	public void reloadConfig() {
+		InputStream isDespachos = ConfigHolder.class.getClassLoader().getResourceAsStream("despacho.json");
+		InputStream isPortales = ConfigHolder.class.getClassLoader().getResourceAsStream("portales.json");
+		InputStream isLogistica = ConfigHolder.class.getClassLoader().getResourceAsStream("logistica.json");
+		
+		despachosConfig = gson.fromJson(new InputStreamReader(isDespachos), DespachosConfig.class);
+		portalesConfig = gson.fromJson(new InputStreamReader(isPortales), PortalesConfig.class);
+		logisticaConfig = gson.fromJson(new InputStreamReader(isLogistica), LogisticaMonitoreoConfig.class);
+	}
+
+	public String getRESTEndpointURL(ConfigModulo despacho, String idModuloSolicitante) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

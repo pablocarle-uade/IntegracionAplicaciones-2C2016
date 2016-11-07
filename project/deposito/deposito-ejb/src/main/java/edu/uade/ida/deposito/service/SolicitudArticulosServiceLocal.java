@@ -39,7 +39,7 @@ public interface SolicitudArticulosServiceLocal {
 	SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad);
 	
 	/**
-	 * TODO Definir argumentos
+	 * Generar entrega de articulos
 	 * 
 	 * @return
 	 * @throws Exception 

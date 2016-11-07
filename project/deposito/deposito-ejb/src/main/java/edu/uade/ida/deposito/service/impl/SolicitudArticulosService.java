@@ -64,7 +64,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	@Override
 	public void procesarEntregasArticulos(List<EntregaArticuloDTO> entregas) {
 		
-		// TODO Auto-generated method stub
+		// TODO procesarEntregasArticulos muchos
 		
 	}
 
@@ -103,7 +103,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 
 	@Override
 	public SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad) {
-		// TODO Auto-generated method stub
+		// TODO crear solicitud de compra
 		return null;
 	}
 
@@ -119,11 +119,11 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 						notificarEntregaArticulo(entregaArticulo);
 						return entregaArticulo;
 					} else {
-						throw new Exception("No hay stock disponible"); //TODO Mensaje excepcion
+						throw new Exception("No hay stock disponible de articulo " + saEnt.getArticulo() + " por " + cantidadEntrega);
 					}
 				}
 			} else {
-				throw new Exception("No hay stock disponible"); //TODO Mensaje excepcion
+				throw new Exception("No hay stock disponible de articulo " + saEnt.getArticulo() + " por " + cantidadEntrega);
 			}
 		} else {
 			throw new Exception("No se encontro solicitud de articulo con id " + sa.getIdSolicitudArticulo());

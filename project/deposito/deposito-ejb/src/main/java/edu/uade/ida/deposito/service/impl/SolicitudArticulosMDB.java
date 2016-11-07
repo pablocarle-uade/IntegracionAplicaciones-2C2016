@@ -19,6 +19,8 @@ import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
+import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
+import edu.uade.ida.deposito.service.integration.NivelAudit;
 
 /**
  * Message-Driven Bean implementation class for: SolicitudArticulosMDB
@@ -36,6 +38,9 @@ public class SolicitudArticulosMDB implements MessageListener {
 	
 	@EJB
 	private SolicitudArticulosServiceLocal sas;
+	
+	@Inject
+	private LogisticaMonitoreoServiceLocal lms;
 	
     /**
      * Default constructor. 
@@ -67,7 +72,7 @@ public class SolicitudArticulosMDB implements MessageListener {
 	public void procesarSolicitudStock(SolicitudArticuloRequestDTO request) {
 		try {
 			SolicitudArticuloDTO sad = sas.createSolicitudArticulo(new ArticuloDTO(request.getCodArticulo()), request.getCantidad(), request.getIdDespacho());
-			//TODO Comunicar a logistica y monitoreo
+			lms.enviarAudit(NivelAudit.INFO, "Generada solicitud de articulo " + sad);
 			log.info("Generada correctamente la solicitud de articulo " + sad);
 		} catch (Exception e) {
 			e.printStackTrace();

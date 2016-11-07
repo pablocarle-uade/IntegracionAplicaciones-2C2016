@@ -10,8 +10,7 @@ import javax.persistence.Query;
 import edu.uade.ida.deposito.model.Articulo;
 
 /**
- * TODO Lo creo ahora para completar el SolicitudArticulosMDB
- * despues reemplazar.
+ *	Algunas queries utiles de Articulos
  * 
  * @author pabloc
  *

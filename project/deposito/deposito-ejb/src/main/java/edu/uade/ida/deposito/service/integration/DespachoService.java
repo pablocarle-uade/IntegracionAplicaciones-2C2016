@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
+import edu.uade.ida.deposito.util.config.ConfigModulo;
 
 /**
  * Session Bean implementation class DespachoService
@@ -30,8 +31,8 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 	@Inject
 	private LogisticaMonitoreoServiceLocal lms;
 	
-//	@Inject
-//	private ConfigHolder config;
+//	@Inject TODO
+	private ConfigHolder config;
 	
 	@Inject
 	private Logger log;
@@ -48,9 +49,9 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 	@Override
 	public void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
 		// REST
-		String restEndpoint = ""; //TODO Obtener de config, segun entregaArticulo.getIdModuloSolicitante()
+		String restEndpoint = config.getRESTEndpointURL(ConfigModulo.DESPACHO, entregaArticulo.getIdModuloSolicitante());
 		try {
-			URL url = new URL("");
+			URL url = new URL(restEndpoint);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setDoOutput(true);
 			con.setRequestMethod("POST");
@@ -65,7 +66,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 			BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			if (responseCode < 200 || responseCode > 299 || !verificarRetornoDespacho(bf)) {
 				log.warning("Envio de notificación con error. Codigo " + responseCode);
-				//TODO Notificar logistica y monitoreo
+				lms.enviarAudit(NivelAudit.WARN, "No se pudo enviar notificacion a despacho de entrega de articulo " + entregaArticulo.getIdModuloSolicitante());
 			}
 			bf.close();
 		} catch (IOException e) {

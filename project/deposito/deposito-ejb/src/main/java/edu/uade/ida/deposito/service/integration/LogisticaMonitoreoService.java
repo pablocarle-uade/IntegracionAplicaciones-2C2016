@@ -19,6 +19,8 @@ import com.google.gson.Gson;
 import edu.uade.ida.deposito.dto.MensajeAuditDTO;
 import edu.uade.ida.deposito.util.EscapeUtil;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
+import edu.uade.ida.deposito.util.config.ConfigModulo;
+import edu.uade.ida.deposito.util.config.LogisticaMonitoreoConfig;
 
 /**
  * Session Bean implementation class LogisticaMonitoreoService
@@ -40,8 +42,7 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 //	@Resource(mappedName = "/ConnectionFactory")
 //	private ConnectionFactory factory;
 	
-//	@Inject
-//	private ConfigHolder config;
+	private ConfigHolder config;
 	
     public LogisticaMonitoreoService() {
     	super();
@@ -63,10 +64,11 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	}
 	
 	private void enviarAuditSync(NivelAudit nivel, String mensaje) {
-		String auditServerRestEndpointUrl = ""; //TODO Obtener config
+		String auditServerRestEndpointUrl = config.getRESTEndpointURL(ConfigModulo.LOGISTICA);
 		MensajeAuditDTO mad = buildMensaje(nivel, mensaje);
 		String body = gson.toJson(mad);
 		log.info("Enviar sync a audit [" + body + "]");
+		
 		try {
 			URL url = new URL(auditServerRestEndpointUrl);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -112,8 +114,10 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	
 	private Modo getModo() {
 		Modo modo = Modo.SYNC;
-		//TODO obtener la config
+		LogisticaMonitoreoConfig conf = config.getLogisticaMonitoreoConfig();
+		if (conf.isAsync()) {
+			modo = Modo.ASYNC;
+		}
 		return modo;
 	}
-
 }
