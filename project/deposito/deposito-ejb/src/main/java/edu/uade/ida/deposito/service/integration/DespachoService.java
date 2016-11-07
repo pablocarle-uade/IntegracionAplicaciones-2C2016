@@ -29,8 +29,8 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 	@Inject
 	private LogisticaMonitoreoServiceLocal lms;
 	
-	@Inject
-	private ConfigHolder config;
+//	@Inject
+//	private ConfigHolder config;
 	
 	@Inject
 	private Logger log;
