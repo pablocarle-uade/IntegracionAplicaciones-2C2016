@@ -15,6 +15,9 @@ import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
 import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
+import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
+import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoService;
+import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
 import edu.uade.ida.deposito.util.DTOUtil;
 
 @Stateless
@@ -24,10 +27,16 @@ public class ArticulosService implements ArticulosServiceLocal {
     private Logger log;
 	
 	@Inject
-	private EntityManager em;
+	private EntityManager entityManager;
 	
 	@Inject 
-	private ArticuloRepository ar;
+	private ArticuloRepository articuloRepository;
+	
+	@Inject
+	private LogisticaMonitoreoServiceLocal logisticaYMonitoreoService;
+	
+	@Inject
+	private DespachoServiceLocal despachoService;
 	
 	@Override
 	public ArticuloDTO crearArticulo(ArticuloDTO dto) {
@@ -36,8 +45,10 @@ public class ArticulosService implements ArticulosServiceLocal {
         	Articulo articulo = new Articulo(dto.getCodArticulo(), dto.getNombre(), dto.getDescripcion(), dto.getMarca(),
 										 	 dto.getPrecio(), dto.getUrlImagen(), dto.getOrigen(), TipoDeArticulo.parse(dto.getTipo()),
 										 	 dto.getStock(), dto.getDatosExtra());
-        	em.persist(articulo);
+        	entityManager.persist(articulo);
         	dto.setId(articulo.getId());
+        	this.logisticaYMonitoreoService.enviarAudit(null,"");
+        	this.despachoService.notificarEntregaArticulo(null);
         } catch(Exception ex) {
         	log.info("Error al crear artículo: " + ex.getMessage());
         }
@@ -46,7 +57,7 @@ public class ArticulosService implements ArticulosServiceLocal {
 	
 	@Override
 	public List<ArticuloDTO> buscarArticulos(SearchArticulosDTO searchArticulosDTO) {
-		List<Articulo> articulos = ar.findAll(); // TODO Search (criteria / hql)
+		List<Articulo> articulos = articuloRepository.findAll(); // TODO Search (criteria / hql)
 		return DTOUtil.getDTOs(articulos, ArticuloDTO.class);
 	}
 
