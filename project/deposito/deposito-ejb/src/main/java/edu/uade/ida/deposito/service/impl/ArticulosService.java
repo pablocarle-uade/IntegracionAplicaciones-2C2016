@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
@@ -18,6 +19,7 @@ import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoService;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
+import edu.uade.ida.deposito.service.integration.NivelAudit;
 import edu.uade.ida.deposito.util.DTOUtil;
 
 @Stateless
@@ -47,9 +49,12 @@ public class ArticulosService implements ArticulosServiceLocal {
 										 	 dto.getStock(), dto.getDatosExtra());
         	entityManager.persist(articulo);
         	dto.setId(articulo.getId());
-        	this.logisticaYMonitoreoService.enviarAudit(null,"");
-        	this.despachoService.notificarEntregaArticulo(null);
+        	// sync/async configurable
+        	this.logisticaYMonitoreoService.enviarAudit(NivelAudit.INFO, "Registrado nuevo artículo por " + "GO1" + ", código de artículo: " + articulo.getCodArticulo());        	
+        	// notificar nuevo art a despacho y portal (los dos async)
+        	this.despachoService.noticarNuevoArticulo(new NotificacionNuevoArticuloDTO());
         } catch(Exception ex) {
+        	this.logisticaYMonitoreoService.enviarAudit(NivelAudit.ERROR, "Registrado error al crear nuevo artículo por " + "GO1");
         	log.info("Error al crear artículo: " + ex.getMessage());
         }
         return dto;
