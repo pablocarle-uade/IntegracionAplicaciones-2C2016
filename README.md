@@ -31,6 +31,12 @@ Configurar el datasource con este nombre en la consola de administracion de wild
 
 JMS Queue: ColaSolicitudesArticulos
 
+Crearla en la consola de adm de jboss con este nombre y nombre jndi: 
+java:/jboss/exported/jms/queue/ColaSolicitudesArticulos
+
+Luego los clientes remotos podrán accederla con jndi:
+/jms/queue/ColaSolicitudesArticulos
+
 ### Salida
 
 TODO
