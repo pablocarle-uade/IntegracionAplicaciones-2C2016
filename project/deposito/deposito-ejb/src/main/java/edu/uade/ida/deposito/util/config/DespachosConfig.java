@@ -16,6 +16,7 @@ public class DespachosConfig {
 
 	public static class Server {
 		
+		private String id;
 		private RestEndpointConfig restEndpoint;
 		private JmsEndpointConfig jmsEndpoint;
 
@@ -30,6 +31,12 @@ public class DespachosConfig {
 		}
 		public void setJmsEndpoint(JmsEndpointConfig jmsEndpoint) {
 			this.jmsEndpoint = jmsEndpoint;
+		}
+		public String getId() {
+			return id;
+		}
+		public void setId(String id) {
+			this.id = id;
 		}
 	}
 }
