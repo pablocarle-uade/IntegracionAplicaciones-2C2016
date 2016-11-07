@@ -5,15 +5,13 @@ public class JMSClientConfiguration {
 	private String message;
 	private String destination;
 	private String providerUrl;
-	private String timeout; // milliseconds
 	private String user;
 	private String password;
 	
-	public JMSClientConfiguration(String message, String destination, String providerUrl, String timeout, String user, String password) {
+	public JMSClientConfiguration(String message, String destination, String providerUrl, String user, String password) {
 		this.message = message;
 		this.destination = destination;
 		this.providerUrl = providerUrl;
-		this.timeout = timeout;
 		this.user = user;
 		this.password = password;
 	}
@@ -40,14 +38,6 @@ public class JMSClientConfiguration {
 
 	public void setProviderUrl(String providerUrl) {
 		this.providerUrl = providerUrl;
-	}
-
-	public String getTimeout() {
-		return timeout;
-	}
-
-	public void setTimeout(String timeout) {
-		this.timeout = timeout;
 	}
 
 	public String getUser() {

@@ -2,6 +2,7 @@ package edu.uade.ida.deposito.util.config;
 
 public class JmsEndpointConfig {
 
+	private String providerUrl;
 	private String jmsQueue;
 	private String jmsTopic;
 	private String user;
@@ -26,5 +27,8 @@ public class JmsEndpointConfig {
 	public String getPassword() {
 		return password;
 	}
-
+	
+	public String getProviderUrl() {
+		return providerUrl;
+	}
 }

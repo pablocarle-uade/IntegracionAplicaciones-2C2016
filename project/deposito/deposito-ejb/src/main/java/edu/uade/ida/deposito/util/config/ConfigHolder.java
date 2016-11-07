@@ -5,8 +5,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Singleton;
+
 import com.google.gson.Gson;
 
+@Singleton
 public class ConfigHolder {
 	
 	private static Gson gson = new Gson();

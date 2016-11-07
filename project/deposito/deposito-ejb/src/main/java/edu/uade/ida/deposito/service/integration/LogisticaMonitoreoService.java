@@ -7,6 +7,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,9 +18,12 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 
 import edu.uade.ida.deposito.dto.MensajeAuditDTO;
+import edu.uade.ida.deposito.service.integration.core.JMSClient;
+import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 import edu.uade.ida.deposito.util.EscapeUtil;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 import edu.uade.ida.deposito.util.config.ConfigModulo;
+import edu.uade.ida.deposito.util.config.JmsEndpointConfig;
 import edu.uade.ida.deposito.util.config.LogisticaMonitoreoConfig;
 
 /**
@@ -36,12 +40,10 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	@Inject
 	private Logger log;
 	
-//	@Resource(mappedName = "java:/jms/queue/ColaSolicitudesArticulos") //TODO Obtener por contexto porque hay que levantar de config
-//	private Queue csa;
-//
-//	@Resource(mappedName = "/ConnectionFactory")
-//	private ConnectionFactory factory;
+	@Inject
+	private JMSClient jmsClient;
 	
+	@Inject
 	private ConfigHolder config;
 	
     public LogisticaMonitoreoService() {
@@ -91,19 +93,16 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	}
 	
 	private void enviarAuditAsync(NivelAudit nivel, String mensaje) {
-//		try {
-//			Connection con = factory.createConnection();
-//			Session session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
-//			con.start();
-//			MessageProducer producer = session.createProducer(csa);
-//			TextMessage tm = session.createTextMessage();
-//			tm.setText(gson.toJson(buildMensaje(nivel, mensaje)));
-//			producer.send(tm);
-//			con.close();
-//		} catch (JMSException e) {
-//			log.log(Level.WARNING, "Error enviando audit async", e);
-//			e.printStackTrace();
-//		}
+		List<JmsEndpointConfig> logisticaConf = config.getAsyncServers(ConfigModulo.LOGISTICA);
+		try {
+			for (JmsEndpointConfig logistica : logisticaConf) {
+				JMSClientConfiguration conf = new JMSClientConfiguration(mensaje, logistica.getJmsQueue(), logistica.getProviderUrl(), logistica.getUser(), logistica.getPassword());
+				jmsClient.invoke(conf);
+			}
+		} catch (Exception e) {
+			log.log(Level.WARNING, "Error al invocar", e);
+			e.printStackTrace();
+		}
 	}
 	
 	private MensajeAuditDTO buildMensaje(NivelAudit nivel, String mensaje) {

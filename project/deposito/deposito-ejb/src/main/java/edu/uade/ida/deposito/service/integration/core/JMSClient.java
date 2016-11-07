@@ -27,7 +27,7 @@ public class JMSClient { // TODO: Check maven dependencies from example if this 
             final Properties env = new Properties();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
             env.put(Context.PROVIDER_URL, config.getProviderUrl());
-            env.put("jboss.naming.client.connect.timeout", config.getTimeout());
+            env.put("jboss.naming.client.connect.timeout", String.valueOf(30 * 1000));
             namingContext = new InitialContext(env); 
             // Create connection factory from init context
             ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup("jms/RemoteConnectionFactory");

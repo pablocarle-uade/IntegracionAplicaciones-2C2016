@@ -8,6 +8,7 @@
 				method: "post"
 			},
 			jmsEndpoint: {
+				providerUrl: "",
 				jmsQueue: "",
 				jmsTopic: null,
 				user: "",
