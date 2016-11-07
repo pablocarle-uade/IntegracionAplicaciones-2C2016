@@ -55,8 +55,10 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 		// TODO consider n modules
 		// TODO Fill with data from config holder, but now this is ok to change and test connection to other modules
 		// JMSClientConfiguration config = new JMSClientConfiguration("", "destination", "providerUrl", "timeout", "user", "");
+
 		JMSClientConfiguration config = new JMSClientConfiguration("json_payload_here", "/jms/queue/ColaSolicitudesArticulos", 
 											"http-remoting://192.168.0.43:8080", "jmsuser", "jmsuser");
+
 		try {
 			jmsClient.invoke(config);
 		} catch (Exception ex) {

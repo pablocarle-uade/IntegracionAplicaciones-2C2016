@@ -1,6 +1,5 @@
 package edu.uade.ida.deposito.service.integration.core;
 
-import javax.ejb.Singleton;
 import javax.inject.Inject;
 
 import java.util.Properties;
@@ -12,7 +11,7 @@ import javax.jms.JMSContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-@Singleton
+// @Singleton
 public class JMSClient { // TODO: Check maven dependencies from example if this client fails
 	
 	@Inject
@@ -29,8 +28,10 @@ public class JMSClient { // TODO: Check maven dependencies from example if this 
             env.put(Context.PROVIDER_URL, config.getProviderUrl());
             env.put("jboss.naming.client.connect.timeout", String.valueOf(30 * 1000));
             namingContext = new InitialContext(env); 
+            // namingContext = new InitialContext(); 
             // Create connection factory from init context
             ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup("jms/RemoteConnectionFactory");
+            // ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup("java:jboss/exported/jms/RemoteConnectionFactory");
             log.info("Got ConnectionFactory");
             // Lookup destination
             Destination destination = (Destination) namingContext.lookup(config.getDestination());
@@ -42,6 +43,7 @@ public class JMSClient { // TODO: Check maven dependencies from example if this 
             log.info("Sent message " + config.getMessage());
         } catch (Exception e) {
         	log.info("JMSClient invoke failed: " + e.getMessage());
+        	e.printStackTrace();
             throw e;
         } finally {
             if (namingContext != null) { namingContext.close(); }
