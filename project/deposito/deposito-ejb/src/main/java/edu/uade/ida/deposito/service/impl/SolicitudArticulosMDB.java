@@ -31,10 +31,10 @@ import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 //		mappedName = "java:/jms/queue/ColaSolicitudesArticulos")
 @MessageDriven(
 		activationConfig = { @ActivationConfigProperty(
-				propertyName = "destination", propertyValue = "java:/jboss/exported/jms/queue/ColaSolicitudesArticulosDeposito"), @ActivationConfigProperty(
+				propertyName = "destination", propertyValue = "java:/jboss/exported/jms/queue/ColaSolicitudesArticulos"), @ActivationConfigProperty(
 				propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 		}, 
-		mappedName = "java:/jboss/exported/jms/queue/ColaSolicitudesArticulosDeposito")
+		mappedName = "java:/jboss/exported/jms/queue/ColaSolicitudesArticulos")
 public class SolicitudArticulosMDB implements MessageListener {
 
 	@Inject
