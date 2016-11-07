@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
+import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 
 /**
@@ -39,6 +40,11 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
     	super();
     }
 
+	@Override
+	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
+		
+	}
+    
 	@Override
 	public void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
 		// REST
@@ -103,4 +109,5 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 			this.procesado = procesado;
 		}
 	}
+
 }
