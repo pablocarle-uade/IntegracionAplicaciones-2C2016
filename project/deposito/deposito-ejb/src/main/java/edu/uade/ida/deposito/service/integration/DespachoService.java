@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +21,7 @@ import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 import edu.uade.ida.deposito.util.config.ConfigModulo;
+import edu.uade.ida.deposito.util.config.JmsEndpointConfig;
 import edu.uade.ida.deposito.service.integration.core.JMSClient;
 import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 
@@ -52,20 +54,30 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 	@Override
 	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
 		log.info("Notificando a Despachos sobre nuevo artículo...");
-		// TODO consider n modules
-		// TODO Fill with data from config holder, but now this is ok to change and test connection to other modules
+		List<JmsEndpointConfig> conf = config.getAsyncServers(ConfigModulo.DESPACHO);
+		
 		// JMSClientConfiguration config = new JMSClientConfiguration("", "destination", "providerUrl", "timeout", "user", "");
-
-		JMSClientConfiguration config = new JMSClientConfiguration("json_payload_here", "/jms/queue/ColaSolicitudesArticulos", 
-											"http-remoting://192.168.0.43:8080", "jmsuser", "jmsuser");
-
+		String body = buildJsonBody(notificacionNuevoArticulo);
+		
 		try {
-			jmsClient.invoke(config);
+			JMSClientConfiguration config = null;
+			for (JmsEndpointConfig jms : conf) {
+				log.info("Enviando: " + body + " a despacho " + jms.getProviderUrl());
+				config = new JMSClientConfiguration(body, jms.getJmsQueue(), 
+												jms.getProviderUrl(), jms.getUser(), jms.getPassword());
+	
+				jmsClient.invoke(config);
+			}
 		} catch (Exception ex) {
 			log.info("Error notificando a Despachos sobre nuevo artículo: " + ex.getMessage());
+			ex.printStackTrace();
 		}
 	}
     
+	private String buildJsonBody(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
+		return new Gson().toJson(notificacionNuevoArticulo);
+	}
+
 	@Override
 	public void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
 		// REST
