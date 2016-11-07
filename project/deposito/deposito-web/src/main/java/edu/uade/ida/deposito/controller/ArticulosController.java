@@ -32,6 +32,14 @@ public class ArticulosController {
 	private SolicitudArticulosServiceLocal sas;
 	
 	@POST
+	@Path("/crearArticulo")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public ArticuloDTO crearArticulo(ArticuloDTO articuloDTO) {		
+		return as.crearArticulo(articuloDTO);
+	}
+	
+	@POST
 	@Path("/search")
 	@Produces("application/json")
 	@Consumes("application/json")
