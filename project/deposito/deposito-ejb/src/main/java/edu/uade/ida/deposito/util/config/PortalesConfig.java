@@ -48,4 +48,16 @@ public class PortalesConfig {
 		}
 		return "";
 	}
+
+	/**
+	 * Devuelve el primero que encuentra
+	 * 
+	 * @return
+	 */
+	public String getRESTEndpointURL() {
+		if (servers != null && !servers.isEmpty()) {
+			return "";
+		}
+		return "";
+	}
 }

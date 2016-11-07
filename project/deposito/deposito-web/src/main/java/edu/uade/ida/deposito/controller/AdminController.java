@@ -1,6 +1,7 @@
 package edu.uade.ida.deposito.controller;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,7 +16,7 @@ import edu.uade.ida.deposito.util.config.ConfigHolder;
 @Consumes("application/json")
 public class AdminController {
 
-//	@Inject TODO
+	@Inject
 	private ConfigHolder config;
 	
 	@GET

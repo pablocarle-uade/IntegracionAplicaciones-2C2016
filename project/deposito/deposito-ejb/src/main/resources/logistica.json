@@ -8,11 +8,11 @@
 				resource: "/rest/lala"
 			},
 			asyncParams: {
-				providerUrl: "",
-				jmsQueue: "",
+				providerUrl: "unaurl",
+				jmsQueue: "unaqueue",
 				jmsTopic: null,
-				user: "",
-				password: ""
+				user: "user",
+				password: "pass"
 			}
 		}
 	]

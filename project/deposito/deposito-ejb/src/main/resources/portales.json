@@ -3,10 +3,11 @@
 		{
 			id: "G01",
 			jmsEndpoint: {
-				jmsQueue: "",
-				jmsTopic: "",
-				user: "",
-				password: ""
+				providerUrl: "anurl",
+				jmsQueue: "queue",
+				jmsTopic: null,
+				user: "user",
+				password: "pass"
 			}
 		}
 	]

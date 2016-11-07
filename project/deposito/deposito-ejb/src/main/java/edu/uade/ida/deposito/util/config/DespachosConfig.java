@@ -59,4 +59,17 @@ public class DespachosConfig {
 		}
 		return "";
 	}
+
+	/**
+	 * Devuelve el primero que encuentre
+	 * 
+	 * @return
+	 */
+	public String getRESTEndpointURL() {
+		if (servers != null && !servers.isEmpty()) {
+			RestEndpointConfig conf = servers.get(0).getRestEndpoint();
+			return conf.getUrl() + conf.getResource();
+		}
+		return "";
+	}
 }

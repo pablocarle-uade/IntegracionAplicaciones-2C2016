@@ -8,11 +8,11 @@
 				method: "post"
 			},
 			jmsEndpoint: {
-				providerUrl: "",
-				jmsQueue: "",
+				providerUrl: "providerurl",
+				jmsQueue: "queue",
 				jmsTopic: null,
-				user: "",
-				password: ""
+				user: "user",
+				password: "pass"
 			}
 		},
 		{
@@ -23,10 +23,10 @@
 				method: "post"
 			},
 			jmsEndpoint: {
-				jmsQueue: "",
+				jmsQueue: "queue",
 				jmsTopic: null,
-				user: "",
-				password: ""
+				user: "user",
+				password: "pass"
 			}
 		}
 	]

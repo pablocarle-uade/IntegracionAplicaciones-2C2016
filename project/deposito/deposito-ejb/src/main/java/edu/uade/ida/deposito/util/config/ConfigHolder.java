@@ -51,9 +51,18 @@ public class ConfigHolder {
 		return retList;
 	}
 	
-	public String getRESTEndpointURL(ConfigModulo logistica) {
+	public String getRESTEndpointURL(ConfigModulo modulo) {
 		//Devuelvo el primero que encuentro
-		return logisticaConfig.getRESTEndpointURL();
+		switch (modulo) {
+		case DESPACHO:
+			return despachosConfig.getRESTEndpointURL();
+		case LOGISTICA:
+			return logisticaConfig.getRESTEndpointURL();
+		case PORTAL:
+			return portalesConfig.getRESTEndpointURL();
+		default:
+			throw new RuntimeException("No se reconoce " + modulo);
+		}
 	}
 
 	public LogisticaMonitoreoConfig getLogisticaMonitoreoConfig() {
