@@ -1,5 +1,6 @@
 package edu.uade.ida.deposito.util.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PortalesConfig {
@@ -10,10 +11,6 @@ public class PortalesConfig {
 		return servers;
 	}
 
-	public void setServers(List<Server> servers) {
-		this.servers = servers;
-	}
-
 	public static class Server {
 		private String id;
 		private JmsEndpointConfig jmsEndpoint;
@@ -21,14 +18,24 @@ public class PortalesConfig {
 		public String getId() {
 			return id;
 		}
-		public void setId(String id) {
-			this.id = id;
-		}
 		public JmsEndpointConfig getJmsEndpoint() {
 			return jmsEndpoint;
 		}
-		public void setJmsEndpoint(JmsEndpointConfig jmsEndpoint) {
-			this.jmsEndpoint = jmsEndpoint;
+		public boolean hasAsync() {
+			// TODO Auto-generated method stub
+			return false;
 		}
+	}
+
+	public List<JmsEndpointConfig> getAsyncServers() {
+		List<JmsEndpointConfig> retList = new ArrayList<>();
+		if (servers != null) {
+			for (Server s : servers) {
+				if (s.hasAsync()) {
+					retList.add(s.getJmsEndpoint());
+				}
+			}
+		}
+		return retList;
 	}
 }

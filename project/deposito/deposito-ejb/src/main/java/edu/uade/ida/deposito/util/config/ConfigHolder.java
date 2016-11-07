@@ -1,47 +1,51 @@
 package edu.uade.ida.deposito.util.config;
 
 import java.io.InputStream;
-import java.util.Properties;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 
 public class ConfigHolder {
 	
-	public enum ConfigType {
-		DESPACHO, PORTAL, LOGISTICA;
-	}
-
 	private static Gson gson = new Gson();
 	
-	private static Properties despachosConfig;
-	private static Properties portalesConfig;
-	private static Properties logisticaConfig;
+	private static DespachosConfig despachosConfig;
+	private static PortalesConfig portalesConfig;
+	private static LogisticaMonitoreoConfig logisticaConfig;
 
 	static {
 		InputStream isDespachos = ConfigHolder.class.getClassLoader().getResourceAsStream("despacho.json");
 		InputStream isPortales = ConfigHolder.class.getClassLoader().getResourceAsStream("portales.json");
 		InputStream isLogistica = ConfigHolder.class.getClassLoader().getResourceAsStream("logistica.json");
 		
+		despachosConfig = gson.fromJson(new InputStreamReader(isDespachos), DespachosConfig.class);
+		portalesConfig = gson.fromJson(new InputStreamReader(isPortales), PortalesConfig.class);
+		logisticaConfig = gson.fromJson(new InputStreamReader(isLogistica), LogisticaMonitoreoConfig.class);
 	}
 	
 	public ConfigHolder() {
 		super();
 	}
-
-	public String getRawConfig(ConfigType type, String configName) {
-		switch (type) {
-		case DESPACHO:
-			return despachosConfig.getProperty(configName);
+	
+	public List<JmsEndpointConfig> getAsyncServers(ConfigModulo modulo) {
+		List<JmsEndpointConfig> retList = new ArrayList<>();
+		switch (modulo) {
 		case LOGISTICA:
-			return logisticaConfig.getProperty(configName);
+			retList.addAll(logisticaConfig.getAsyncServers());
+			break;
+		case DESPACHO:
+			retList.addAll(despachosConfig.getAsyncServers());
+			break;
 		case PORTAL:
-			return portalesConfig.getProperty(configName);
+			retList.addAll(portalesConfig.getAsyncServers());
+			break;
 		default:
-			throw new RuntimeException("No se reconoce tipo " + type);
+			throw new RuntimeException("no se reconoce " + modulo);
+		
 		}
+		return retList;
 	}
 	
-	public String[] getServers(ConfigType type) {
-		return null; //TODO 
-	}
 }

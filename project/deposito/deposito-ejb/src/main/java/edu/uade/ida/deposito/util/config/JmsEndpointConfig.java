@@ -15,31 +15,16 @@ public class JmsEndpointConfig {
 		return jmsQueue;
 	}
 
-	public void setJmsQueue(String jmsQueue) {
-		this.jmsQueue = jmsQueue;
-	}
-
 	public String getJmsTopic() {
 		return jmsTopic;
-	}
-
-	public void setJmsTopic(String jmsTopic) {
-		this.jmsTopic = jmsTopic;
 	}
 
 	public String getUser() {
 		return user;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
-	}
-
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }

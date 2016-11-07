@@ -1,5 +1,6 @@
 package edu.uade.ida.deposito.util.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogisticaMonitoreoConfig {
@@ -10,39 +11,39 @@ public class LogisticaMonitoreoConfig {
 		return servers;
 	}
 
-	public void setServers(List<Server> servers) {
-		this.servers = servers;
-	}
-
 	public static class Server {
 		
 		private String id;
 		private String modo;
 		private JmsEndpointConfig asyncParams;
 		private RestEndpointConfig syncParams;
+		
 		public String getId() {
 			return id;
-		}
-		public void setId(String id) {
-			this.id = id;
 		}
 		public String getModo() {
 			return modo;
 		}
-		public void setModo(String modo) {
-			this.modo = modo;
-		}
 		public JmsEndpointConfig getAsyncParams() {
 			return asyncParams;
-		}
-		public void setAsyncParams(JmsEndpointConfig asyncParams) {
-			this.asyncParams = asyncParams;
 		}
 		public RestEndpointConfig getSyncParams() {
 			return syncParams;
 		}
-		public void setSyncParams(RestEndpointConfig syncParams) {
-			this.syncParams = syncParams;
+		public boolean hasAsync() {
+			return asyncParams != null;
 		}
+	}
+
+	public List<JmsEndpointConfig> getAsyncServers() {
+		List<JmsEndpointConfig> retList = new ArrayList<>();
+		if (servers != null) {
+			for (Server s : servers) {
+				if (s.hasAsync()) {
+					retList.add(s.getAsyncParams());
+				}
+			}
+		}
+		return retList;
 	}
 }
