@@ -59,6 +59,8 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 		// JMSClientConfiguration config = new JMSClientConfiguration("", "destination", "providerUrl", "timeout", "user", "");
 		String body = buildJsonBody(notificacionNuevoArticulo);
 		
+//		JMSClientConfiguration config = new JMSClientConfiguration("json_payload_here", "/jms/queue/ColaSolicitudesArticulos", 
+//											"http-remoting://192.168.0.43:8080", "jmsuser", "jmsuser");
 		try {
 			JMSClientConfiguration config = null;
 			for (JmsEndpointConfig jms : conf) {
@@ -74,10 +76,6 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 		}
 	}
     
-	private String buildJsonBody(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
-		return new Gson().toJson(notificacionNuevoArticulo);
-	}
-
 	@Override
 	public void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
 		// REST
@@ -120,6 +118,10 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 
 	private String buildJsonBody(EntregaArticuloDTO entregaArticulo) {
 		return new Gson().toJson(entregaArticulo);
+	}
+	
+	private String buildJsonBody(NotificacionNuevoArticuloDTO notificacionNuevoArticuloDTO) {
+		return new Gson().toJson(notificacionNuevoArticuloDTO);
 	}
 	
 	private static class DespachoResponse implements Serializable {
