@@ -51,7 +51,8 @@ public class Resources {
     }
     
     @Produces
-    public ConfigHolder getConfigHolder() {
+    public ConfigHolder getConfig(InjectionPoint injectionPoint) {
+    	
     	//TODO ConfigHolder (que lea properties de config varias del server)
     	return null;
     }

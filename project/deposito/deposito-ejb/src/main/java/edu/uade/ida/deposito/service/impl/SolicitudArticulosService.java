@@ -18,6 +18,7 @@ import edu.uade.ida.deposito.model.SolicitudArticulo;
 import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
+import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
 import edu.uade.ida.deposito.service.integration.NivelAudit;
 import edu.uade.ida.deposito.util.DTOUtil;
@@ -40,6 +41,9 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	
 	@Inject
 	private LogisticaMonitoreoServiceLocal lms;
+	
+	@Inject
+	private DespachoServiceLocal dsl;
 	
 	@Inject
 	private Logger log;
@@ -127,8 +131,9 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	private void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
-		// TODO Auto-generated method stub
-		
+		log.info("Generada entrega de articulo " + entregaArticulo.getIdEntregaArticulo());
+		lms.enviarAudit(NivelAudit.INFO, "Generada entrega de articulo para articulo " + entregaArticulo.getCodArticulo() + " x " + entregaArticulo.getCantidadAsignada());
+		dsl.notificarEntregaArticulo(entregaArticulo);
 	}
 
 	private EntregaArticuloDTO crearEntregaArticulo(SolicitudArticulo sa, int cantidadEntrega) throws Exception {

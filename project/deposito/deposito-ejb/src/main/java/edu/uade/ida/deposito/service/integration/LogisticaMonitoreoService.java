@@ -40,7 +40,8 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 //	@Resource(mappedName = "/ConnectionFactory")
 //	private ConnectionFactory factory;
 	
-	ConfigHolder config; //TODO Inject
+	@Inject
+	private ConfigHolder config;
 	
     public LogisticaMonitoreoService() {
     	super();
