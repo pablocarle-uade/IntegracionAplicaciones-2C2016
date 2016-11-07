@@ -2,6 +2,7 @@ package edu.uade.ida.deposito.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -31,20 +32,15 @@ public class ArticulosService implements ArticulosServiceLocal {
 	@Override
 	public ArticuloDTO crearArticulo(ArticuloDTO dto) {
 		log.info("Se ha solicitado crear artículo: " + dto.getCodArticulo());
-        
-        final Articulo articulo = new Articulo();
-        articulo.setCodArticulo(dto.getCodArticulo());
-        articulo.setDescripcion(dto.getDescripcion());
-        articulo.setNombre(dto.getNombre());
-        articulo.setMarca(dto.getMarca());
-        articulo.setOrigen(dto.getOrigen());
-        articulo.setPrecio(dto.getPrecio());
-        articulo.setTipo(TipoDeArticulo.parse(dto.getTipo()));
-        articulo.setUrlImagen(dto.getUrlImagen());
-        articulo.setDatosExtra(dto.getDatosExtra());
-        em.persist(articulo);
-        dto.setId(articulo.getId());
-
+        try {
+        	Articulo articulo = new Articulo(dto.getCodArticulo(), dto.getNombre(), dto.getDescripcion(), dto.getMarca(),
+										 	 dto.getPrecio(), dto.getUrlImagen(), dto.getOrigen(), TipoDeArticulo.parse(dto.getTipo()),
+										 	 dto.getStock(), dto.getDatosExtra());
+        	em.persist(articulo);
+        	dto.setId(articulo.getId());
+        } catch(Exception ex) {
+        	log.info("Error al crear artículo: " + ex.getMessage());
+        }
         return dto;
 	}
 	
@@ -52,12 +48,6 @@ public class ArticulosService implements ArticulosServiceLocal {
 	public List<ArticuloDTO> buscarArticulos(SearchArticulosDTO searchArticulosDTO) {
 		List<Articulo> articulos = ar.findAll(); // TODO Search (criteria / hql)
 		return DTOUtil.getDTOs(articulos, ArticuloDTO.class);
-	}
-
-	@Override
-	public int getStockDisponible(ArticuloDTO articulo) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
