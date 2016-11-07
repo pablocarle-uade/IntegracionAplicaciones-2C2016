@@ -53,4 +53,26 @@ public class LogisticaMonitoreoConfig {
 		}
 		return false;
 	}
+
+	public String getRESTEndpointURL() {
+		if (servers != null && !servers.isEmpty()) {
+			Server s = servers.get(0);
+			RestEndpointConfig conf = s.getSyncParams();
+			return conf.getUrl() + conf.getResource();
+		}
+		return "";
+	}
+
+	public String getRESTEndpointURL(String id) {
+		if (servers != null && !servers.isEmpty()) {
+			RestEndpointConfig conf;
+			for (Server s : servers) {
+				if (s.getId().equals(id)) {
+					conf = s.getSyncParams();
+					return conf.getUrl() + conf.getResource();
+				}
+			}
+		}
+		return "";
+	}
 }

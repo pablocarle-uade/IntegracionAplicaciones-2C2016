@@ -22,8 +22,7 @@ public class PortalesConfig {
 			return jmsEndpoint;
 		}
 		public boolean hasAsync() {
-			// TODO Auto-generated method stub
-			return false;
+			return jmsEndpoint != null;
 		}
 	}
 
@@ -37,5 +36,16 @@ public class PortalesConfig {
 			}
 		}
 		return retList;
+	}
+
+	public String getRESTEndpointURL(String id) {
+		if (servers != null && !servers.isEmpty()) {
+			for (Server s : servers) {
+				if (s.getId().equals(id)) {
+					//Por ahi no hace falta porque no hay 
+				}
+			}
+		}
+		return "";
 	}
 }

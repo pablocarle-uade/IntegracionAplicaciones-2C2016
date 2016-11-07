@@ -46,4 +46,17 @@ public class DespachosConfig {
 		}
 		return retList;
 	}
+
+	public String getRESTEndpointURL(String id) {
+		if (servers != null && !servers.isEmpty()) {
+			RestEndpointConfig conf;
+			for (Server s : servers) {
+				if (s.getId().equals(id)) {
+					conf = s.getRestEndpoint();
+					return conf.getUrl() + conf.getResource();
+				}
+			}
+		}
+		return "";
+	}
 }

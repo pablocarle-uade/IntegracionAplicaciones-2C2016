@@ -47,10 +47,10 @@ public class ConfigHolder {
 		}
 		return retList;
 	}
-
+	
 	public String getRESTEndpointURL(ConfigModulo logistica) {
-		// TODO Auto-generated method stub
-		return null;
+		//Devuelvo el primero que encuentro
+		return logisticaConfig.getRESTEndpointURL();
 	}
 
 	public LogisticaMonitoreoConfig getLogisticaMonitoreoConfig() {
@@ -67,8 +67,16 @@ public class ConfigHolder {
 		logisticaConfig = gson.fromJson(new InputStreamReader(isLogistica), LogisticaMonitoreoConfig.class);
 	}
 
-	public String getRESTEndpointURL(ConfigModulo despacho, String idModuloSolicitante) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getRESTEndpointURL(ConfigModulo modulo, String id) {
+		switch (modulo) {
+		case DESPACHO:
+			return despachosConfig.getRESTEndpointURL(id);
+		case LOGISTICA:
+			return logisticaConfig.getRESTEndpointURL(id);
+		case PORTAL:
+			return portalesConfig.getRESTEndpointURL(id);
+		default:
+			throw new RuntimeException("No se reconoce modulo " + modulo);
+		}
 	}
 }
