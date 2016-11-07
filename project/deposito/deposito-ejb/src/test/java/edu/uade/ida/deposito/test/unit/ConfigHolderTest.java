@@ -56,4 +56,17 @@ public class ConfigHolderTest {
 		LogisticaMonitoreoConfig conf = config.getLogisticaMonitoreoConfig();
 		assertNotNull(conf);
 	}
+	
+	@Test
+	public void testReadJmsSettings() {
+		List<JmsEndpointConfig> c = config.getAsyncServers(ConfigModulo.PORTAL);
+		assertTrue(c != null && !c.isEmpty());
+		JmsEndpointConfig jec = c.get(0);
+		assertTrue(jec.getJmsQueue() != null && jec.getJmsQueue().length() > 0);
+		assertTrue(jec.getJmsTopic() == null || jec.getJmsTopic().length() == 0);
+		assertTrue(jec.getPassword() != null && jec.getPassword().length() > 0);
+		assertTrue(jec.getUser() != null && jec.getUser().length() > 0);
+		assertTrue(jec.getProviderUrl() != null && jec.getProviderUrl().length() > 0);
+		
+	}
 }

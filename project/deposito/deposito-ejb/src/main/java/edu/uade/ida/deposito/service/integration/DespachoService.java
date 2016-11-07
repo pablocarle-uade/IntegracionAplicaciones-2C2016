@@ -71,7 +71,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 				jmsClient.invoke(config);
 			}
 		} catch (Exception ex) {
-			log.info("Error notificando a Despachos sobre nuevo artículo: " + ex.getMessage());
+			log.log(Level.WARNING, "Error notificando a Despachos sobre nuevo artículo: " + ex.getMessage(), ex);
 			ex.printStackTrace();
 		}
 	}

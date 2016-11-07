@@ -3,11 +3,11 @@
 		{
 			id: "G01",
 			jmsEndpoint: {
-				providerUrl: "anurl",
-				jmsQueue: "queue",
+				providerUrl: "http-remoting://10.100.56.66:8080",
+				jmsQueue: "jms/queue/deposito",
 				jmsTopic: null,
-				user: "user",
-				password: "pass"
+				user: "guest",
+				password: "guest"
 			}
 		}
 	]

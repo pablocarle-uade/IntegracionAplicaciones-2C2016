@@ -1,17 +1,18 @@
 package edu.uade.ida.deposito.service.integration.core;
 
-import javax.inject.Inject;
-
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.Singleton;
+import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-// @Singleton
+@Singleton
 public class JMSClient { // TODO: Check maven dependencies from example if this client fails
 	
 	@Inject
@@ -42,7 +43,7 @@ public class JMSClient { // TODO: Check maven dependencies from example if this 
             context.createProducer().send(destination, config.getMessage());
             log.info("Sent message " + config.getMessage());
         } catch (Exception e) {
-        	log.info("JMSClient invoke failed: " + e.getMessage());
+        	log.log(Level.WARNING, "JMSClient invoke failed: " + e.getMessage(), e);
         	e.printStackTrace();
             throw e;
         } finally {
