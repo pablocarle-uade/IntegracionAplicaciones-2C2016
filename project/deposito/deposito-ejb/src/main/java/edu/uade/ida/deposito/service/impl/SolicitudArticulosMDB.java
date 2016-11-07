@@ -23,12 +23,6 @@ import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 /**
  * Message-Driven Bean implementation class for: SolicitudArticulosMDB
  */
-//@MessageDriven(
-//		activationConfig = { @ActivationConfigProperty(
-//				propertyName = "destination", propertyValue = "java:/jms/queue/ColaSolicitudesArticulos"), @ActivationConfigProperty(
-//				propertyName = "destinationType", propertyValue = "javax.jms.Queue")
-//		}, 
-//		mappedName = "java:/jms/queue/ColaSolicitudesArticulos")
 @MessageDriven(
 		activationConfig = { @ActivationConfigProperty(
 				propertyName = "destination", propertyValue = "java:/jboss/exported/jms/queue/ColaSolicitudesArticulos"), @ActivationConfigProperty(
