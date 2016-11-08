@@ -13,11 +13,14 @@ import javax.persistence.OneToMany;
 @Entity
 public class SolicitudCompra {
 	
+	public static final transient String ESTADO_SOLICITADO = "solicitado";
+	public static final transient String ESTADO_ENTREGADO = "entregado";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idSolicitudCompra;
 	@Column
-	private String estado;
+	private String estado = ESTADO_SOLICITADO;
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<SolicitudCompraItem> items;
 
@@ -42,5 +45,13 @@ public class SolicitudCompra {
 	}
 	public void setItems(List<SolicitudCompraItem> items) {
 		this.items = items;
+	}
+
+	public Articulo getArticulo(int codArticulo) {
+		for (SolicitudCompraItem item : items) {
+			if (item.getArticulo().getCodArticulo().equals(String.valueOf(codArticulo)))
+				return item.getArticulo();
+		}
+		return null;
 	}
 }

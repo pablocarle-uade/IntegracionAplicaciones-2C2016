@@ -8,6 +8,6 @@ import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 @Local
 public interface FabricaServiceLocal {
 
-	public abstract SolicitudCompraDTO crearSolicitudCompra(ArticuloDTO articulo, int cantidadSolicitada);
+	public abstract SolicitudCompraDTO crearSolicitudCompra(ArticuloDTO articulo, int cantidadSolicitada) throws Exception;
 	
 }
