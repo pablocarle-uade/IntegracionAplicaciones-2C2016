@@ -74,31 +74,30 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			throw new Exception("cantidad no puede ser menor a 0");
 		if (idModuloSolicitante == null || idModuloSolicitante.length() == 0)
 			throw new Exception("idModuloSolicitante es requerido");
-		Articulo articuloEnt = ar.getPorCodigo(articulo.getCodArticulo());
-		if (articuloEnt != null) {
-			return createSolicitudArticulo(articuloEnt, cantidad, idModuloSolicitante);
-			
+		Articulo articuloSolicitado = ar.getPorCodigo(articulo.getCodArticulo());
+		if (articuloSolicitado != null) {
+			return createSolicitudArticulo(articuloSolicitado, cantidad, idModuloSolicitante);
 		} else {
-			throw new Exception("No se encontro articulo con codigo " + articulo.getCodArticulo());
+			throw new Exception("No se encontró artículo solicitado con codigo " + articulo.getCodArticulo());
 		}
 	}
 
-	private SolicitudArticuloDTO createSolicitudArticulo(Articulo articuloEnt, int cantidad, String idModuloSolicitante) throws Exception {
-		List<SolicitudArticulo> pendientesModulo = sar.getPendientesPorModuloYArticulo(idModuloSolicitante, articuloEnt.getCodArticulo());
-		SolicitudArticuloDTO sad = new SolicitudArticuloDTO();
+	private SolicitudArticuloDTO createSolicitudArticulo(Articulo articuloSolicitado, int cantidad, String idModuloSolicitante) throws Exception {
+		List<SolicitudArticulo> pendientesModulo = sar.getPendientesPorModuloYArticulo(idModuloSolicitante, articuloSolicitado.getCodArticulo());
+		SolicitudArticuloDTO solicitudDeArticuloDTO = new SolicitudArticuloDTO();
 		if (pendientesModulo.isEmpty()) {
-			SolicitudArticulo sa = new SolicitudArticulo(articuloEnt, cantidad, SolicitudArticulo.ESTADO_PENDIENTE, idModuloSolicitante);
+			SolicitudArticulo sa = new SolicitudArticulo(articuloSolicitado, cantidad, SolicitudArticulo.ESTADO_PENDIENTE, idModuloSolicitante);
 			em.persist(sa);
-			sad.setIdSolicitudArticulo(sa.getIdSolicitudStock());
+			solicitudDeArticuloDTO.setIdSolicitudArticulo(sa.getIdSolicitudStock());
 		} else {
-			SolicitudArticulo sa = pendientesModulo.get(0); //Deberia ser uno solo ya fue
+			SolicitudArticulo sa = pendientesModulo.get(0); //Debería ser uno solo
 			sa.setCantidad(sa.getCantidad() + cantidad);
 			em.merge(sa);
-			sad = sa.getDTO();
+			solicitudDeArticuloDTO = sa.getDTO();
 		}
-		log.info("Registrada solicitud de articulos de despacho " + idModuloSolicitante + "por " + cantidad + " de articulo " + articuloEnt.getCodArticulo());
-		lms.enviarAudit(NivelAudit.INFO, "Registrada solicitud de articulos de despacho " + idModuloSolicitante + " por " + cantidad + " de articulo " + articuloEnt.getCodArticulo());
-		return sad;
+		log.info("Registrada solicitud de artículos desde despacho: " + idModuloSolicitante + "por una cantidad de " + cantidad + " de artículo " + articuloSolicitado.getCodArticulo());
+		lms.enviarAudit(NivelAudit.INFO, "Registrada solicitud de artículos de despacho " + idModuloSolicitante + " por " + cantidad + " de artículo " + articuloSolicitado.getCodArticulo());
+		return solicitudDeArticuloDTO;
 	}
 
 	@Override
@@ -108,42 +107,42 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	@Override
-	public EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO sa, int cantidadEntrega) throws Exception {
-		SolicitudArticulo saEnt = em.find(SolicitudArticulo.class, sa.getIdSolicitudArticulo());
-		if (saEnt != null) {
-			if (verificaStock(saEnt.getArticulo(), cantidadEntrega)) {
+	public EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO solicitudDeArticulo, int cantidadEntrega) throws Exception {
+		SolicitudArticulo solicitudDeArticuloAEntregar = em.find(SolicitudArticulo.class, solicitudDeArticulo.getIdSolicitudArticulo());
+		if (solicitudDeArticuloAEntregar != null) {
+			if (verificaStock(solicitudDeArticuloAEntregar.getArticulo(), cantidadEntrega)) {
 				synchronized (this) {
-					if (verificaStock(saEnt.getArticulo(), cantidadEntrega)) {
-						EntregaArticuloDTO entregaArticulo = crearEntregaArticulo(saEnt, cantidadEntrega);
-						//Ya que la entrega de articulo se genero correctamnete, notificamos a los sistemas que correspondan
+					if (verificaStock(solicitudDeArticuloAEntregar.getArticulo(), cantidadEntrega)) {
+						EntregaArticuloDTO entregaArticulo = crearEntregaArticulo(solicitudDeArticuloAEntregar, cantidadEntrega);
+						// Ya que la entrega de artículo se generó correctamnete, notificamos a los sistemas que correspondan
 						notificarEntregaArticulo(entregaArticulo);
 						return entregaArticulo;
 					} else {
-						throw new Exception("No hay stock disponible de articulo " + saEnt.getArticulo() + " por " + cantidadEntrega);
+						throw new Exception("No hay stock disponible de artículo " + solicitudDeArticuloAEntregar.getArticulo() + " por " + cantidadEntrega);
 					}
 				}
 			} else {
-				throw new Exception("No hay stock disponible de articulo " + saEnt.getArticulo() + " por " + cantidadEntrega);
+				throw new Exception("No hay stock disponible de artículo " + solicitudDeArticuloAEntregar.getArticulo() + " por " + cantidadEntrega);
 			}
 		} else {
-			throw new Exception("No se encontro solicitud de articulo con id " + sa.getIdSolicitudArticulo());
+			throw new Exception("No se encontró solicitud de artículo con id " + solicitudDeArticulo.getIdSolicitudArticulo());
 		}
 	}
 
 	private void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
-		log.info("Generada entrega de articulo " + entregaArticulo.getIdEntregaArticulo());
-		lms.enviarAudit(NivelAudit.INFO, "Generada entrega de articulo para articulo " + entregaArticulo.getCodArticulo() + " x " + entregaArticulo.getCantidadAsignada());
+		log.info("Generada entrega de artículo " + entregaArticulo.getIdEntregaArticulo());
+		lms.enviarAudit(NivelAudit.INFO, "Generada entrega de artículo para artículo " + entregaArticulo.getCodArticulo() + " x " + entregaArticulo.getCantidadAsignada());
 		dsl.notificarEntregaArticulo(entregaArticulo);
 	}
 
-	private EntregaArticuloDTO crearEntregaArticulo(SolicitudArticulo sa, int cantidadEntrega) throws Exception {
-		EntregaArticulo ea = new EntregaArticulo(sa, cantidadEntrega, sa.getIdModuloSolicitante());
-		sa.getArticulo().setStock(sa.getArticulo().getStock() - cantidadEntrega);
-		if (sa.getArticulo().getStock() < 0)
+	private EntregaArticuloDTO crearEntregaArticulo(SolicitudArticulo solicitudDeArticulo, int cantidadEntrega) throws Exception {
+		EntregaArticulo entregaDeArticulo = new EntregaArticulo(solicitudDeArticulo, cantidadEntrega, solicitudDeArticulo.getIdModuloSolicitante());
+		solicitudDeArticulo.getArticulo().setStock(solicitudDeArticulo.getArticulo().getStock() - cantidadEntrega);
+		if (solicitudDeArticulo.getArticulo().getStock() < 0)
 			throw new Exception("Stock incorrecto");
-		em.merge(sa.getArticulo());
-		em.persist(ea);
-		return ea.getDTO();
+		em.merge(solicitudDeArticulo.getArticulo());
+		em.persist(entregaDeArticulo);
+		return entregaDeArticulo.getDTO();
 	}
 
 	/**

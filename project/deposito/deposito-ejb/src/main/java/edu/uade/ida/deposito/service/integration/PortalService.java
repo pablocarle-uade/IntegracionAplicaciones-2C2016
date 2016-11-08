@@ -37,21 +37,20 @@ public class PortalService implements PortalServiceLocal, PortalServiceRemote {
 	@Override
 	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
 		log.info("Notificando a Portales sobre nuevo artículo...");
-		List<JmsEndpointConfig> conf = config.getAsyncServers(ConfigModulo.PORTAL);
+		List<JmsEndpointConfig> endpointConfigs = config.getAsyncServers(ConfigModulo.PORTAL);
 		
 		String body = buildJsonBody(notificacionNuevoArticulo);
-		
 		try {
-			JMSClientConfiguration config = null;
-			for (JmsEndpointConfig jms : conf) {
-				log.info("Enviando: " + body + " a despacho " + jms.getProviderUrl() + " en queue " + jms.getJmsQueue() + " con user " + jms.getUser() + " y pass " + jms.getPassword());
-				config = new JMSClientConfiguration(body, jms.getJmsQueue(), jms.getProviderUrl(), jms.getUser(), jms.getPassword());
-				jmsClient.invoke(config);
-				lms.enviarAudit(NivelAudit.INFO, "Notificacion enviada a portal " + jms.getProviderUrl() + " de alta de articulo " + notificacionNuevoArticulo.getCodArticulo());
+			for (JmsEndpointConfig jms : endpointConfigs) {
+				log.info("Enviando: " + body + " a portal " + jms.getProviderUrl() + " en queue " + jms.getJmsQueue() + " con user " + jms.getUser() + " y pass " + jms.getPassword());
+				JMSClientConfiguration clientConfig = new JMSClientConfiguration(body, jms.getJmsQueue(),
+						jms.getProviderUrl(), jms.getUser(), jms.getPassword());
+
+				jmsClient.invoke(clientConfig);
 			}
 		} catch (Exception e) {
-			log.log(Level.WARNING, "Error notificando a portales de nuevo articulo", e);
-			lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo articulo");
+			log.log(Level.WARNING, "Error notificando a portales de nuevo artículo", e);
+			lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo artículo");
 		}
 	}
 	

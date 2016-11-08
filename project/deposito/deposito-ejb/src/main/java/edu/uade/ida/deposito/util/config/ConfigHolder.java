@@ -14,6 +14,7 @@ public class ConfigHolder {
 	
 	private static Gson gson = new Gson();
 	
+	private static String idDeposito = "G01";
 	private static DespachosConfig despachosConfig;
 	private static PortalesConfig portalesConfig;
 	private static LogisticaMonitoreoConfig logisticaConfig;
@@ -91,4 +92,9 @@ public class ConfigHolder {
 			throw new RuntimeException("No se reconoce modulo " + modulo);
 		}
 	}
+
+	public String getIdDeposito() {
+		return idDeposito;
+	}
+
 }

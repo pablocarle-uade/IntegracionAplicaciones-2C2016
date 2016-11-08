@@ -49,31 +49,23 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
     	super();
     }
 
-    // Config example:
-	// JMSClientConfiguration("json_payload_here", "/jms/queue/ColaSolicitudesArticulos", "http-remoting://192.168.0.43:8080", "20000", "jmsuser", "jmsuser"); 
-
 	@Override
 	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
 		log.info("Notificando a Despachos sobre nuevo artículo...");
-		List<JmsEndpointConfig> conf = config.getAsyncServers(ConfigModulo.DESPACHO);
-		
-		// JMSClientConfiguration config = new JMSClientConfiguration("", "destination", "providerUrl", "timeout", "user", "");
+		List<JmsEndpointConfig> endpointConfigs = config.getAsyncServers(ConfigModulo.DESPACHO);
+		// NotificacionNuevoArticuloDTO to json
 		String body = buildJsonBody(notificacionNuevoArticulo);
-		
-//		JMSClientConfiguration config = new JMSClientConfiguration("json_payload_here", "/jms/queue/ColaSolicitudesArticulos", 
-//											"http-remoting://192.168.0.43:8080", "jmsuser", "jmsuser");
 		try {
-			JMSClientConfiguration config = null;
-			for (JmsEndpointConfig jms : conf) {
+			for (JmsEndpointConfig jms : endpointConfigs) {
 				log.info("Enviando: " + body + " a despacho " + jms.getProviderUrl());
-				config = new JMSClientConfiguration(body, jms.getJmsQueue(), 
-												jms.getProviderUrl(), jms.getUser(), jms.getPassword());
-	
-				jmsClient.invoke(config);
+				JMSClientConfiguration clientConfig = new JMSClientConfiguration(body, jms.getJmsQueue(),
+						jms.getProviderUrl(), jms.getUser(), jms.getPassword());
+
+				jmsClient.invoke(clientConfig);
 			}
-		} catch (Exception ex) {
-			log.log(Level.WARNING, "Error notificando a Despachos sobre nuevo artículo: " + ex.getMessage(), ex);
-			ex.printStackTrace();
+		} catch (Exception e) {
+			log.log(Level.WARNING, "Error notificando a despachos de nuevo artículo", e);
+			lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo artículo");
 		}
 	}
     
