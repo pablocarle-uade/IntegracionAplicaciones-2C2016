@@ -96,7 +96,8 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 		List<JmsEndpointConfig> logisticaConf = config.getAsyncServers(ConfigModulo.LOGISTICA);
 		try {
 			for (JmsEndpointConfig logistica : logisticaConf) {
-				JMSClientConfiguration conf = new JMSClientConfiguration(mensaje, logistica.getJmsQueue(), logistica.getProviderUrl(), logistica.getUser(), logistica.getPassword());
+				log.info("Enviando mensaje de auditoria con " + mensaje);
+				JMSClientConfiguration conf = new JMSClientConfiguration(nivel.toString() + " - " + mensaje, logistica.getJmsQueue(), logistica.getProviderUrl(), logistica.getUser(), logistica.getPassword());
 				jmsClient.invoke(conf);
 			}
 		} catch (Exception e) {

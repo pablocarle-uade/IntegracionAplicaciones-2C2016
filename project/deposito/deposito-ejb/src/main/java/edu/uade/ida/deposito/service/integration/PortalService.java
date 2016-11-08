@@ -46,10 +46,11 @@ public class PortalService implements PortalServiceLocal, PortalServiceRemote {
 				log.info("Enviando: " + body + " a despacho " + jms.getProviderUrl() + " en queue " + jms.getJmsQueue() + " con user " + jms.getUser() + " y pass " + jms.getPassword());
 				config = new JMSClientConfiguration(body, jms.getJmsQueue(), jms.getProviderUrl(), jms.getUser(), jms.getPassword());
 				jmsClient.invoke(config);
+				lms.enviarAudit(NivelAudit.INFO, "Notificacion enviada a portal " + jms.getProviderUrl() + " de alta de articulo " + notificacionNuevoArticulo.getCodArticulo());
 			}
-			
 		} catch (Exception e) {
 			log.log(Level.WARNING, "Error notificando a portales de nuevo articulo", e);
+			lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo articulo");
 		}
 	}
 	
