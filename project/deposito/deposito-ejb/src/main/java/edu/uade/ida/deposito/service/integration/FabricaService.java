@@ -14,7 +14,7 @@ public class FabricaService implements FabricaServiceLocal {
      * Default constructor. 
      */
     public FabricaService() {
-        // TODO Auto-generated constructor stub
+    	super();
     }
 
 }

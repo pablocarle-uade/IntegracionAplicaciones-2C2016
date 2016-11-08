@@ -1,0 +1,46 @@
+package edu.uade.ida.deposito.model;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
+public class SolicitudCompra {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int idSolicitudCompra;
+	@Column
+	private String estado;
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<SolicitudCompraItem> items;
+
+	public SolicitudCompra() {
+		super();
+	}
+	
+	public int getIdSolicitudCompra() {
+		return idSolicitudCompra;
+	}
+	public void setIdSolicitudCompra(int idSolicitudCompra) {
+		this.idSolicitudCompra = idSolicitudCompra;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public List<SolicitudCompraItem> getItems() {
+		return items;
+	}
+	public void setItems(List<SolicitudCompraItem> items) {
+		this.items = items;
+	}
+}
