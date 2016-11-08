@@ -10,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
+import edu.uade.ida.deposito.util.HasDTO;
+
 @Entity
-public class SolicitudCompra {
+public class SolicitudCompra implements HasDTO<SolicitudCompraDTO> {
 	
 	public static final transient String ESTADO_SOLICITADO = "solicitado";
 	public static final transient String ESTADO_ENTREGADO = "entregado";
@@ -52,6 +55,12 @@ public class SolicitudCompra {
 			if (item.getArticulo().getCodArticulo().equals(String.valueOf(codArticulo)))
 				return item.getArticulo();
 		}
+		return null;
+	}
+
+	@Override
+	public SolicitudCompraDTO getDTO() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
