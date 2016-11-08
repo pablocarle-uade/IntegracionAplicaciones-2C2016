@@ -57,6 +57,7 @@ public class SolicitudArticulosMDB implements MessageListener {
     	if (message instanceof TextMessage) {
     		Gson gson = new Gson();
     		try {
+    			log.info("Recibido mensaje " + ((TextMessage) message).getText());
 				SolicitudArticuloRequestDTO request = gson.fromJson(((TextMessage) message).getText(), SolicitudArticuloRequestDTO.class);
 				log.info("Solicitud de " + request.getCantidad() + " unidades de articulo con id " + request.getCodArticulo());
 				procesarSolicitudStock(request);
