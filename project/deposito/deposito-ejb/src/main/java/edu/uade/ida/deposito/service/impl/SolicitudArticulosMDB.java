@@ -20,7 +20,7 @@ import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
-import edu.uade.ida.deposito.service.integration.NivelAudit;
+import edu.uade.ida.deposito.util.NivelAudit;
 
 /**
  * Message-Driven Bean implementation class for: SolicitudArticulosMDB

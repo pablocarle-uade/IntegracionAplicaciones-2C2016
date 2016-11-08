@@ -17,9 +17,9 @@ import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
-import edu.uade.ida.deposito.service.integration.NivelAudit;
 import edu.uade.ida.deposito.service.integration.PortalServiceLocal;
 import edu.uade.ida.deposito.util.DTOUtil;
+import edu.uade.ida.deposito.util.NivelAudit;
 
 @Stateless
 public class ArticulosService implements ArticulosServiceLocal {

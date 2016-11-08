@@ -20,8 +20,8 @@ import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
-import edu.uade.ida.deposito.service.integration.NivelAudit;
 import edu.uade.ida.deposito.util.DTOUtil;
+import edu.uade.ida.deposito.util.NivelAudit;
 
 /**
  * Session Bean implementation class SolicitudArticulosMgrBean

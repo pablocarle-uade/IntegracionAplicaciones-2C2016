@@ -21,6 +21,7 @@ import edu.uade.ida.deposito.dto.MensajeAuditDTO;
 import edu.uade.ida.deposito.service.integration.core.JMSClient;
 import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 import edu.uade.ida.deposito.util.EscapeUtil;
+import edu.uade.ida.deposito.util.NivelAudit;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 import edu.uade.ida.deposito.util.config.ConfigModulo;
 import edu.uade.ida.deposito.util.config.JmsEndpointConfig;

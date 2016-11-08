@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
+import edu.uade.ida.deposito.util.NivelAudit;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 import edu.uade.ida.deposito.util.config.ConfigModulo;
 import edu.uade.ida.deposito.util.config.JmsEndpointConfig;
