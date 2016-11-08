@@ -28,6 +28,10 @@ public class JMSClient { // TODO: Check maven dependencies from example if this 
             env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
             env.put(Context.PROVIDER_URL, config.getProviderUrl());
             env.put("jboss.naming.client.connect.timeout", String.valueOf(30 * 1000));
+            
+            env.put(Context.SECURITY_PRINCIPAL, config.getUser());
+            env.put(Context.SECURITY_CREDENTIALS, config.getPassword());
+            
             namingContext = new InitialContext(env); 
             // namingContext = new InitialContext(); 
             // Create connection factory from init context

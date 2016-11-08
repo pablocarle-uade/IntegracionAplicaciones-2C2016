@@ -43,7 +43,7 @@ public class PortalService implements PortalServiceLocal, PortalServiceRemote {
 		try {
 			JMSClientConfiguration config = null;
 			for (JmsEndpointConfig jms : conf) {
-				log.info("Enviando: " + body + " a despacho " + jms.getProviderUrl());
+				log.info("Enviando: " + body + " a despacho " + jms.getProviderUrl() + " en queue " + jms.getJmsQueue() + " con user " + jms.getUser() + " y pass " + jms.getPassword());
 				config = new JMSClientConfiguration(body, jms.getJmsQueue(), jms.getProviderUrl(), jms.getUser(), jms.getPassword());
 				jmsClient.invoke(config);
 			}
