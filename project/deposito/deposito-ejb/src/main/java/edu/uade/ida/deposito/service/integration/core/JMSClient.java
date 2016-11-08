@@ -13,12 +13,11 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 @Singleton
-public class JMSClient { // TODO: Check maven dependencies from example if this client fails
+public class JMSClient {
 	
 	@Inject
 	private Logger log;
 	 
-    // "http-remoting://192.168.0.43:8080" "15000"
     public void invoke(JMSClientConfiguration config) throws Exception {
         // Context will be crated from configuration
     	Context namingContext = null;
@@ -33,10 +32,8 @@ public class JMSClient { // TODO: Check maven dependencies from example if this 
             env.put(Context.SECURITY_CREDENTIALS, config.getPassword());
             
             namingContext = new InitialContext(env); 
-            // namingContext = new InitialContext(); 
             // Create connection factory from init context
             ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup("jms/RemoteConnectionFactory");
-            // ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup("java:jboss/exported/jms/RemoteConnectionFactory");
             log.info("Got ConnectionFactory");
             // Lookup destination
             Destination destination = (Destination) namingContext.lookup(config.getDestination());
