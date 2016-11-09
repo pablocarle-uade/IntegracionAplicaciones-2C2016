@@ -11,9 +11,12 @@ import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jms.CompletionListener;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
@@ -23,6 +26,7 @@ import com.google.gson.Gson;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.RecepcionCompraDTO;
+import edu.uade.ida.deposito.dto.RecepcionCompraItemDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.SolicitudCompra;
@@ -88,20 +92,29 @@ public class FabricaService implements FabricaServiceLocal {
 
 	private void invocarRecepcionarCompra(SolicitudCompra sc) {
 		//Invocar JMS
-		RecepcionCompraDTO rcd = new RecepcionCompraDTO();
-		rcd.setIdRecepcionCompra(-1);
-		rcd.setIdSolicitudCompra(sc.getIdSolicitudCompra());
-		
-		String json = new Gson().toJson(rcd);
+		RecepcionCompraDTO dto = generarRecepcionCompra100(sc);
+		String json = new Gson().toJson(dto);
 		
 		Connection conn = null;
 		try {
 			conn = factory.createConnection();
-			Session session = conn.createSession();
+			Session session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			conn.start();
+			MessageProducer producer = session.createProducer(csa);
 			TextMessage tm = session.createTextMessage();
 			tm.setText(json);
-			
-			
+			producer.send(tm, new CompletionListener() {
+				
+				@Override
+				public void onException(Message arg0, Exception arg1) {
+					log.log(Level.WARNING, "Error en delivery de jms a fabrica", arg1);
+				}
+				
+				@Override
+				public void onCompletion(Message arg0) {
+					log.info("JMS entregado correctamente a fabrica");
+				}
+			});
 		} catch (JMSException e) {
 			log.log(Level.WARNING, "Error al simular fabrica enviando recepcion de compra", e);
 			e.printStackTrace();
@@ -113,5 +126,18 @@ public class FabricaService implements FabricaServiceLocal {
 					e.printStackTrace();
 				}
 		}
+	}
+
+	private RecepcionCompraDTO generarRecepcionCompra100(SolicitudCompra sc) {
+		RecepcionCompraDTO rcd = new RecepcionCompraDTO();
+		rcd.setIdRecepcionCompra(-1);
+		rcd.setIdSolicitudCompra(sc.getIdSolicitudCompra());
+		List<RecepcionCompraItemDTO> items = new ArrayList<>();
+		for (SolicitudCompraItem itemEnt : sc.getItems()) {
+			//En todos los casos se entrega 100%
+			items.add(new RecepcionCompraItemDTO(Integer.valueOf(itemEnt.getArticulo().getCodArticulo()), itemEnt.getCantidadSolicitada()));
+		}
+		rcd.setItems(items);
+		return rcd;
 	}
 }
