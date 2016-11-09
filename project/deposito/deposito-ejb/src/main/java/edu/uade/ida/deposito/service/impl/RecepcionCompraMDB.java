@@ -1,5 +1,7 @@
 package edu.uade.ida.deposito.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +19,8 @@ import com.google.gson.Gson;
 import edu.uade.ida.deposito.dto.RecepcionCompraDTO;
 import edu.uade.ida.deposito.dto.RecepcionCompraItemDTO;
 import edu.uade.ida.deposito.model.Articulo;
+import edu.uade.ida.deposito.model.RecepcionDeCompra;
+import edu.uade.ida.deposito.model.RecepcionDeCompraItem;
 import edu.uade.ida.deposito.model.SolicitudCompra;
 
 /**
@@ -76,19 +80,28 @@ public class RecepcionCompraMDB implements MessageListener {
 	}
 
 	private void actualizarStocks(RecepcionCompraDTO rcd, SolicitudCompra sc) {
-		//TODO Generar la solicitud de compra en BD
 		log.info("Actualizando stocks por solicitud de compra");
 		Articulo articulo = null;
+		RecepcionDeCompra recepcionCompraEntity = new RecepcionDeCompra();
+		List<RecepcionDeCompraItem> items = new ArrayList<>(rcd.getItems().size());
+		recepcionCompraEntity.setSolicitudCompra(sc);
+		recepcionCompraEntity.setItems(items);
 		
+		RecepcionDeCompraItem itemEntity = null;
 		for (RecepcionCompraItemDTO item : rcd.getItems()) {
 			articulo = sc.getArticulo(item.getCodArticulo());
 			if (articulo != null) {
+				itemEntity = new RecepcionDeCompraItem();
+				itemEntity.setArticulo(articulo);
+				itemEntity.setCantidadEntregada(item.getCantidadEntregada());
 				articulo.setStock(articulo.getStock() + item.getCantidadEntregada());
 				em.merge(articulo);
+				items.add(itemEntity);
 			} else {
 				log.warning("No se encontro el articulo con codigo " + item.getCodArticulo() + " en solicitud de compra " + sc.getIdSolicitudCompra());
 			}
 		}
+		em.persist(recepcionCompraEntity);
 		log.info("Fin actualizacion stocks por solicitud de compra");
 	}
 }
