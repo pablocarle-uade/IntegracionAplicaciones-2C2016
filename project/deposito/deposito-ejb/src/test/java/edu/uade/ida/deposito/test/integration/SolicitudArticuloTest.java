@@ -79,7 +79,7 @@ public class SolicitudArticuloTest {
 	@Inject
 	UserTransaction transaction;
 	
-	@Resource(mappedName = "java:/jms/queue/ColaSolicitudesArticulos")
+	@Resource(mappedName = "java:/jboss/exported/jms/queue/ColaSolicitudesArticulos")
 	private Queue csa;
 
 	@Resource(mappedName = "/ConnectionFactory")

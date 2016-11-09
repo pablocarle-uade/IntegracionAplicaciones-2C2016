@@ -6,14 +6,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jms.ConnectionFactory;
+import javax.jms.Queue;
 import javax.persistence.EntityManager;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
-import edu.uade.ida.deposito.dto.SolicitudCompraDTOItem;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.SolicitudCompra;
 import edu.uade.ida.deposito.model.SolicitudCompraItem;
@@ -35,6 +37,12 @@ public class FabricaService implements FabricaServiceLocal {
 	
 	@Inject
 	private EntityManager em;
+	
+	@Resource(mappedName = "java:/jboss/exported/jms/queue/RecepcionCompraQueue")
+	private Queue csa;
+
+	@Resource(mappedName = "java:/ConnectionFactory")
+	private ConnectionFactory factory;
 	
     /**
      * Default constructor. 
@@ -70,7 +78,7 @@ public class FabricaService implements FabricaServiceLocal {
 	}
 
 	private void invocarRecepcionarCompra(SolicitudCompra sc) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }

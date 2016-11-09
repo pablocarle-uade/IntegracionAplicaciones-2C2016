@@ -21,7 +21,7 @@ Configurar el datasource con este nombre en la consola de administracion de wild
 
 ### Logging
 
-
+Solo inyectar java.util.Logger en donde sea necesario
 
 ## Configuración de interfaces
 
@@ -36,6 +36,10 @@ java:/jboss/exported/jms/queue/ColaSolicitudesArticulos
 
 Luego los clientes remotos podrán accederla con jndi:
 /jms/queue/ColaSolicitudesArticulos
+
+#### Para mock fabrica
+
+JMS Queue: java:/jboss/exported/jms/queue/RecepcionCompraQueue
 
 ### Salida
 
