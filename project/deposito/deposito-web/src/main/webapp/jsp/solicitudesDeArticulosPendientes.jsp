@@ -32,11 +32,10 @@
             <tr>
                 <th></th>
                 <th>Id</th>
-                <th>Tipo</th>
-                <th>Código</th>
+                <th>Código Artículo</th>
                 <th>Nombre</th>
-                <th>Marca</th>
-                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Fecha Creación</th>
             </tr>
         </thead>
     </table>
@@ -45,47 +44,41 @@
 
 	$(document).ready(function() {
 		
-// 		  $("#solicitudesPendientesTable").DataTable({
-// 			   "pageLength": 50,
-// 			    "dom" : 'lrtip',
-// 				"bInfo" : false,
-// 			    "bLengthChange": false,
-// 			    "autoWidth": true,
-// 			    processing: true,
-// 			    "ajax": {
-// 			         url: '/deposito-web/rest/articulos/search', 
-// 			         "type": "POST",
-// 			         "contentType": "application/json",
-// 			         "bInfo" : false,
-// 			         "data": function (d) { // post search data as json
-// 			        	 var searchParams = {}
-// 			        	 addFormDataPropertiesToJsonObject("searchForm", searchParams)
-// 			        	 return JSON.stringify(searchParams);
-// 			         },
-// 		        	 dataFilter: function(data) {
-// 	 		            var result = {};
-// 	 		        	var json = $.parseJSON(data);
-// 	 		        	result.recordsTotal = data.length;
-// 	 		        	result.data = json;
-// 	 		            return JSON.stringify(result);
-// 			 		 }
-// 			    },
-// 			    rowId: 'id',
-// 			    columns: [
-// 					{ defaultContent: "", orderable: false, className: 'select-checkbox', width: "1%" },       
-// 					{ data: "id", width: "4%" },
-// 					{ data: "tipo", width: "10%" },
-// 					{ data: "codArticulo", width: "15%" },
-// 					{ data: "nombre", width: "40%" },
-// 					{ data: "marca", width: "20%" },
-// 					{ data: "precio", width: "10%", render: function (value) { return "$" + value; }  }
-// 			    ],
-// 				"rowCallback" : function(row, data) {
-// 					if ($.inArray(data.DT_RowId, selected) !== -1) {
-// 						$(row).addClass('selected');
-// 					}
-// 				}
-// 			  });
+		  $("#solicitudesPendientesTable").DataTable({
+			   "pageLength": 50,
+			    "dom" : 'lrtip',
+				"bInfo" : false,
+			    "bLengthChange": false,
+			    "autoWidth": true,
+			    processing: true,
+			    "ajax": {
+			         url: '/deposito-web/rest/solicitudDeArticulos/pendientes', 
+			         "type": "GET",
+			         "contentType": "application/json",
+			         "bInfo" : false,
+		        	 dataFilter: function(data) {
+	 		            var result = {};
+	 		        	var json = $.parseJSON(data);
+	 		        	result.recordsTotal = data.length;
+	 		        	result.data = json;
+	 		            return JSON.stringify(result);
+			 		 }
+			    },
+			    rowId: 'id',
+			    columns: [
+					{ defaultContent: "", orderable: false, className: 'select-checkbox', width: "1%" },       
+					{ data: "idSolicitudArticulo", width: "5%" },
+					{ data: "articulo.codArticulo", width: "15%" },
+					{ data: "articulo.nombre", width: "40%" },
+					{ data: "cantidad", width: "20%" },
+					{ data: "fechaCreacion", width: "20%" }
+			    ],
+				"rowCallback" : function(row, data) {
+					if ($.inArray(data.DT_RowId, selected) !== -1) {
+						$(row).addClass('selected');
+					}
+				}
+			  });
 		
 			var selected = [];
 			$("#solicitudesPendientesTable tbody").on("click", "tr", function() {
