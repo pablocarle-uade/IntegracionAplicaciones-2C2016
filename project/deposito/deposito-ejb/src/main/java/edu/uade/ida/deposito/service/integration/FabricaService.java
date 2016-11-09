@@ -90,6 +90,11 @@ public class FabricaService implements FabricaServiceLocal {
 		return sc.getDTO();
 	}
 
+	/**
+	 * Simula la fabrica invocando la queue de recepcion de compras
+	 * 
+	 * @param sc La solicitud de compra original
+	 */
 	private void invocarRecepcionarCompra(SolicitudCompra sc) {
 		//Invocar JMS
 		RecepcionCompraDTO dto = generarRecepcionCompra100(sc);

@@ -40,7 +40,6 @@ import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
-import edu.uade.ida.deposito.model.TipoDeArticulo;
 import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.service.impl.SolicitudArticulosMDB;

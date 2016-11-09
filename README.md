@@ -43,4 +43,10 @@ JMS Queue: java:/jboss/exported/jms/queue/RecepcionCompraQueue
 
 ### Salida
 
-TODO
+Utilizar configuracion:
+
+```
+deposito.json
+portales.json
+logistica.json
+```
