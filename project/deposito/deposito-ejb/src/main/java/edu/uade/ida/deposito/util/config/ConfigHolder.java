@@ -52,6 +52,12 @@ public class ConfigHolder {
 		return retList;
 	}
 	
+	/**
+	 * Devuelve el primer endpoint REST que encuentre para el modulo
+	 * 
+	 * @param modulo El modulo
+	 * @return REST Endpoint o cadena vacia
+	 */
 	public String getRESTEndpointURL(ConfigModulo modulo) {
 		//Devuelvo el primero que encuentro
 		switch (modulo) {
@@ -80,6 +86,14 @@ public class ConfigHolder {
 		logisticaConfig = gson.fromJson(new InputStreamReader(isLogistica), LogisticaMonitoreoConfig.class);
 	}
 
+	/**
+	 * Devuelve el rest endpoint (http://host:port/resource) del modulo
+	 * y equipo solicitado
+	 * 
+	 * @param modulo El modulo
+	 * @param id El id del equipo
+	 * @return rest endpoint o cadena vacia
+	 */
 	public String getRESTEndpointURL(ConfigModulo modulo, String id) {
 		switch (modulo) {
 		case DESPACHO:

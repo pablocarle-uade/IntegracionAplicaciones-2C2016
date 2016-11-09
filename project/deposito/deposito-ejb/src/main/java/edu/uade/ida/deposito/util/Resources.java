@@ -23,6 +23,9 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * This class uses CDI to alias Java EE resources, such as the persistence context, to CDI beans
  * 
@@ -46,5 +49,10 @@ public class Resources {
     @Produces
     public Logger produceLog(InjectionPoint injectionPoint) {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+    }
+    
+    @Produces
+    public Gson produceGson() {
+    	return new GsonBuilder().create();
     }
 }

@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
 import javax.jms.Queue;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.persistence.EntityManager;
 
 import com.google.gson.Gson;
@@ -89,7 +94,24 @@ public class FabricaService implements FabricaServiceLocal {
 		
 		String json = new Gson().toJson(rcd);
 		
-		
-		
+		Connection conn = null;
+		try {
+			conn = factory.createConnection();
+			Session session = conn.createSession();
+			TextMessage tm = session.createTextMessage();
+			tm.setText(json);
+			
+			
+		} catch (JMSException e) {
+			log.log(Level.WARNING, "Error al simular fabrica enviando recepcion de compra", e);
+			e.printStackTrace();
+		} finally {
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (JMSException e) {
+					e.printStackTrace();
+				}
+		}
 	}
 }
