@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
 /**
  * Servlet implementation class GenerarEntregaArticulos
  */
-public class GenerarEntregaArticulos {
+public class GenerarEntregaArticulos extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private SolicitudArticulosServiceLocal bean;
@@ -36,6 +36,7 @@ public class GenerarEntregaArticulos {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener los articulos pendientes de entrega
+		System.out.println("GenerarEntregaArticulos!!!!");
 		getArticulosPendienteEntrega(request, response);
 	}
 
@@ -61,7 +62,7 @@ public class GenerarEntregaArticulos {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("solicitudesPendientes", solicitudesPendientes);
 		request.setAttribute("solicitudesPendientes", solicitudesPendientes);
-		request.getRequestDispatcher("/jsp/entregaArticulos.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/generarEntregaArticulos.jsp").forward(request, response);
 	}
 	
 	private static class SolicitudArticuloComparator implements Comparator<SolicitudArticuloDTO> {

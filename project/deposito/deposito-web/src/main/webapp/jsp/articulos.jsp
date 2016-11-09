@@ -69,8 +69,7 @@
 			aria-expanded="true">Acciones<span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			<li><a id="actionOnItems" href="#">Acción sobre lo seleccionado</a></li>
-			<li><a href="#">Otra acción sobre lo seleccionado</a></li>
+			<li><a id="cmdModificarStockDeArticulos" href="#">Modificar Stock de Artículos</a></li>
 		</ul>
 	</div>
 	<br />
@@ -151,9 +150,9 @@
 			$("#btnCleanSearch").on("click", function() {
 				$(".searchPanelControl").val("");
 			});
-			
-			$("#actionOnItems").on("click", function() {
-				alert("Action on items => " + selected.toString());
+
+			$("#cmdModificarStockDeArticulos").on("click", function() {
+				alert("Requested modificar stock artículos on items => " + selected.toString());
 			});
 			// ~
 	});

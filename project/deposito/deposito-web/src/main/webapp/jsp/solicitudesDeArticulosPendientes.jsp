@@ -22,8 +22,8 @@
 			aria-expanded="true">Acciones<span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			<li><a id="actionOnItems" href="#">Acción sobre lo seleccionado</a></li>
-			<li><a href="#">Otra acción sobre lo seleccionado</a></li>
+			<li><a id="cmdCrearSolicitudDeCompra" href="#">Crear Solicitud de Compra</a></li>
+			<li><a id="cmdGenerarEntregaDeArticulos" href="#">Generar Entrega de Artículos</a></li>
 		</ul>
 	</div>
 	<br />
@@ -65,7 +65,7 @@
 	 		            return JSON.stringify(result);
 			 		 }
 			    },
-			    rowId: 'id',
+			    rowId: 'idSolicitudArticulo',
 			    columns: [
 					{ defaultContent: "", orderable: false, className: 'select-checkbox', width: "1%" },       
 					{ data: "idSolicitudArticulo", width: "5%" },
@@ -77,24 +77,25 @@
 					// { data: "fechaCreacion", width: "20%" }
 			    ],
 				"rowCallback" : function(row, data) {
-					if ($.inArray(data.DT_RowId, selected) !== -1) {
+					if ($.inArray(data.DT_RowId, selectedSP) !== -1) {
 						$(row).addClass('selected');
 					}
 				}
 			  });
 		
-			var selected = [];
+			var selectedSP = [];
 			$("#solicitudesPendientesTable tbody").on("click", "tr", function() {
 				var id = this.id;
-				var index = $.inArray(id, selected);
-				if (index === -1) { selected.push(id); } 
-				else { selected.splice(index, 1); }
+				var index = $.inArray(id, selectedSP);
+				if (index === -1) { selectedSP.push(id); } 
+				else { selectedSP.splice(index, 1); }
 				$(this).toggleClass('selected');
 			});
 			
-			$("#actionOnItems").on("click", function() {
-				alert("Action on items => " + selected.toString());
-			});
+			$("#cmdGenerarEntregaDeArticulos").on("click", function() {
+				alert("Requested generar entrega de artículos on items => " + selectedSP.toString());
+				 window.location.href = "/deposito-web/GenerarEntregaArticulos" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+			})
 			// ~
 	});
 	
