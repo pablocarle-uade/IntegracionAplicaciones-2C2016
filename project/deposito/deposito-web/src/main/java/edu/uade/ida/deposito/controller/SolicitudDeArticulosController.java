@@ -27,9 +27,7 @@ public class SolicitudDeArticulosController {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public List<SolicitudArticuloDTO> getSolicitudesPendientes() {		
-		List<SolicitudArticuloDTO> solicitudesPendientes = this.sas.getSolicitudesStockPendientes();
-		
-		return null;
+		return this.sas.getSolicitudesStockPendientes();
 	}
 	
 }

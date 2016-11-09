@@ -34,7 +34,8 @@
                 <th>Id</th>
                 <th>Código Artículo</th>
                 <th>Nombre</th>
-                <th>Cantidad</th>
+                <th>Stock actual</th>
+                <th>Stock solicitado</th>
                 <th>Fecha Creación</th>
             </tr>
         </thead>
@@ -70,8 +71,10 @@
 					{ data: "idSolicitudArticulo", width: "5%" },
 					{ data: "articulo.codArticulo", width: "15%" },
 					{ data: "articulo.nombre", width: "40%" },
-					{ data: "cantidad", width: "20%" },
-					{ data: "fechaCreacion", width: "20%" }
+					{ data: "articulo.stock", width: "10%" },
+					{ data: "cantidad", width: "10%" },
+					{ defaultContent: getCurrentDate(), width: "20%" }
+					// { data: "fechaCreacion", width: "20%" }
 			    ],
 				"rowCallback" : function(row, data) {
 					if ($.inArray(data.DT_RowId, selected) !== -1) {
@@ -94,6 +97,14 @@
 			});
 			// ~
 	});
+	
+	function getCurrentDate() {
+		var date = new Date();
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
+		return day + "/" + month + "/" + year;
+	}
 	
 </script>
 
