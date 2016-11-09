@@ -14,7 +14,6 @@
 <title>Artículos</title>
 </head>
 <body>
-	<!-- Search panel with basic properties HERE background: #D3D3D3; -->
 	<h2>Artículos</h2>
 	<form id="searchForm">
 		<div style="padding: 10px;border: 5px solid gray;margin: 0;" >
