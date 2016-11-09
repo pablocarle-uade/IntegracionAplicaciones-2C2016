@@ -76,6 +76,7 @@ public class RecepcionCompraMDB implements MessageListener {
 	}
 
 	private void actualizarStocks(RecepcionCompraDTO rcd, SolicitudCompra sc) {
+		//TODO Generar la solicitud de compra en BD
 		log.info("Actualizando stocks por solicitud de compra");
 		Articulo articulo = null;
 		

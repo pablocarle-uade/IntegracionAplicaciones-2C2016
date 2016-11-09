@@ -14,7 +14,10 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
 import javax.persistence.EntityManager;
 
+import com.google.gson.Gson;
+
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.RecepcionCompraDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.SolicitudCompra;
@@ -73,11 +76,19 @@ public class FabricaService implements FabricaServiceLocal {
 			item = new SolicitudCompraItem(sc, art, entry.getValue());
 			items.add(item);
 		}
+		em.persist(sc);
 		invocarRecepcionarCompra(sc);
 		return sc.getDTO();
 	}
 
 	private void invocarRecepcionarCompra(SolicitudCompra sc) {
+		//Invocar JMS
+		RecepcionCompraDTO rcd = new RecepcionCompraDTO();
+		rcd.setIdRecepcionCompra(-1);
+		rcd.setIdSolicitudCompra(sc.getIdSolicitudCompra());
+		
+		String json = new Gson().toJson(rcd);
+		
 		
 		
 	}
