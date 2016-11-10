@@ -57,7 +57,7 @@ public class EntregaArticulos extends HttpServlet {
 		
 		
 		List<EntregaArticuloDTO> entregas = null;
-		bean.procesarEntregasArticulos(entregas);
+		// bean.procesarEntregasArticulos(entregas);
 	}
 
 	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
