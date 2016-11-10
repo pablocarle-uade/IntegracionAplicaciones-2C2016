@@ -168,7 +168,6 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 		solicitudDeArticulo.getArticulo().setStock(solicitudDeArticulo.getArticulo().getStock() - cantidadEntrega);
 		if (solicitudDeArticulo.getArticulo().getStock() < 0)
 			throw new Exception("Stock incorrecto");
-		//TODO Actualizar estado de la solicitud de articulo
 		solicitudDeArticulo.setEstado(SolicitudArticulo.ESTADO_ENTREGADO);
 		em.merge(solicitudDeArticulo);
 		em.merge(solicitudDeArticulo.getArticulo());
