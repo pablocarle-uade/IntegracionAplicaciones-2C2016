@@ -103,28 +103,32 @@
 						 var cantidadAEntregar = $("#" + idSolicitudArticulo + " .contidadAEntregarValueHolder").val();
 						 if (includeItem) {
 							 itemEntregaArticulos.idSolicitudArticulo = idSolicitudArticulo;
-							 itemEntregaArticulos.cantidadAEntregar = cantidadAEntregar;
+							 itemEntregaArticulos.cantidad = cantidadAEntregar;
 							 entregaDeArticulosRequest.push(itemEntregaArticulos);
 						 }
 					 });
 					 alert(JSON.stringify(entregaDeArticulosRequest));
+					 doProcess(entregaDeArticulosRequest);
 				});
 				
 			});
 			
-		    function addFormDataPropertiesToJsonObject(formId, jsonObject) {
-				var formData = $("#" + formId).serializeArray();
-				var i;
-				for(i = 0; i < formData.length; i++) {
-					var elementName = formData[i].name;
-					var elementValue = formData[i].value;
-					var $element = $("#" + formId + " [name='" + elementName + "']");
-					if ($element.is("input") && ($element.attr("type") == "number")) {
-						elementValue = parseFloat(elementValue);
-					}
-					jsonObject[elementName] = elementValue;
-				}
-		    }			
+			function doProcess(entregaDeArticulosRequest) {
+				$.ajax({
+		             url: '/deposito-web/rest/entregaDeArticulos/procesarEntrega',
+		             type: 'post',
+		             contentType:"application/json; charset=utf-8",
+		             success: function(response) {
+		            	 alert("success!! !!");
+		                 // window.location.href = "";
+		             },
+		             error: function (response) {
+		                 alert("No se pudo procesar entrega de artículos" + response);
+		             },
+		             data: JSON.stringify(entregaDeArticulosRequest)
+		         });					
+			}
+					
 			//]]>
 		</script>
 	</body>
