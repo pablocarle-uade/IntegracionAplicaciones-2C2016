@@ -9,9 +9,9 @@
 <link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css" />
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
+<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script src="../resources/js/bootstrap.min.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
 <title>Artículos</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
 				<div class="col-sm-3">
 					<div class="input-group">
 						<span class="input-group-btn">
-							<button class="btn btn-sm" type="button">Cód. Artículo: #Código1</button>
+							<button class="btn btn-sm" type="button">Cód. Artículo</button>
 						</span> 
 						<input name="codArticulo" type="text" class="form-control input-sm searchPanelControl">
 					</div>
@@ -170,6 +170,7 @@
 			jsonObject[elementName] = elementValue;
 		}
 	}
+
 </script>
 
 </body>

@@ -27,7 +27,7 @@
 	<h1 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Generar Entrega de Artículos</h1>
 	
 	<div style="padding:5px;border:5px solid green;margin:0;overflow: auto;">
-	<form name="solicitudArticulosForm" id="solicitudArticulosForm" action="/EntregaArticulos" method="post">		
+	<form id="entregaDeArticulosRequestForm">		
 		<jsp:scriptlet>
 			<![CDATA[
 				List<SolicitudArticuloDTO> solicitudesPendientes = (List<SolicitudArticuloDTO>)request.getAttribute("solicitudesPendientes");
@@ -60,8 +60,9 @@
 								</div>
 								<div class="col-md-2">
 									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad a Entregar</span>
-									<input type="text" class="form-control propertyValue" value="7"></input>
+									<input name="cantidadAEntregar" type="text" class="form-control propertyValue" value="7"></input>
 								</div>
+								<input type="hidden" name="idSolicitud" value="#33q334" readonly="true"></input>
 								<div class="col-md-1">
 									<input type="checkbox">Incluir</input>
 								</div>
@@ -79,11 +80,35 @@
 		
 		<div class="col-lg-12">
 			<br/>
-			<input type="submit" name="submitBtn" title="Entregar Artículos" value="Entregar Artículos" />
+			<button id="btnEntregaDeArticulosSubmit" class="btn-primary waves-effect waves-light btn" type="button">Entregar Artículos</button>
 		</div>	
 		
-		<script language="javascript" type="text/javascript" >
-
+		<script type="text/javascript" >
+			//<![CDATA[
+		
+			$(document).ready(function() {
+				$("#btnEntregaDeArticulosSubmit").on("click", function() {
+					 var entregaDeArticulosRequest = {};
+			    	 addFormDataPropertiesToJsonObject("entregaDeArticulosRequestForm", entregaDeArticulosRequest);
+			    	 alert(JSON.stringify(entregaDeArticulosRequest));
+				});
+				
+			});
+			
+		    function addFormDataPropertiesToJsonObject(formId, jsonObject) {
+				var formData = $("#" + formId).serializeArray();
+				var i;
+				for(i = 0; i < formData.length; i++) {
+					var elementName = formData[i].name;
+					var elementValue = formData[i].value;
+					var $element = $("#" + formId + " [name='" + elementName + "']");
+					if ($element.is("input") && ($element.attr("type") == "number")) {
+						elementValue = parseFloat(elementValue);
+					}
+					jsonObject[elementName] = elementValue;
+				}
+		    }			
+			//]]>
 		</script>
 	</body>
 	</html>

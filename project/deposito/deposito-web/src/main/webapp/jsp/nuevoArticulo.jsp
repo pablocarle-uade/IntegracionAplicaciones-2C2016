@@ -205,7 +205,15 @@
          });	
   }
 
-  function addFormDataPropertiesToJsonObject(formId, jsonObject) {
+	function addExtraPropertiesToJsonObject(jsonObject) {
+		$(".extraPropertyContainer").each(function() {
+			var propertyName = $("#" + $(this).attr("id") + " .propertyName").val();
+			var propertyValue = $("#" + $(this).attr("id") + " .propertyValue").val();
+			jsonObject[propertyName] = propertyValue;
+		});
+	}
+  
+    function addFormDataPropertiesToJsonObject(formId, jsonObject) {
 		var formData = $("#" + formId).serializeArray();
 		for (i = 0; i < formData.length; i++) {
 			var elementName = formData[i].name;
@@ -214,18 +222,9 @@
 			if ($element.is("input") && ($element.attr("type") == "number")) {
 				elementValue = parseFloat(elementValue);
 			}
-			jsonObject[elementName] = elementValue;				
+			jsonObject[elementName] = elementValue;
 		}
-  }
-  
-  function addExtraPropertiesToJsonObject(jsonObject) {
-	  $(".extraPropertyContainer").each(function() {
-	  		var propertyName = $("#" + $(this).attr("id") + " .propertyName").val();
-	  		var propertyValue = $("#" + $(this).attr("id") + " .propertyValue").val();
-			jsonObject[propertyName] = propertyValue;
-	  });
-  }
-  
+    }
 </script>
 	
 </body>
