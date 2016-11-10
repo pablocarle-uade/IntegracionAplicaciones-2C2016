@@ -11,10 +11,11 @@
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script src="../resources/js/bootstrap.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
 <title>Artículos</title>
 </head>
 <body>
-	<h2>Artículos</h2>
+	<h1  style="padding-left: 30px;font-family:'Special Elite',cursive;">Artículos</h1>
 	<form id="searchForm">
 		<div style="padding: 10px;border: 5px solid gray;margin: 0;" >
 			<div class="row" class="col-sm-12 bg-primary">

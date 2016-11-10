@@ -8,10 +8,11 @@
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css" />
 <script src="../resources/js/bootstrap.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
 <title>Nuevo Artículo</title>
 </head>
 <body>
-	<h2>Crear nuevo artículo</h2>
+	<h1 style="padding-left: 30px;font-family:'Special Elite',cursive;">Crear nuevo artículo</h1>
 	<br>
 	<form id="articuloBasePropertiesForm">
 		<div id="articuloBasePropertiesContainer" class="form-group basePropertiesContainer">

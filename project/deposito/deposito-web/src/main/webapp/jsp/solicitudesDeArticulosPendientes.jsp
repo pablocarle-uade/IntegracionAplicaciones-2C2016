@@ -11,10 +11,11 @@
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
 <script src="../resources/js/bootstrap.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
 <title>Solicitudes de Artículos Pendientes</title>
 </head>
 <body>
-	<h2>Solicitudes de Artículos Pendientes</h2>
+	<h1  style="padding-left: 30px;font-family:'Special Elite',cursive;">Solicitudes de Artículos Pendientes</h1>
 	<br />
 	<div class="dropdown" style="margin-left: 10%;">
 		<button class="btn btn-success dropdown-toggle" type="button"
