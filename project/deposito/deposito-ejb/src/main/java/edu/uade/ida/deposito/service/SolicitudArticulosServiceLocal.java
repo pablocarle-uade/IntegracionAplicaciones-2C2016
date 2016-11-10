@@ -13,6 +13,8 @@ import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 public interface SolicitudArticulosServiceLocal {
 	
 	List<SolicitudArticuloDTO> getSolicitudesStockPendientes();
+	
+	List<SolicitudArticuloDTO> getSolicitudesStock(List<Integer> idsSolicitudes);
 
 	/**
 	 * Generar entregas de articulos
@@ -45,5 +47,6 @@ public interface SolicitudArticulosServiceLocal {
 	 * @throws Exception 
 	 */
 	EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO sa, int cantidadOverride) throws Exception;
+
 	
 }

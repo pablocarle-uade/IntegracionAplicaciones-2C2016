@@ -128,7 +128,7 @@
 							 entregaDeArticulosRequest.push(itemEntregaArticulos);
 						 }
 					 });
-					 alert(JSON.stringify(entregaDeArticulosRequest));
+					 // alert(JSON.stringify(entregaDeArticulosRequest));
 					 doProcess(entregaDeArticulosRequest);
 				});
 				
@@ -140,7 +140,7 @@
 		             type: 'post',
 		             contentType:"application/json; charset=utf-8",
 		             success: function(response) {
-		            	 alert("success!! !!");
+		            	 alert("Se ha procesado la entrega de artículos");
 		                 // window.location.href = "";
 		             },
 		             error: function (response) {

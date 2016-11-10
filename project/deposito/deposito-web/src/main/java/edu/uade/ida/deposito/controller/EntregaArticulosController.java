@@ -1,5 +1,6 @@
 package edu.uade.ida.deposito.controller;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -24,9 +25,23 @@ public class EntregaArticulosController {
 	@Path("/procesarEntrega")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public JsonObject  procesarEntregaDeArticulos(List<ProcesarEntregaArticuloRequestDTO> request) {
+	public ProcesarEntregaArticulosResponseDTO procesarEntregaDeArticulos(List<ProcesarEntregaArticuloRequestDTO> request) {
 		log.info("Procesar entrega de artículos ");
-		return new JsonParser().parse("{data: 'ok'}").getAsJsonObject();
+		return new ProcesarEntregaArticulosResponseDTO();
+	}
+	
+	class ProcesarEntregaArticulosResponseDTO implements Serializable {
+		private static final long serialVersionUID = -4085454396383153752L;
+		
+		private String status = "OK";
+
+		public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
 	}
 
 }

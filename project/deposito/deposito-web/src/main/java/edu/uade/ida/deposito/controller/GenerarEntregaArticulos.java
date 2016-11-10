@@ -1,6 +1,7 @@
 package edu.uade.ida.deposito.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -24,7 +25,7 @@ public class GenerarEntregaArticulos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private SolicitudArticulosServiceLocal bean;
+	private SolicitudArticulosServiceLocal sas;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,9 +38,7 @@ public class GenerarEntregaArticulos extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Obtener los articulos pendientes de entrega
-		String[] idsSolicitudesOrigen = request.getParameter("idsSolicitudesOrigen").split(",");
-		// for (String idSolicitudDeArticulosOrigen : idsSolicitudesOrigen) {}
+		// Obtener los articulos pendientes de entrega y cargar la UI que permita generar la entrega a procesar
 		getArticulosPendienteEntrega(request, response);
 	}
 
@@ -58,16 +57,31 @@ public class GenerarEntregaArticulos extends HttpServlet {
 		 * */		
 		
 		List<EntregaArticuloDTO> entregas = null;
-		bean.procesarEntregasArticulos(entregas);
+		sas.procesarEntregasArticulos(entregas);
 	}
 	
 	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<SolicitudArticuloDTO> solicitudesPendientes = bean.getSolicitudesStockPendientes();
-		Collections.sort(solicitudesPendientes, new SolicitudArticuloComparator());
+		// Obtener solicitudes para generar la entrega
+		String[] idsSolicitudesOrigenValues = request.getParameter("idsSolicitudesOrigen").split(",");
+		List<Integer> idsSolicitudesOrigen = this.getIdsSolicitudesOrigenDeEntrega(idsSolicitudesOrigenValues);
+		List<SolicitudArticuloDTO> solicitudesPendientesOrigenDeEntrega = new LinkedList<SolicitudArticuloDTO>();
+		if (!idsSolicitudesOrigen.isEmpty()) {
+			solicitudesPendientesOrigenDeEntrega = sas.getSolicitudesStock(idsSolicitudesOrigen);
+			Collections.sort(solicitudesPendientesOrigenDeEntrega, new SolicitudArticuloComparator());
+		}
+		// Cargar la UI que permita editar la entrega a generar y procesarla
 		HttpSession session = request.getSession(true);
-		session.setAttribute("solicitudesPendientes", solicitudesPendientes);
-		request.setAttribute("solicitudesPendientes", solicitudesPendientes);
+		session.setAttribute("solicitudesPendientes", solicitudesPendientesOrigenDeEntrega);
+		request.setAttribute("solicitudesPendientes", solicitudesPendientesOrigenDeEntrega);
 		request.getRequestDispatcher("/jsp/generarEntregaArticulos.jsp").forward(request, response);
+	}
+	
+	private List<Integer> getIdsSolicitudesOrigenDeEntrega(String[] idsSolicitudesOrigenValues) {
+		List<Integer> idsSolicitudesOrigen = new LinkedList<Integer>();
+		for (String idSolicitudOrigenValue : idsSolicitudesOrigenValues) {
+			idsSolicitudesOrigen.add(Integer.valueOf(idSolicitudOrigenValue));
+		}
+		return idsSolicitudesOrigen;
 	}
 	
 	private static class SolicitudArticuloComparator implements Comparator<SolicitudArticuloDTO> {

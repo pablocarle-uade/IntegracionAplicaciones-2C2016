@@ -30,6 +30,15 @@ public class SolicitudArticuloRepository {
 		return retList;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<SolicitudArticulo> getPorIds(List<Integer> ids) {
+		List<SolicitudArticulo> retList = new ArrayList<>();
+		Query q = em.createQuery("from SolicitudArticulo where idSolicitudStock in (:ids)");
+		q.setParameter("ids", ids);
+		retList.addAll(q.getResultList());
+		return retList;
+	}
+	
 	/**
 	 * Obtener solicitudes de articulos pendientes por modulo y articulo
 	 * 
