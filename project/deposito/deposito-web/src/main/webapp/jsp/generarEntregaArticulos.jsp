@@ -49,26 +49,26 @@
 							<div class="input-group">
 							    <div class="col-md-2">
 									<span class="input-group-addon">Cód. Artículo</span>
-									<input type="text" class="form-control codArticuloValueHolder" value="#Artículo1" readonly="true"></input>
+									<input type="text" class="form-control" value="#Artículo1" readonly="true"></input>
 								</div>
 								<div class="col-md-3">
 									<span class="input-group-addon">Nombre Artículo</span>
-									<input type="text" class="form-control propertyName" value="NombreArtículo1" readonly="true"></input>
+									<input type="text" class="form-control" value="NombreArtículo1" readonly="true"></input>
 								</div>
 								<div class="col-md-2">
 									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad Solicitada</span>
-									<input type="text" class="form-control propertyValue" value="8" readonly="true"></input>
+									<input type="text" class="form-control" value="8" readonly="true"></input>
 								</div>
 								<div class="col-md-2">
 									<span class="input-group-addon btnDeleteProperty" style="border-left: 0; border-right:0;">Stock Actual</span>
-									<input type="text" class="form-control propertyValue" value="7" readonly="true"></input>									
+									<input type="text" class="form-control" value="7" readonly="true"></input>									
 								</div>
 								<div class="col-md-2">
 									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad a Entregar</span>
-									<input name="cantidadAEntregar" type="text" class="form-control propertyValue" value="7"></input>
+									<input type="text" class="form-control contidadAEntregarValueHolder" value="7"></input>
 								</div>
 								<div class="col-md-1">
-									<input type="checkbox">Incluir</input>
+									<input type="checkbox" class="isIncludedValueHolder">Incluir</input>
 								</div>
 							</div>
 							<br/>
@@ -95,15 +95,14 @@
 			$(document).ready(function() {
 				$("#btnEntregaDeArticulosSubmit").on("click", function() {
 					 var entregaDeArticulosRequest = {};
-					 
 					 $(".itemEntregaContainer").each(function() {
-						 var containerId = $(this).attr("id");
-						 alert($("#" + containerId + " .codArticuloValueHolder").val());
-						 // alert(JSON.stringify($(this).serialize()));
+						 var idSolicitudArticulo = $(this).attr("id");
+						 var includeItem = $("#" + idSolicitudArticulo + " .isIncludedValueHolder").is(":checked");
+						 var cantidadAEntregar = $("#" + idSolicitudArticulo + " .contidadAEntregarValueHolder").val();
+						 if (includeItem) {
+							 alert("Para art " + idSolicitudArticulo + " entregarr " + cantidadAEntregar);
+						 }
 					 });
-					 
-			    	 // addFormDataPropertiesToJsonObject("entregaDeArticulosRequestForm", entregaDeArticulosRequest);
-			    	 // alert(JSON.stringify(entregaDeArticulosRequest));
 				});
 				
 			});
