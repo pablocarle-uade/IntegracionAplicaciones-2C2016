@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
-import edu.uade.ida.deposito.dto.EntregaArticuloRequestDTO;
+import edu.uade.ida.deposito.dto.EntregaArticuloTestRequestDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
@@ -82,7 +82,7 @@ public class ArticulosController {
 	@Path("/test/entregaArticulo")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public String createEntregaArticuloTest(EntregaArticuloRequestDTO request) {
+	public String createEntregaArticuloTest(EntregaArticuloTestRequestDTO request) {
 		SolicitudArticuloDTO sad = new SolicitudArticuloDTO();
 		sad.setIdSolicitudArticulo(request.getIdSolicitudArticulo());
 		try {

@@ -18,7 +18,7 @@ public class LogisticaMonitoreoServiceTest {
 	@Deployment
 	public static Archive<?> createDeployment() {
 		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(EmptyAsset.INSTANCE,
-				"beans.xml");
+				"beans.xml").addPackage("");
 		// System.out.println(archive.toString(true));
 		return archive;
 	}

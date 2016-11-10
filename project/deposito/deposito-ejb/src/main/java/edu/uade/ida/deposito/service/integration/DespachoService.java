@@ -18,13 +18,14 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
+import edu.uade.ida.deposito.dto.EntregaArticuloRequestDTO;
 import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
+import edu.uade.ida.deposito.service.integration.core.JMSClient;
+import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 import edu.uade.ida.deposito.util.NivelAudit;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 import edu.uade.ida.deposito.util.config.ConfigModulo;
 import edu.uade.ida.deposito.util.config.JmsEndpointConfig;
-import edu.uade.ida.deposito.service.integration.core.JMSClient;
-import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 
 /**
  * Session Bean implementation class DespachoService
@@ -80,7 +81,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type", "application/json");
 			
-			String body = buildJsonBody(entregaArticulo);
+			String body = buildJsonBody(new EntregaArticuloRequestDTO(config.getIdDeposito(), entregaArticulo.getCodArticulo(), entregaArticulo.getCantidadAsignada()));
 			OutputStream os = con.getOutputStream();
 			os.write(body.getBytes("UTF-8"));
 			os.flush();
@@ -109,7 +110,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 		return Boolean.parseBoolean(dr.getProcesado());
 	}
 
-	private String buildJsonBody(EntregaArticuloDTO entregaArticulo) {
+	private String buildJsonBody(EntregaArticuloRequestDTO entregaArticulo) {
 		return new Gson().toJson(entregaArticulo);
 	}
 	
