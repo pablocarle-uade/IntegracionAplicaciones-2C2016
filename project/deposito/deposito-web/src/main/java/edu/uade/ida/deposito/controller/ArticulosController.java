@@ -1,7 +1,6 @@
 package edu.uade.ida.deposito.controller;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -11,8 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
-import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
-import edu.uade.ida.deposito.dto.EntregaArticuloTestRequestDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
@@ -78,20 +75,4 @@ public class ArticulosController {
 		}
 	}
 	
-	@POST
-	@Path("/test/entregaArticulo")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public String createEntregaArticuloTest(EntregaArticuloTestRequestDTO request) {
-		SolicitudArticuloDTO sad = new SolicitudArticuloDTO();
-		sad.setIdSolicitudArticulo(request.getIdSolicitudArticulo());
-		try {
-			EntregaArticuloDTO ead = sas.createEntregaArticulo(sad, request.getCantidad());
-			return "{entregaArticulo: '" + ead.getIdEntregaArticulo() + ", generada ok'}";
-		} catch (Exception e) {
-			log.log(Level.WARNING, "Error en test entrega articulo", e);
-			e.printStackTrace();
-			return "{error: '" + e.getMessage() + ". Ver log.'}";
-		}
-	}
 }

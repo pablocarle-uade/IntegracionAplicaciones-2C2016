@@ -97,7 +97,7 @@
 				window.location.href = "/deposito-web/GenerarEntregaArticulos" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			
-			$("#cmdGenerarEntregaDeArticulos").on("click", function() {
+			$("#cmdGenerarSolicitudDeCompra").on("click", function() {
 				window.location.href = "/deposito-web/GenerarSolicitudDeCompra" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			// ~

@@ -3,19 +3,10 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
  <display-name>deposito-web</display-name>
  <servlet>
-  <display-name>EntregaArticulos</display-name>
-  <servlet-name>EntregaArticulos</servlet-name>
-  <servlet-class>edu.uade.ida.deposito.controller.EntregaArticulos</servlet-class>
- </servlet>
- <servlet>
   <display-name>GenerarEntregaArticulos</display-name>
   <servlet-name>GenerarEntregaArticulos</servlet-name>
   <servlet-class>edu.uade.ida.deposito.controller.GenerarEntregaArticulos</servlet-class>
  </servlet>
- <servlet-mapping>
-  <servlet-name>EntregaArticulos</servlet-name>
-  <url-pattern>/EntregaArticulos</url-pattern>
- </servlet-mapping>
   <servlet-mapping>
   <servlet-name>GenerarEntregaArticulos</servlet-name>
   <url-pattern>/GenerarEntregaArticulos</url-pattern>

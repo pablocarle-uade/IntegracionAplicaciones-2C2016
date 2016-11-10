@@ -20,18 +20,11 @@
 		<div class="btn-group">
 			<button class="btn btn-group">
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					Admin <span class="caret"></span>
+					Test <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="./EntregaArticulos" title="Gestionar solicitudes de articulos">Entrega de Articulos</a></li>
-				</ul>
-			</button>
-			<button class="btn btn-group">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					Tests <span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="#" onclick="return generarSolicitudArticuloTest();">Generar Solicitud Articulo</a></li>
+					<li><a href="#" onclick="return generarArticulosTest();">Generar Artículos Test</a></li>
+					<li><a href="#" onclick="return generarSolicitudArticuloTest();">Generar Solicitud Artículo Test</a></li>
 				</ul>
 			</button>
 		</div>
@@ -48,21 +41,36 @@
 	</ul>
 	
 	<script type="text/javascript">
+	
+		generarArticulosTest = function() {
+			$.ajax({url: "./rest/articulos/test/crearArticulos",
+				type: "post",
+				dataType: "json",
+				contentType: "application/json",
+				success: function(data) {
+					alert("creados artículos test");
+					},
+				failure: function(e) {
+					alert("error " + e);
+					}
+				}
+			);
+		}	
+		
 		generarSolicitudArticuloTest = function() {
 			if (!testData) {
 				var testData = {
 							idDespacho: "G01",
-							codArticulo: "",
+							codArticulo: "3122",
 							cantidad: 5
 						};
 			}
-			
 			$.ajax({url: "./rest/articulos/test/crearSolicitudArticulo",
 					type: "post",
 					dataType: "json",
 					contentType: "application/json",
 					success: function(data) {
-						alert("creada solicitud articulo test");
+						alert("creada solicitud artículo test");
 						},
 					data: JSON.stringify(testData),
 					failure: function(e) {
