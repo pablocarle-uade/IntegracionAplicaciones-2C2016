@@ -128,7 +128,6 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			return scd;
 		} catch (Exception e) {
 			log.log(Level.WARNING, "Error en solicitud a la fabrica", e);
-			e.printStackTrace();
 			lms.enviarAudit(NivelAudit.ERROR, "Error en envio de solicitud compra a fabrica");
 			throw e;
 		}

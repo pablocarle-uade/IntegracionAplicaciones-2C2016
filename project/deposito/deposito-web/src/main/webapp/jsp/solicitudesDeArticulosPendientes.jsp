@@ -23,8 +23,8 @@
 			aria-expanded="true">Acciones<span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			<li><a id="cmdCrearSolicitudDeCompra" href="#">Crear Solicitud de Compra</a></li>
-			<li><a id="cmdGenerarEntregaDeArticulos" href="#">Generar Entrega de Artículos</a></li>
+			<li><a id="cmdGenerarSolicitudDeCompra" href="#">Generar Solicitud de Compra (Fábrica)</a></li>
+			<li><a id="cmdGenerarEntregaDeArticulos" href="#">Generar Entrega de Artículos (Despachos)</a></li>
 		</ul>
 	</div>
 	<br />
@@ -94,8 +94,11 @@
 			});
 			
 			$("#cmdGenerarEntregaDeArticulos").on("click", function() {
-				// alert("Requested generar entrega de artículos on items => " + selectedSP.toString());
 				window.location.href = "/deposito-web/GenerarEntregaArticulos" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+			})
+			
+			$("#cmdGenerarEntregaDeArticulos").on("click", function() {
+				window.location.href = "/deposito-web/GenerarSolicitudDeCompra" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			// ~
 	});
