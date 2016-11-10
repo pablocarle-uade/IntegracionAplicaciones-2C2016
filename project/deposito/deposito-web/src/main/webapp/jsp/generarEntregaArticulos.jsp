@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+<jsp:directive.page isELIgnored="false" />
 <jsp:directive.page import="edu.uade.ida.deposito.dto.SolicitudArticuloDTO"/>
 <jsp:directive.page import="java.util.List"/>
 <jsp:directive.page language="java" import="edu.uade.ida.deposito.model.Articulo" />
@@ -33,18 +34,22 @@
 				List<SolicitudArticuloDTO> solicitudesPendientes = (List<SolicitudArticuloDTO>)request.getAttribute("solicitudesPendientes");
 			]]>
 		</jsp:scriptlet>
-		<div id="mainList" class="form-group" >
+		<div id="mainList" class="form-group"  >
 					<jsp:scriptlet>
 						<![CDATA[
 							if (solicitudesPendientes != null && !solicitudesPendientes.isEmpty()) {
 								for (SolicitudArticuloDTO sad : solicitudesPendientes) {
 						]]>
 					</jsp:scriptlet>
-						<div class="col-md-14">
+						<jsp:scriptlet>
+							<![CDATA[
+								out.println("<div class='col-md-14 itemEntregaContainer' id='" + sad.getIdSolicitudArticulo() + "'>");
+							]]>
+						</jsp:scriptlet>
 							<div class="input-group">
 							    <div class="col-md-2">
 									<span class="input-group-addon">Cód. Artículo</span>
-									<input type="text" class="form-control propertyName" value="#Artículo1" readonly="true"></input>
+									<input type="text" class="form-control codArticuloValueHolder" value="#Artículo1" readonly="true"></input>
 								</div>
 								<div class="col-md-3">
 									<span class="input-group-addon">Nombre Artículo</span>
@@ -62,7 +67,6 @@
 									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad a Entregar</span>
 									<input name="cantidadAEntregar" type="text" class="form-control propertyValue" value="7"></input>
 								</div>
-								<input type="hidden" name="idSolicitud" value="#33q334" readonly="true"></input>
 								<div class="col-md-1">
 									<input type="checkbox">Incluir</input>
 								</div>
@@ -73,8 +77,10 @@
 					<jsp:scriptlet>
 								}
 							}
+							<![CDATA[
+							out.println("</div>");
+							]]>
 					</jsp:scriptlet>
-			</div>
 		</form>	
 		</div>
 		
@@ -89,8 +95,15 @@
 			$(document).ready(function() {
 				$("#btnEntregaDeArticulosSubmit").on("click", function() {
 					 var entregaDeArticulosRequest = {};
-			    	 addFormDataPropertiesToJsonObject("entregaDeArticulosRequestForm", entregaDeArticulosRequest);
-			    	 alert(JSON.stringify(entregaDeArticulosRequest));
+					 
+					 $(".itemEntregaContainer").each(function() {
+						 var containerId = $(this).attr("id");
+						 alert($("#" + containerId + " .codArticuloValueHolder").val());
+						 // alert(JSON.stringify($(this).serialize()));
+					 });
+					 
+			    	 // addFormDataPropertiesToJsonObject("entregaDeArticulosRequestForm", entregaDeArticulosRequest);
+			    	 // alert(JSON.stringify(entregaDeArticulosRequest));
 				});
 				
 			});
