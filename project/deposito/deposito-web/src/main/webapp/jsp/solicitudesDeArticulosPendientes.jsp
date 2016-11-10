@@ -94,8 +94,8 @@
 			});
 			
 			$("#cmdGenerarEntregaDeArticulos").on("click", function() {
-				alert("Requested generar entrega de artículos on items => " + selectedSP.toString());
-				 window.location.href = "/deposito-web/GenerarEntregaArticulos" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+				// alert("Requested generar entrega de artículos on items => " + selectedSP.toString());
+				window.location.href = "/deposito-web/GenerarEntregaArticulos" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			// ~
 	});

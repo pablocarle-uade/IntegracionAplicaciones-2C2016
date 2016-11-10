@@ -10,9 +10,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import edu.uade.ida.deposito.dto.ProcesarEntregaArticuloRequestDTO;
 
 @Path("/entregaDeArticulos")

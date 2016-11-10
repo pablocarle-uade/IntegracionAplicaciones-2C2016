@@ -51,10 +51,10 @@ public class ArticulosService implements ArticulosServiceLocal {
 										 	 dto.getStock(), dto.getDatosExtra());
         	entityManager.persist(articulo);
         	dto.setId(articulo.getId());
-        	// sync/async configurable
-        	// this.logisticaYMonitoreoService.enviarAudit(NivelAudit.INFO, "Registrado nuevo artículo por " + "GO1" + ", código de artículo: " + articulo.getCodArticulo());        	
-        	// notificar nuevo art a despacho y portal (los dos async)
-			NotificacionNuevoArticuloDTO notificacionNuevoArticulo = new NotificacionNuevoArticuloDTO("GO1",
+        	// notificar a LyM
+        	this.logisticaYMonitoreoService.enviarAudit(NivelAudit.INFO, "Registrado nuevo artículo por " + "GO1" + ", código de artículo: " + articulo.getCodArticulo());        	
+        	// notificar a Despacho/s y Portal/es
+        	NotificacionNuevoArticuloDTO notificacionNuevoArticulo = new NotificacionNuevoArticuloDTO("GO1",
 					articulo.getCodArticulo(), articulo.getNombre(), articulo.getDescripcion(), articulo.getMarca(),
 					articulo.getPrecio(), articulo.getFoto(), articulo.getOrigen(), articulo.getTipo().toString(),
 					articulo.getDatosExtra());
