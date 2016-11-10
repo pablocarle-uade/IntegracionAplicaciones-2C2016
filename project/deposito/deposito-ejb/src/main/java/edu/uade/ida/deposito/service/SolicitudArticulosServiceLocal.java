@@ -38,8 +38,9 @@ public interface SolicitudArticulosServiceLocal {
 	 * @param art
 	 * @param cantidad
 	 * @return
+	 * @throws Exception 
 	 */
-	SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad);
+	SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad) throws Exception;
 	
 	/**
 	 * Generar entrega de articulos

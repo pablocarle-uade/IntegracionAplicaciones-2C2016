@@ -1,6 +1,7 @@
 package edu.uade.ida.deposito.service.impl;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
@@ -20,6 +21,7 @@ import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
+import edu.uade.ida.deposito.service.integration.FabricaServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
 import edu.uade.ida.deposito.util.DTOUtil;
 import edu.uade.ida.deposito.util.NivelAudit;
@@ -45,6 +47,9 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	
 	@Inject
 	private DespachoServiceLocal dsl;
+	
+	@Inject
+	private FabricaServiceLocal fabricaService;
 	
 	@Inject
 	private Logger log;
@@ -116,9 +121,17 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	@Override
-	public SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad) {
-		// TODO crear solicitud de compra
-		return null;
+	public SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad) throws Exception {
+		try {
+			SolicitudCompraDTO scd = fabricaService.crearSolicitudCompra(sa.getArticulo(), cantidad);
+			lms.enviarAudit(NivelAudit.INFO, "Enviada solicitud de compra a fabrica");
+			return scd;
+		} catch (Exception e) {
+			log.log(Level.WARNING, "Error en solicitud a la fabrica", e);
+			e.printStackTrace();
+			lms.enviarAudit(NivelAudit.ERROR, "Error en envio de solicitud compra a fabrica");
+			throw e;
+		}
 	}
 
 	@Override
