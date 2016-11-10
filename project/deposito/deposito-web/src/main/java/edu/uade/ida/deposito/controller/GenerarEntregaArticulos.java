@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
@@ -37,7 +38,8 @@ public class GenerarEntregaArticulos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener los articulos pendientes de entrega
-		System.out.println("GenerarEntregaArticulos!!!!");
+		String[] idsSolicitudesOrigen = request.getParameter("idsSolicitudesOrigen").split(",");
+		// for (String idSolicitudDeArticulosOrigen : idsSolicitudesOrigen) {}
 		getArticulosPendienteEntrega(request, response);
 	}
 
@@ -53,8 +55,10 @@ public class GenerarEntregaArticulos extends HttpServlet {
 		/*
 		 * TODO
 		 * Obtener lista de solicitudes que se procesan
-		 * */
+		 * */		
 		
+		List<EntregaArticuloDTO> entregas = null;
+		bean.procesarEntregasArticulos(entregas);
 	}
 	
 	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -79,7 +79,7 @@
 		
 		<div class="col-lg-12">
 			<br/>
-			<input type="submit" name="submitBtn" title="Entregar Articulos" value="Entregar Articulos" />
+			<input type="submit" name="submitBtn" title="Entregar Artículos" value="Entregar Artículos" />
 		</div>	
 		
 		<script language="javascript" type="text/javascript" >
