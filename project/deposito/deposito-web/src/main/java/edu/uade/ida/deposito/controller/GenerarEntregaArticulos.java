@@ -46,20 +46,9 @@ public class GenerarEntregaArticulos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Procesar entregas seleccionadas
-		procesarEntregas(request, response);
+		this.doGet(request, response);
 	}
-	
-	private void procesarEntregas(HttpServletRequest request, HttpServletResponse response) {
-		/*
-		 * TODO
-		 * Obtener lista de solicitudes que se procesan
-		 * */		
-		
-		List<EntregaArticuloDTO> entregas = null;
-		sas.procesarEntregasArticulos(entregas);
-	}
-	
+
 	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener solicitudes para generar la entrega
 		String[] idsSolicitudesOrigenValues = request.getParameter("idsSolicitudesOrigen").split(",");

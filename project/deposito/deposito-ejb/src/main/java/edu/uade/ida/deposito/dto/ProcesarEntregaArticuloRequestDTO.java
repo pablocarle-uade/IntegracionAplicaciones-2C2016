@@ -6,16 +6,16 @@ public class ProcesarEntregaArticuloRequestDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Long idSolicitudArticulo;
+	private Integer idSolicitudArticulo;
 	private Integer cantidad;
 
 	public ProcesarEntregaArticuloRequestDTO() {
 	}
 
-	public Long getIdSolicitudArticulo() {
+	public Integer getIdSolicitudArticulo() {
 		return idSolicitudArticulo;
 	}
-	public void setIdSolicitudArticulo(Long idSolicitudArticulo) {
+	public void setIdSolicitudArticulo(Integer idSolicitudArticulo) {
 		this.idSolicitudArticulo = idSolicitudArticulo;
 	}
 	public Integer getCantidad() {

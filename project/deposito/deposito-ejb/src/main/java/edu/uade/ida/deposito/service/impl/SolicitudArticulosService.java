@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
+import edu.uade.ida.deposito.dto.ProcesarEntregaArticuloRequestDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
@@ -67,10 +68,19 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	@Override
-	public void procesarEntregasArticulos(List<EntregaArticuloDTO> entregas) {
-		
-		// TODO procesarEntregasArticulos muchos
-		
+	public void procesarEntregasArticulos(List<ProcesarEntregaArticuloRequestDTO> entregas) {
+		// Por cada entrega solicitada se conoce idSolicitudArticulo (pendiente), cantidad
+		for (ProcesarEntregaArticuloRequestDTO entrega: entregas) {
+			try {
+				SolicitudArticulo solicitudDeArticuloAEntregar = em.find(SolicitudArticulo.class, entrega.getIdSolicitudArticulo());
+				this.createEntregaArticulo(solicitudDeArticuloAEntregar.getDTO(), entrega.getCantidad());
+				log.info("Entrega de artículos procesada con éxito a partir de solicitud: " + entrega.getIdSolicitudArticulo());
+			} catch (Exception e) {
+				log.warning("Error al entregar artículo a partir de solicitud: " + entrega.getIdSolicitudArticulo() + " " + e.getMessage());
+				e.printStackTrace();
+				// TODO Avisar a lms?
+			}
+		}
 	}
 
 	@Override

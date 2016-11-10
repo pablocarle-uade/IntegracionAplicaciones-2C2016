@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
+import edu.uade.ida.deposito.dto.ProcesarEntregaArticuloRequestDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 
@@ -17,11 +18,11 @@ public interface SolicitudArticulosServiceLocal {
 	List<SolicitudArticuloDTO> getSolicitudesStock(List<Integer> idsSolicitudes);
 
 	/**
-	 * Generar entregas de articulos
+	 * Generar entregas de artículos según los valores especificados
 	 * 
 	 * @param entregas
 	 */
-	void procesarEntregasArticulos(List<EntregaArticuloDTO> entregas);		
+	void procesarEntregasArticulos(List<ProcesarEntregaArticuloRequestDTO> entregas);		
 	
 	/**
 	 * @param articulo
