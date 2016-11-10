@@ -93,16 +93,21 @@
 			//<![CDATA[
 		
 			$(document).ready(function() {
+
 				$("#btnEntregaDeArticulosSubmit").on("click", function() {
-					 var entregaDeArticulosRequest = {};
+					 var entregaDeArticulosRequest = [];
 					 $(".itemEntregaContainer").each(function() {
+						 var itemEntregaArticulos = {}
 						 var idSolicitudArticulo = $(this).attr("id");
 						 var includeItem = $("#" + idSolicitudArticulo + " .isIncludedValueHolder").is(":checked");
 						 var cantidadAEntregar = $("#" + idSolicitudArticulo + " .contidadAEntregarValueHolder").val();
 						 if (includeItem) {
-							 alert("Para art " + idSolicitudArticulo + " entregarr " + cantidadAEntregar);
+							 itemEntregaArticulos.idSolicitudArticulo = idSolicitudArticulo;
+							 itemEntregaArticulos.cantidadAEntregar = cantidadAEntregar;
+							 entregaDeArticulosRequest.push(itemEntregaArticulos);
 						 }
 					 });
+					 alert(JSON.stringify(entregaDeArticulosRequest));
 				});
 				
 			});
