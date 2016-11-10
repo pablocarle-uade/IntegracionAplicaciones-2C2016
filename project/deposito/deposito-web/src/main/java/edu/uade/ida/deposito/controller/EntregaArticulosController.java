@@ -24,7 +24,7 @@ public class EntregaArticulosController {
 	@Consumes("application/json")
 	public String  procesarEntregaDeArticulos(List<EntregaArticuloRequestDTO> request) {
 		log.info("Procesar entrega de artículos ");
-		return "";
+		return "{data: 'ok'}";
 	}
 
 }
