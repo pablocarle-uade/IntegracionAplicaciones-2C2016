@@ -26,6 +26,7 @@
 	</head>
 	<body>
 	<h1 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Generar Entrega de Artículos</h1>
+	<h4 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Puede modificar las cantidades a entregar sugeridas por el sistema</h4>
 	
 	<div style="padding:5px;border:5px solid green;margin:0;overflow: auto;">
 	<form id="entregaDeArticulosRequestForm">		
@@ -49,26 +50,46 @@
 							<div class="input-group">
 							    <div class="col-md-2">
 									<span class="input-group-addon">Cód. Artículo</span>
-									<input type="text" class="form-control" value="#Artículo1" readonly="true"></input>
+									<jsp:scriptlet>
+										<![CDATA[
+											out.println("<input type='text' class='form-control' value='" + sad.getArticulo().getCodArticulo() + "' readonly='true'></input>");
+										]]>
+									</jsp:scriptlet>									
 								</div>
 								<div class="col-md-3">
 									<span class="input-group-addon">Nombre Artículo</span>
-									<input type="text" class="form-control" value="NombreArtículo1" readonly="true"></input>
+									<jsp:scriptlet>
+										<![CDATA[
+											out.println("<input type='text' class='form-control' value='" + sad.getArticulo().getNombre() + "' readonly='true'></input>");
+										]]>
+									</jsp:scriptlet>	
 								</div>
 								<div class="col-md-2">
 									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad Solicitada</span>
-									<input type="text" class="form-control" value="8" readonly="true"></input>
+									<jsp:scriptlet>
+										<![CDATA[
+											out.println("<input type='text' class='form-control' value='" + sad.getCantidad() + "' readonly='true'></input>");
+										]]>
+									</jsp:scriptlet>									
 								</div>
 								<div class="col-md-2">
-									<span class="input-group-addon btnDeleteProperty" style="border-left: 0; border-right:0;">Stock Actual</span>
-									<input type="text" class="form-control" value="7" readonly="true"></input>									
+									<span class="input-group-addon" style="border-left: 0; border-right:0;">Stock Actual</span>
+									<jsp:scriptlet>
+										<![CDATA[
+											out.println("<input type='text' class='form-control' value='" + sad.getArticulo().getStock() + "' readonly='true'></input>");
+										]]>
+									</jsp:scriptlet>	
 								</div>
 								<div class="col-md-2">
 									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad a Entregar</span>
-									<input type="text" class="form-control contidadAEntregarValueHolder" value="7"></input>
+									<jsp:scriptlet>
+										<![CDATA[
+											out.println("<input type='number' class='form-control contidadAEntregarValueHolder' value='" + sad.getCantidad() + "'></input>");
+										]]>
+									</jsp:scriptlet>	
 								</div>
 								<div class="col-md-1">
-									<input type="checkbox" class="isIncludedValueHolder">Incluir</input>
+									<input type="checkbox" class="isIncludedValueHolder" checked="checked">Incluir</input>
 								</div>
 							</div>
 							<br/>

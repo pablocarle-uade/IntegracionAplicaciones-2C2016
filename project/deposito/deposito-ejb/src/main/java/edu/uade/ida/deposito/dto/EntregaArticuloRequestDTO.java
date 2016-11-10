@@ -10,6 +10,9 @@ public class EntregaArticuloRequestDTO implements Serializable {
 	private int codArticulo;
 	private int cantidad;
 
+	public EntregaArticuloRequestDTO() {
+	}
+	
 	public EntregaArticuloRequestDTO(String idDeposito, int codArticulo, int cantidad) {
 		super();
 		this.idDeposito = idDeposito;
