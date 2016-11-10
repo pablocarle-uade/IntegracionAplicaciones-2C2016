@@ -21,7 +21,7 @@
 				<div class="col-sm-3">
 					<div class="input-group">
 						<span class="input-group-btn">
-							<button class="btn btn-sm" type="button">Código</button>
+							<button class="btn btn-sm" type="button">Cód. Artículo: #Código1</button>
 						</span> 
 						<input name="codArticulo" type="text" class="form-control input-sm searchPanelControl">
 					</div>

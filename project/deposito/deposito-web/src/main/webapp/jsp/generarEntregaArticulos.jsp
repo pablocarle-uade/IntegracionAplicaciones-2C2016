@@ -24,47 +24,63 @@
 		</script>
 	</head>
 	<body>
+	<h1 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Generar Entrega de Artículos</h1>
+	
+	<div style="padding:5px;border:5px solid green;margin:0;overflow: auto;">
+	<form name="solicitudArticulosForm" id="solicitudArticulosForm" action="/EntregaArticulos" method="post">		
 		<jsp:scriptlet>
 			<![CDATA[
 				List<SolicitudArticuloDTO> solicitudesPendientes = (List<SolicitudArticuloDTO>)request.getAttribute("solicitudesPendientes");
 			]]>
 		</jsp:scriptlet>
-		<h1 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Articulos pendientes de entrega</h1>
-		<div id="mainList" class="form-group basePropertiesContainer" >
-			<form name="solicitudArticulosForm" id="solicitudArticulosForm" action="/EntregaArticulos" method="post">
-				<ul>
+		<div id="mainList" class="form-group" >
 					<jsp:scriptlet>
 						<![CDATA[
 							if (solicitudesPendientes != null && !solicitudesPendientes.isEmpty()) {
 								for (SolicitudArticuloDTO sad : solicitudesPendientes) {
 						]]>
 					</jsp:scriptlet>
-						<li style="float: left;">
-							<input type="checkbox" 
-									name='${sad.getIdSolicitudArticulo()}'
-									id='${"checkEntrega"}${sad.getIdSolicitudArticulo()}'
-							/>
-							<div>
-								<h3>${sad.getArticulo().getCodArticulo()}</h3>
-								<p>
-									<jsp:expression>sad.getArticulo().getDescripcion()</jsp:expression>
-									<br />
-									<jsp:expression>"Pedido por: " + sad.getCantidad()</jsp:expression>
-								</p>
+						<div class="col-md-14">
+							<div class="input-group">
+							    <div class="col-md-2">
+									<span class="input-group-addon">Cód. Artículo</span>
+									<input type="text" class="form-control propertyName" value="#Artículo1" readonly="true"></input>
+								</div>
+								<div class="col-md-3">
+									<span class="input-group-addon">Nombre Artículo</span>
+									<input type="text" class="form-control propertyName" value="NombreArtículo1" readonly="true"></input>
+								</div>
+								<div class="col-md-2">
+									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad Solicitada</span>
+									<input type="text" class="form-control propertyValue" value="8" readonly="true"></input>
+								</div>
+								<div class="col-md-2">
+									<span class="input-group-addon btnDeleteProperty" style="border-left: 0; border-right:0;">Stock Actual</span>
+									<input type="text" class="form-control propertyValue" value="7" readonly="true"></input>									
+								</div>
+								<div class="col-md-2">
+									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad a Entregar</span>
+									<input type="text" class="form-control propertyValue" value="7"></input>
+								</div>
+								<div class="col-md-1">
+									<input type="checkbox">Incluir</input>
+								</div>
 							</div>
-							<input type="text" 
-									name='${"numStock"}${sad.getIdSolicitudArticulo()}'
-									value="Obtener cuanto se puede entregar" 
-							/>
-						</li>
+							<br/>
+						</div>
+																
 					<jsp:scriptlet>
 								}
 							}
 					</jsp:scriptlet>
-				</ul>
-				<input type="submit" name="submitBtn" title="Entregar Articulos" value="Entregar Articulos" />
-			</form>	
+			</div>
+		</form>	
 		</div>
+		
+		<div class="col-lg-12">
+			<br/>
+			<input type="submit" name="submitBtn" title="Entregar Articulos" value="Entregar Articulos" />
+		</div>	
 		
 		<script language="javascript" type="text/javascript" >
 

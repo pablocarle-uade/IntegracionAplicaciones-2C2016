@@ -123,20 +123,8 @@
 		<br/>
 		<button id="btnCreateArticulo" class="btn-primary waves-effect waves-light btn" type="button">Crear Artículo</button>
 		<br/><br/>	
-	</div>	
-<!--	
-	<div class="col-lg-8 extraPropertyContainer2" id="extraProperty_23">
-		<br>
-		<div class="input-group">
-			<span class="input-group-addon">Nombre Propiedad</span>
-			<input type="text" class="form-control propertyName" placeholder="Indique nombre propiedad" required="">
-			<span class="input-group-addon" style="border-left: 0; border-right: 0;">Valor</span>
-			<input type="text" class="form-control propertyValue" placeholder="Indique el valor">
-			<span onclick="removeAdditionalProperty(1)" class="input-group-addon btnDeleteProperty" style="border-left: 0; border-right: 		0;">Eliminar</span>
-		</div>
 	</div>
-	<br>
--->		
+	
 <script type="text/javascript">
 
   var extraPropertiesCount = 0;
@@ -201,9 +189,7 @@
 	  	addFormDataPropertiesToJsonObject("articuloBasePropertiesForm", articulo);
 	  	addFormDataPropertiesToJsonObject(getTipoDeArticulo() + "PropertiesForm", articulo.datosExtra);
 	  	addExtraPropertiesToJsonObject(articulo.datosExtra);
-
-	  	// alert("Service payload: " + JSON.stringify(articulo));  
-	  	
+		// alert("Service payload: " + JSON.stringify(articulo));  
 	  	 $.ajax({
              url: '/deposito-web/rest/articulos/crearArticulo',
              type: 'post',
