@@ -83,6 +83,7 @@
                 <th>Código</th>
                 <th>Nombre</th>
                 <th>Marca</th>
+                <th>Stock</th>
                 <th>Precio</th>
             </tr>
         </thead>
@@ -124,7 +125,8 @@
 					{ data: "tipo", width: "10%" },
 					{ data: "codArticulo", width: "15%" },
 					{ data: "nombre", width: "40%" },
-					{ data: "marca", width: "20%" },
+					{ data: "marca", width: "10%" },
+					{ data: "stock", width: "10%" },
 					{ data: "precio", width: "10%", render: function (value) { return "$" + value; }  }
 			    ],
 				"rowCallback" : function(row, data) {

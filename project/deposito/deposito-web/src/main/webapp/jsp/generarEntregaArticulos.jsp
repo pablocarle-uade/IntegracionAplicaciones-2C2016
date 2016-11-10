@@ -140,8 +140,7 @@
 		             type: 'post',
 		             contentType:"application/json; charset=utf-8",
 		             success: function(response) {
-		            	 alert("Se ha procesado la entrega de artículos");
-		                 // window.location.href = "";
+		            	 window.location.href = "/deposito-web/jsp/solicitudesDeArticulosPendientes.jsp";
 		             },
 		             error: function (response) {
 		                 alert("No se pudo procesar entrega de artículos" + response);
