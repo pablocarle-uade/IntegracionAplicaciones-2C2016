@@ -94,7 +94,7 @@
 			});
 			
 			$("#cmdGenerarEntregaDeArticulos").on("click", function() {
-				window.location.href = "/deposito-web/GenerarEntregaArticulos" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+				window.location.href = "/deposito-web/GenerarEntregaArticulosWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			
 			$("#cmdGenerarSolicitudDeCompra").on("click", function() {

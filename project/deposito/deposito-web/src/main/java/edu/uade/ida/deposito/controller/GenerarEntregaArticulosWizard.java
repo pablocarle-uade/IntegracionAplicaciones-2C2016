@@ -1,7 +1,6 @@
 package edu.uade.ida.deposito.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -14,14 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
 /**
- * Servlet implementation class GenerarEntregaArticulos
+ * Servlet implementation class GenerarEntregaArticulosWizard
  */
-public class GenerarEntregaArticulos extends HttpServlet {
+public class GenerarEntregaArticulosWizard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
@@ -30,7 +28,7 @@ public class GenerarEntregaArticulos extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GenerarEntregaArticulos() {
+    public GenerarEntregaArticulosWizard() {
         super();
     }
 
