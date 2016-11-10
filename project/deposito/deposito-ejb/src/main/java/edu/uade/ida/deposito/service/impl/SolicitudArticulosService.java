@@ -77,8 +77,8 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 				log.info("Entrega de artículos procesada con éxito a partir de solicitud: " + entrega.getIdSolicitudArticulo());
 			} catch (Exception e) {
 				log.warning("Error al entregar artículo a partir de solicitud: " + entrega.getIdSolicitudArticulo() + " " + e.getMessage());
+				lms.enviarAudit(NivelAudit.ERROR, "Fallo en entrega de articulos a despacho");
 				e.printStackTrace();
-				// TODO Avisar a lms?
 			}
 		}
 	}
@@ -155,6 +155,9 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 		solicitudDeArticulo.getArticulo().setStock(solicitudDeArticulo.getArticulo().getStock() - cantidadEntrega);
 		if (solicitudDeArticulo.getArticulo().getStock() < 0)
 			throw new Exception("Stock incorrecto");
+		//TODO Actualizar estado de la solicitud de articulo
+		solicitudDeArticulo.setEstado(SolicitudArticulo.ESTADO_ENTREGADO);
+		em.merge(solicitudDeArticulo);
 		em.merge(solicitudDeArticulo.getArticulo());
 		em.persist(entregaDeArticulo);
 		return entregaDeArticulo.getDTO();
