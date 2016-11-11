@@ -94,11 +94,11 @@
 			});
 			
 			$("#cmdGenerarEntregaDeArticulos").on("click", function() {
-				window.location.href = "/deposito-web/GenerarEntregaArticulosWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+				window.location.href = "/deposito-web/EntregaArticulosWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			
 			$("#cmdGenerarSolicitudDeCompra").on("click", function() {
-				window.location.href = "/deposito-web/GenerarSolicitudCompraWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+				window.location.href = "/deposito-web/SolicitudCompraWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			// ~
 	});

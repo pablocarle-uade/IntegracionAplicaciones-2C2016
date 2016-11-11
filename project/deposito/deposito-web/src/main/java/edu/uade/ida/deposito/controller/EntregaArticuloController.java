@@ -13,8 +13,8 @@ import edu.uade.ida.deposito.dto.CreateEntregaArticuloRequestDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 import edu.uade.ida.deposito.rest.GenericResponseDTO;
 
-@Path("/entregaDeArticulos")
-public class EntregaArticulosController {
+@Path("/entregasArticulo")
+public class EntregaArticuloController {
 	
 	@Inject
 	private Logger log;
@@ -23,13 +23,11 @@ public class EntregaArticulosController {
 	private SolicitudArticulosServiceLocal as;
 	
 	@POST
-	@Path("/procesarEntrega")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public GenericResponseDTO procesarEntregaDeArticulos(List<CreateEntregaArticuloRequestDTO> entregas) {
+	public GenericResponseDTO createEntregas(List<CreateEntregaArticuloRequestDTO> entregas) {
 		log.info("Se ha solicitado la generación de entregas de artículos ");
 		this.as.createEntregasArticulos(entregas);
-		// TODO: Response alternative scenarios, error, etc
 		return new GenericResponseDTO();
 	}
 

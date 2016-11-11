@@ -17,9 +17,9 @@ import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
 /**
- * Servlet implementation class GenerarEntregaArticulosWizard
+ * Servlet implementation class GenerarSolicitudDeCompraWizard
  */
-public class GenerarEntregaArticulosWizard extends HttpServlet {
+public class SolicitudCompraWizard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
@@ -28,7 +28,7 @@ public class GenerarEntregaArticulosWizard extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GenerarEntregaArticulosWizard() {
+    public SolicitudCompraWizard() {
         super();
     }
 
@@ -42,16 +42,9 @@ public class GenerarEntregaArticulosWizard extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("solicitudesPendientes", solicitudesPendientesDeEntrega);
 		request.setAttribute("solicitudesPendientes", solicitudesPendientesDeEntrega);
-		request.getRequestDispatcher("/jsp/generarEntregaArticulos.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/solicitudCompraWizard.jsp").forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doGet(request, response);
-	}
-
+	
 	private List<SolicitudArticuloDTO> getSolicitudesPendientesDeEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<SolicitudArticuloDTO> solicitudesPendientesDeEntrega = new LinkedList<SolicitudArticuloDTO>();
 		String[] idsSolicitudesOrigenValues = request.getParameter("idsSolicitudesOrigen").split(",");
@@ -69,6 +62,13 @@ public class GenerarEntregaArticulosWizard extends HttpServlet {
 			idsSolicitudesOrigen.add(Integer.valueOf(idSolicitudOrigenValue));
 		}
 		return idsSolicitudesOrigen;
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.doGet(request, response);
 	}
 	
 	private static class SolicitudArticuloComparator implements Comparator<SolicitudArticuloDTO> {

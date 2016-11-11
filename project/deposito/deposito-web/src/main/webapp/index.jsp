@@ -34,7 +34,7 @@
 	  <li class="active"><a href="#">Home</a></li>
 	</ul>
 	<ul class="list-group">
-	  <li class="list-group-item list-group-item-success"><a href="./jsp/nuevoArticulo.jsp">Crear nuevo artículo</a></li>
+	  <li class="list-group-item list-group-item-success"><a href="./jsp/articuloWizard.jsp">Crear nuevo artículo</a></li>
 	  <li class="list-group-item list-group-item-danger"><a href="./jsp/articulos.jsp">Artículos</a></li>
 	  <li class="list-group-item list-group-item-info"><a href="./jsp/solicitudesArticulosPendientes.jsp">Solicitudes de artículos pendientes</a></li>
 <!-- 	  <li class="list-group-item list-group-item-warning"><a href="./.jsp">----</a></li> -->

@@ -136,11 +136,11 @@
 			
 			function doProcess(entregaDeArticulosRequest) {
 				$.ajax({
-		             url: '/deposito-web/rest/entregaDeArticulos/procesarEntrega',
+		             url: '/deposito-web/rest/entregasArticulo',
 		             type: 'post',
 		             contentType:"application/json; charset=utf-8",
 		             success: function(response) {
-		            	 window.location.href = "/deposito-web/jsp/solicitudesDeArticulosPendientes.jsp";
+		            	 window.location.href = "/deposito-web/jsp/solicitudesArticulosPendientes.jsp";
 		             },
 		             error: function (response) {
 		                 alert("No se pudo procesar entrega de artículos" + response);

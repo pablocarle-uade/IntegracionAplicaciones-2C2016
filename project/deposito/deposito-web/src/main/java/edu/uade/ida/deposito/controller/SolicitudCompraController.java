@@ -9,7 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import edu.uade.ida.deposito.dto.CreateSolicitudCompraRequestDTO;
+import edu.uade.ida.deposito.dto.ItemSolicitudCompraRequestDTO;
 import edu.uade.ida.deposito.rest.GenericResponseDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
@@ -25,9 +25,9 @@ public class SolicitudCompraController {
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
-	public GenericResponseDTO createSolicitudDeCompra(List<CreateSolicitudCompraRequestDTO> solicitudes) {
+	public GenericResponseDTO createSolicitudDeCompra(List<ItemSolicitudCompraRequestDTO> itemsSolicitudCompra) {
 		log.info("Se ha solicitado la generación de solicitudes de compra de artículos");
-		this.as.createSolicitudesCompra(solicitudes);
+		this.as.createSolicitudesCompra(itemsSolicitudCompra);
 		// TODO: Response alternative scenarios, error, etc
 		return new GenericResponseDTO();
 	}

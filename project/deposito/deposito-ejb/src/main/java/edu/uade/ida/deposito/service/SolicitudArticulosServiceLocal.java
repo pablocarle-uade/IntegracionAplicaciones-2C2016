@@ -7,7 +7,7 @@ import javax.ejb.Local;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.CreateEntregaArticuloRequestDTO;
-import edu.uade.ida.deposito.dto.CreateSolicitudCompraRequestDTO;
+import edu.uade.ida.deposito.dto.ItemSolicitudCompraRequestDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 
@@ -43,7 +43,7 @@ public interface SolicitudArticulosServiceLocal {
 	 */
 	SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad) throws Exception;
 	
-	void createSolicitudesCompra(List<CreateSolicitudCompraRequestDTO> solicitudes);
+	void createSolicitudesCompra(List<ItemSolicitudCompraRequestDTO> solicitudes);
 	
 	/**
 	 * Generar entrega de articulos

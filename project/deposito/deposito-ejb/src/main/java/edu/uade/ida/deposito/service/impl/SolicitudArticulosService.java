@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.CreateEntregaArticuloRequestDTO;
-import edu.uade.ida.deposito.dto.CreateSolicitudCompraRequestDTO;
+import edu.uade.ida.deposito.dto.ItemSolicitudCompraRequestDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
@@ -106,8 +106,8 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	@Override
-	public void createSolicitudesCompra(List<CreateSolicitudCompraRequestDTO> solicitudes) {
-		for (CreateSolicitudCompraRequestDTO solicitud: solicitudes) {
+	public void createSolicitudesCompra(List<ItemSolicitudCompraRequestDTO> solicitudes) {
+		for (ItemSolicitudCompraRequestDTO solicitud: solicitudes) {
 			try {
 				SolicitudArticulo solicitudDeArticuloAComprar = em.find(SolicitudArticulo.class, solicitud.getIdSolicitudArticulo());
 				this.createSolicitudCompra(solicitudDeArticuloAComprar.getDTO(), solicitud.getCantidad());
