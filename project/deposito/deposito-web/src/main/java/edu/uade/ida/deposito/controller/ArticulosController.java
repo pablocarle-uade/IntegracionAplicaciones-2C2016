@@ -6,13 +6,16 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.ModificacionStockRequestDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
+import edu.uade.ida.deposito.rest.GenericResponseDTO;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
@@ -34,6 +37,16 @@ public class ArticulosController {
 	@Consumes("application/json")
 	public ArticuloDTO crearArticulo(ArticuloDTO articuloDTO) {		
 		return as.crearArticulo(articuloDTO);
+	}
+	
+	@PUT
+	@Path("/stock")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public GenericResponseDTO modificarStockArticulos(List<ModificacionStockRequestDTO> modificaciones) {		
+		log.info("Se ha solicitado la modificación de stocks de artículos ");
+		as.modificarStockDeArticulos(modificaciones);
+		return new GenericResponseDTO();
 	}
 	
 	@POST

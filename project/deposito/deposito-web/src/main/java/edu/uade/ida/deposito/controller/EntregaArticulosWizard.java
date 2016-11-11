@@ -57,7 +57,7 @@ public class EntregaArticulosWizard extends HttpServlet {
 		String[] idsSolicitudesOrigenValues = request.getParameter("idsSolicitudesOrigen").split(",");
 		List<Integer> idsSolicitudesOrigen = this.getIdsSolicitudesOrigenDeEntrega(idsSolicitudesOrigenValues);
 		if (!idsSolicitudesOrigen.isEmpty()) {
-			solicitudesPendientesDeEntrega = sas.getSolicitudesStock(idsSolicitudesOrigen);
+			solicitudesPendientesDeEntrega = sas.getSolicitudesStockPendientesEnConjunto(idsSolicitudesOrigen);
 			Collections.sort(solicitudesPendientesDeEntrega, new SolicitudArticuloComparator());
 		}
 		return solicitudesPendientesDeEntrega;

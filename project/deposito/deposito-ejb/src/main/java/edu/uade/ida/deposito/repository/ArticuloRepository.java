@@ -1,5 +1,6 @@
 package edu.uade.ida.deposito.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -25,8 +26,8 @@ public class ArticuloRepository {
 		super();
 	}
 	
-	public Articulo getPorId(String id) {
-		return em.find(Articulo.class, Integer.valueOf(id));
+	public Articulo get(Long id) {
+		return em.find(Articulo.class, id);
 	}
 
 	/**
@@ -39,6 +40,15 @@ public class ArticuloRepository {
 		Query q = em.createQuery("from Articulo where codArticulo = :codigo");
 		q.setParameter("codigo", codigo);
 		return (Articulo) q.getSingleResult();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Articulo> getPorIds(List<Long> ids) {
+		List<Articulo> retList = new ArrayList<>();
+		Query q = em.createQuery("from Articulo where id in (:ids)");
+		q.setParameter("ids", ids);
+		retList.addAll(q.getResultList());
+		return retList;
 	}
 	
 	public List<Articulo> findAll() {

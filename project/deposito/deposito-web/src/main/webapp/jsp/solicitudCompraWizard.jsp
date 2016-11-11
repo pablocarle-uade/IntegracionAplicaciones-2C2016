@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="./resources/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="./resources/css/bootstrap-theme.min.css"/>
 		<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
-		<title>Entrega de Articulos</title>
+		<title>Solicitudes de Compra</title>
 		<script type="text/javascript" src="./resources/js/jquery-1.11.1.min.js">
 			//nothing
 		</script>

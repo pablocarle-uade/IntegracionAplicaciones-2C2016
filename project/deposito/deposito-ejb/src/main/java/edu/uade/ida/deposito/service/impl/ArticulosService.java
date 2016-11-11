@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.ModificacionStockRequestDTO;
 import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.model.Articulo;
@@ -28,19 +29,19 @@ public class ArticulosService implements ArticulosServiceLocal {
     private Logger log;
 	
 	@Inject
-	private EntityManager entityManager;
+	private EntityManager em;
 	
 	@Inject 
 	private ArticuloRepository articuloRepository;
 	
 	@Inject
-	private LogisticaMonitoreoServiceLocal logisticaYMonitoreoService;
+	private LogisticaMonitoreoServiceLocal lms;
 	
 	@Inject
-	private DespachoServiceLocal despachoService;
+	private DespachoServiceLocal ds;
 	
 	@Inject
-	private PortalServiceLocal portalService;
+	private PortalServiceLocal ps;
 	
 	@Override
 	public ArticuloDTO crearArticulo(ArticuloDTO dto) {
@@ -49,24 +50,51 @@ public class ArticulosService implements ArticulosServiceLocal {
         	Articulo articulo = new Articulo(dto.getCodArticulo(), dto.getNombre(), dto.getDescripcion(), dto.getMarca(),
 										 	 dto.getPrecio(), dto.getFoto(), dto.getOrigen(), TipoDeArticulo.parse(dto.getTipo()),
 										 	 dto.getStock(), dto.getDatosExtra());
-        	entityManager.persist(articulo);
-        	dto.setId(articulo.getId());
-        	// notificar a LyM
-        	this.logisticaYMonitoreoService.enviarAudit(NivelAudit.INFO, "Registrado nuevo artículo por " + "GO1" + ", código de artículo: " + articulo.getCodArticulo());        	
-        	// notificar a Despacho/s y Portal/es
+        	em.persist(articulo);
+        	dto.setId(articulo.getId());        	
+        	// Registrar en Logística y Monitoreo
+        	lms.enviarAudit(NivelAudit.INFO, "Registrado nuevo artículo, código de artículo: " + articulo.getCodArticulo());        	
+        	// Generar notificación para módulos interesados
         	NotificacionNuevoArticuloDTO notificacionNuevoArticulo = new NotificacionNuevoArticuloDTO("GO1",
 					articulo.getCodArticulo(), articulo.getNombre(), articulo.getDescripcion(), articulo.getMarca(),
 					articulo.getPrecio(), articulo.getFoto(), articulo.getOrigen(), articulo.getTipo().toString(),
 					articulo.getDatosExtra());
-        	this.despachoService.noticarNuevoArticulo(notificacionNuevoArticulo);
-        	this.portalService.noticarNuevoArticulo(notificacionNuevoArticulo);
+        	// notificar a Despacho/s y Portal/es
+        	ds.noticarNuevoArticulo(notificacionNuevoArticulo);
+        	ps.noticarNuevoArticulo(notificacionNuevoArticulo);        	
+        	
         } catch(Exception ex) {
-        	this.logisticaYMonitoreoService.enviarAudit(NivelAudit.ERROR, "Registrado error al crear nuevo artículo por " + "GO1");
+        	this.lms.enviarAudit(NivelAudit.ERROR, "Registrado error al crear nuevo artículo por " + "GO1");
         	log.info("Error al crear artículo: " + ex.getMessage());
         }
         return dto;
 	}
 	
+	@Override
+	public void modificarStockDeArticulos(List<ModificacionStockRequestDTO> modificaciones) {
+		for (ModificacionStockRequestDTO modificacion: modificaciones) {
+			Articulo articulo = articuloRepository.get(modificacion.getIdArticulo());
+			try {
+				modificarStockDeArticulo(articulo, modificacion.getNuevoStock());
+				log.info("Se modificó stock de artículo con éxito: " + "codArticulo: " + articulo.getCodArticulo() + ", nuevoStock: " + articulo.getStock());
+			} catch (Exception e) {
+				log.warning("Error al modificar stock de artículo: " + "codArticulo: " + articulo.getCodArticulo() + " " + e.getMessage());	
+			}
+		}
+	}
+	
+	private Articulo modificarStockDeArticulo(Articulo articulo, Integer nuevoStock) throws Exception {
+		if (nuevoStock < 0) throw new Exception("Stock incorrecto");
+		articulo.setStock(nuevoStock);
+		return em.merge(articulo);
+	}
+
+	@Override
+	public List<ArticuloDTO> getArticulosPorIds(List<Long> ids) {
+		List<Articulo> articulos = articuloRepository.getPorIds(ids);
+		return DTOUtil.getDTOs(articulos, ArticuloDTO.class);
+	}
+
 	@Override
 	public List<ArticuloDTO> buscarArticulos(SearchArticulosDTO searchArticulosDTO) {
 		List<Articulo> articulos = articuloRepository.findAll(); // TODO Search (criteria / hql)

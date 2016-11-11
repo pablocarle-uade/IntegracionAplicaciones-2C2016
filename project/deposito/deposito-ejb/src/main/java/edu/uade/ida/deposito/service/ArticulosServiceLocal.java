@@ -3,6 +3,7 @@ package edu.uade.ida.deposito.service;
 import java.util.List;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.ModificacionStockRequestDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 
 public interface ArticulosServiceLocal {
@@ -29,5 +30,9 @@ public interface ArticulosServiceLocal {
 	 * @return Cantidad de articulos creados
 	 */
 	int createArticulosDefault();
+
+	void modificarStockDeArticulos(List<ModificacionStockRequestDTO> modificacionesS);
+
+	List<ArticuloDTO> getArticulosPorIds(List<Long> ids);
 	
 }

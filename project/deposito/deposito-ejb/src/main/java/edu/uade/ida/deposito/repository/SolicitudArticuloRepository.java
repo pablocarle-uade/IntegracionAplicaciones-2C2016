@@ -31,10 +31,11 @@ public class SolicitudArticuloRepository {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<SolicitudArticulo> getPorIds(List<Integer> ids) {
+	public List<SolicitudArticulo> getPendientesEnConjunto(List<Integer> ids) {
 		List<SolicitudArticulo> retList = new ArrayList<>();
-		Query q = em.createQuery("from SolicitudArticulo where idSolicitudStock in (:ids)");
+		Query q = em.createQuery("from SolicitudArticulo where idSolicitudStock in (:ids) and estado in (:estados)");
 		q.setParameter("ids", ids);
+		q.setParameter("estados", Arrays.asList(SolicitudArticulo.ESTADO_PENDIENTE));
 		retList.addAll(q.getResultList());
 		return retList;
 	}

@@ -69,8 +69,8 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 	
 	@Override
-	public List<SolicitudArticuloDTO> getSolicitudesStock(List<Integer> idsSolicitudes) {
-		return DTOUtil.getDTOs(sar.getPorIds(idsSolicitudes), SolicitudArticuloDTO.class);
+	public List<SolicitudArticuloDTO> getSolicitudesStockPendientesEnConjunto(List<Integer> idsSolicitudes) {
+		return DTOUtil.getDTOs(sar.getPendientesEnConjunto(idsSolicitudes), SolicitudArticuloDTO.class);
 	}
 
 	@Override
@@ -136,9 +136,10 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	public void createEntregasArticulos(List<CreateEntregaArticuloRequestDTO> entregas) {
 		for (CreateEntregaArticuloRequestDTO entrega: entregas) {
 			try {
-				SolicitudArticulo solicitudDeArticuloAEntregar = em.find(SolicitudArticulo.class, entrega.getIdSolicitudArticulo());
-				this.createEntregaArticulo(solicitudDeArticuloAEntregar.getDTO(), entrega.getCantidad());
+				SolicitudArticulo solicitudArticuloEntrega = em.find(SolicitudArticulo.class, entrega.getIdSolicitudArticulo());
+				this.createEntregaArticulo(solicitudArticuloEntrega.getDTO(), entrega.getCantidad());
 				log.info("Entrega de artículos procesada con éxito a partir de solicitud: " + entrega.getIdSolicitudArticulo());
+				lms.enviarAudit(NivelAudit.INFO, "Creada entrega de artículo a despacho " + solicitudArticuloEntrega.getIdModuloSolicitante());
 			} catch (Exception e) {
 				log.warning("Error al entregar artículo a partir de solicitud: " + entrega.getIdSolicitudArticulo() + " " + e.getMessage());
 				lms.enviarAudit(NivelAudit.ERROR, "Fallo en entrega de artículos a despacho");

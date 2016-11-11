@@ -23,6 +23,16 @@
   <url-pattern>/SolicitudCompraWizard</url-pattern>
  </servlet-mapping>
  
+  <servlet>
+  <display-name>ModificarStockArticulosWizard</display-name>
+  <servlet-name>ModificarStockArticulosWizard</servlet-name>
+  <servlet-class>edu.uade.ida.deposito.controller.ModificarStockArticulosWizard</servlet-class>
+ </servlet>
+  <servlet-mapping>
+  <servlet-name>ModificarStockArticulosWizard</servlet-name>
+  <url-pattern>/ModificarStockArticulosWizard</url-pattern>
+ </servlet-mapping>
+ 
  <welcome-file-list>
   <welcome-file>index.html</welcome-file>
   <welcome-file>index.htm</welcome-file>

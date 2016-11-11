@@ -16,7 +16,7 @@ public interface SolicitudArticulosServiceLocal {
 	
 	List<SolicitudArticuloDTO> getSolicitudesStockPendientes();
 	
-	List<SolicitudArticuloDTO> getSolicitudesStock(List<Integer> idsSolicitudes);
+	List<SolicitudArticuloDTO> getSolicitudesStockPendientesEnConjunto(List<Integer> idsSolicitudes);
 
 	/**
 	 * Generar entregas de artículos según los valores especificados
