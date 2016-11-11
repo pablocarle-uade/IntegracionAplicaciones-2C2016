@@ -36,8 +36,13 @@ public class GenerarEntregaArticulosWizard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Obtener los articulos pendientes de entrega y cargar la UI que permita generar la entrega a procesar
-		getArticulosPendienteEntrega(request, response);
+		// Obtener solcitudes pendientes de entrega comprendidas en el param idsSolicitudesOrigen
+		List<SolicitudArticuloDTO> solicitudesPendientesDeEntrega = getSolicitudesPendientesDeEntrega(request, response);
+		// Cargar la UI que permita editar la entrega a generar y procesarla
+		HttpSession session = request.getSession(true);
+		session.setAttribute("solicitudesPendientes", solicitudesPendientesDeEntrega);
+		request.setAttribute("solicitudesPendientes", solicitudesPendientesDeEntrega);
+		request.getRequestDispatcher("/jsp/generarEntregaArticulos.jsp").forward(request, response);
 	}
 
 	/**
@@ -47,20 +52,15 @@ public class GenerarEntregaArticulosWizard extends HttpServlet {
 		this.doGet(request, response);
 	}
 
-	private void getArticulosPendienteEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Obtener solicitudes para generar la entrega
+	private List<SolicitudArticuloDTO> getSolicitudesPendientesDeEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<SolicitudArticuloDTO> solicitudesPendientesDeEntrega = new LinkedList<SolicitudArticuloDTO>();
 		String[] idsSolicitudesOrigenValues = request.getParameter("idsSolicitudesOrigen").split(",");
 		List<Integer> idsSolicitudesOrigen = this.getIdsSolicitudesOrigenDeEntrega(idsSolicitudesOrigenValues);
-		List<SolicitudArticuloDTO> solicitudesPendientesOrigenDeEntrega = new LinkedList<SolicitudArticuloDTO>();
 		if (!idsSolicitudesOrigen.isEmpty()) {
-			solicitudesPendientesOrigenDeEntrega = sas.getSolicitudesStock(idsSolicitudesOrigen);
-			Collections.sort(solicitudesPendientesOrigenDeEntrega, new SolicitudArticuloComparator());
+			solicitudesPendientesDeEntrega = sas.getSolicitudesStock(idsSolicitudesOrigen);
+			Collections.sort(solicitudesPendientesDeEntrega, new SolicitudArticuloComparator());
 		}
-		// Cargar la UI que permita editar la entrega a generar y procesarla
-		HttpSession session = request.getSession(true);
-		session.setAttribute("solicitudesPendientes", solicitudesPendientesOrigenDeEntrega);
-		request.setAttribute("solicitudesPendientes", solicitudesPendientesOrigenDeEntrega);
-		request.getRequestDispatcher("/jsp/generarEntregaArticulos.jsp").forward(request, response);
+		return solicitudesPendientesDeEntrega;
 	}
 	
 	private List<Integer> getIdsSolicitudesOrigenDeEntrega(String[] idsSolicitudesOrigenValues) {

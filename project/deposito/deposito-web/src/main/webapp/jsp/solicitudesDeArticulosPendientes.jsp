@@ -98,7 +98,7 @@
 			})
 			
 			$("#cmdGenerarSolicitudDeCompra").on("click", function() {
-				window.location.href = "/deposito-web/GenerarSolicitudDeCompra" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+				window.location.href = "/deposito-web/GenerarSolicitudDeCompraWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			// ~
 	});
