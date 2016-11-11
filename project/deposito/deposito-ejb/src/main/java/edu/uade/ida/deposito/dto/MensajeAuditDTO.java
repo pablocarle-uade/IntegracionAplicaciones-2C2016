@@ -52,4 +52,10 @@ public class MensajeAuditDTO implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+	@Override
+	public String toString() {
+		return "MensajeAuditDTO [fecha=" + fecha + ", tipo=" + tipo + ", modulo=" + modulo + ", descripcion="
+				+ descripcion + "]";
+	}
 }

@@ -96,9 +96,11 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	private void enviarAuditAsync(NivelAudit nivel, String mensaje) {
 		List<JmsEndpointConfig> logisticaConf = config.getAsyncServers(ConfigModulo.LOGISTICA);
 		try {
+			MensajeAuditDTO mad = buildMensaje(nivel, mensaje);
+			String body = gson.toJson(mad);
 			for (JmsEndpointConfig logistica : logisticaConf) {
-				log.info("Enviando mensaje de auditoria con " + mensaje);
-				JMSClientConfiguration conf = new JMSClientConfiguration(nivel.toString() + " - " + mensaje, logistica.getJmsQueue(), logistica.getProviderUrl(), logistica.getUser(), logistica.getPassword());
+				log.info("Enviando mensaje de auditoria con " + mad);
+				JMSClientConfiguration conf = new JMSClientConfiguration(body, logistica.getJmsQueue(), logistica.getProviderUrl(), logistica.getUser(), logistica.getPassword());
 				jmsClient.invoke(conf);
 			}
 		} catch (Exception e) {
@@ -110,7 +112,7 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	private MensajeAuditDTO buildMensaje(NivelAudit nivel, String mensaje) {
 		SimpleDateFormat sdf = new SimpleDateFormat(MensajeAuditDTO.FORMATO_FECHA);
 		String fecha = sdf.format(Calendar.getInstance().getTime());
-		return new MensajeAuditDTO(fecha, nivel.toString(), "deposito", EscapeUtil.escapeJsonStringValue(mensaje));
+		return new MensajeAuditDTO(fecha, "Deposito", config.getIdDeposito(), EscapeUtil.escapeJsonStringValue(nivel.toString() + " - " + mensaje));
 	}
 	
 	private Modo getModo() {
