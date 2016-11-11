@@ -25,11 +25,11 @@
 		</script>
 	</head>
 	<body>
-	<h1 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Generar Entrega de Artículos</h1>
-	<h4 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Puede modificar las cantidades a entregar sugeridas por el sistema</h4>
+	<h1 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Generar Solicitud de Compra de Artículos</h1>
+	<h4 style="padding-left: 30px; font-family: 'Special Elite',cursive;">Puede modificar las cantidades a comprar sugeridas por el sistema</h4>
 	
 	<div style="padding:5px;border:5px solid green;margin:0;overflow: auto;">
-	<form id="entregaDeArticulosRequestForm">		
+	<form id="solicitudDeCompraRequestForm">		
 		<jsp:scriptlet>
 			<![CDATA[
 				List<SolicitudArticuloDTO> solicitudesPendientes = (List<SolicitudArticuloDTO>)request.getAttribute("solicitudesPendientes");
@@ -81,10 +81,10 @@
 									</jsp:scriptlet>	
 								</div>
 								<div class="col-md-2">
-									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad a Entregar</span>
+									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad a Comprar</span>
 									<jsp:scriptlet>
 										<![CDATA[
-											out.println("<input type='number' class='form-control contidadAEntregarValueHolder' value='" + sad.getCantidad() + "'></input>");
+											out.println("<input type='number' class='form-control contidadAComprarValueHolder' value='" + (sad.getCantidad() * 2) + "'></input>");
 										]]>
 									</jsp:scriptlet>	
 								</div>
@@ -107,7 +107,7 @@
 		
 		<div class="col-lg-12">
 			<br/>
-			<button id="btnEntregaDeArticulosSubmit" class="btn-primary waves-effect waves-light btn" type="button">Entregar Artículos</button>
+			<button id="btnEnviarSolicitudDeCompra" class="btn-primary waves-effect waves-light btn" type="button">Enviar Solicitud de Compra</button>
 		</div>	
 		
 		<script type="text/javascript" >
@@ -115,37 +115,37 @@
 		
 			$(document).ready(function() {
 
-				$("#btnEntregaDeArticulosSubmit").on("click", function() {
-					 var entregaDeArticulosRequest = [];
+				$("#btnEnviarSolicitudDeCompra").on("click", function() {
+					 var compraDeArticulosRequest = [];
 					 $(".itemEntregaContainer").each(function() {
-						 var itemEntregaArticulos = {}
+						 var itemCompraArticulos = {}
 						 var idSolicitudArticulo = $(this).attr("id");
 						 var includeItem = $("#" + idSolicitudArticulo + " .isIncludedValueHolder").is(":checked");
-						 var cantidadAEntregar = $("#" + idSolicitudArticulo + " .contidadAEntregarValueHolder").val();
+						 var cantidadAComprar = $("#" + idSolicitudArticulo + " .contidadAComprarValueHolder").val();
 						 if (includeItem) {
-							 itemEntregaArticulos.idSolicitudArticulo = idSolicitudArticulo;
-							 itemEntregaArticulos.cantidad = cantidadAEntregar;
-							 entregaDeArticulosRequest.push(itemEntregaArticulos);
+							 itemCompraArticulos.idSolicitudArticulo = idSolicitudArticulo;
+							 itemCompraArticulos.cantidad = cantidadAComprar;
+							 compraDeArticulosRequest.push(itemCompraArticulos);
 						 }
 					 });
-					 // alert(JSON.stringify(entregaDeArticulosRequest));
-					 doProcess(entregaDeArticulosRequest);
+					 alert(JSON.stringify(compraDeArticulosRequest));
+					 // doProcess(compraDeArticulosRequest);
 				});
 				
 			});
 			
-			function doProcess(entregaDeArticulosRequest) {
+			function doProcess(compraDeArticulosRequest) {
 				$.ajax({
-		             url: '/deposito-web/rest/entregaDeArticulos/procesarEntrega',
+		             url: '/deposito-web/rest/solicitudCompraArticulos/procesarSolicitud',
 		             type: 'post',
 		             contentType:"application/json; charset=utf-8",
 		             success: function(response) {
 		            	 window.location.href = "/deposito-web/jsp/solicitudesDeArticulosPendientes.jsp";
 		             },
 		             error: function (response) {
-		                 alert("No se pudo procesar entrega de artículos" + response);
+		                 alert("No se pudo procesar compra de artículos" + response);
 		             },
-		             data: JSON.stringify(entregaDeArticulosRequest)
+		             data: JSON.stringify(compraDeArticulosRequest)
 		         });					
 			}
 					

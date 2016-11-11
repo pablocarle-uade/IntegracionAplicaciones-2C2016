@@ -107,7 +107,7 @@
 		
 		<div class="col-lg-12">
 			<br/>
-			<button id="btnEntregaDeArticulosSubmit" class="btn-primary waves-effect waves-light btn" type="button">Entregar Artículos</button>
+			<button id="btnProcesarEntregaDeArticulos" class="btn-primary waves-effect waves-light btn" type="button">Entregar Artículos</button>
 		</div>	
 		
 		<script type="text/javascript" >
@@ -115,7 +115,7 @@
 		
 			$(document).ready(function() {
 
-				$("#btnEntregaDeArticulosSubmit").on("click", function() {
+				$("#btnProcesarEntregaDeArticulos").on("click", function() {
 					 var entregaDeArticulosRequest = [];
 					 $(".itemEntregaContainer").each(function() {
 						 var itemEntregaArticulos = {}
