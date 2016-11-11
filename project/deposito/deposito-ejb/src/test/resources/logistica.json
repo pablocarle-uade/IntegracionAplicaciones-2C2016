@@ -1,0 +1,19 @@
+{
+	servers: [
+		{
+			id: "logistica1",
+			modo: "sync", //async
+			syncParams: {
+				serverUrl: "http://localhost:8080",
+				resource: "/rest/lala"
+			},
+			asyncParams: {
+				providerUrl: "unaurl",
+				jmsQueue: "unaqueue",
+				jmsTopic: null,
+				user: "user",
+				password: "pass"
+			}
+		}
+	]
+}

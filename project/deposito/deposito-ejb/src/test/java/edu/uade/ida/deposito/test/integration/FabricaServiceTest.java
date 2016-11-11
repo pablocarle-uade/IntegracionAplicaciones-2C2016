@@ -34,11 +34,14 @@ public class FabricaServiceTest {
 
 	@Deployment
 	public static Archive<?> createDeployment() {
-		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test.war")
+		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test_fabrica.war")
 				.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				.addAsWebInfResource("test-ds.xml", "test-ds.xml");
-		archive.addPackage("com.google.gson");
+				.addAsWebInfResource("test-ds.xml", "test-ds.xml")
+				.addAsResource("despacho.json")
+				.addAsResource("logistica.json")
+				.addAsResource("portales.json");
+		archive.addPackages(true, "com.google.gson");
 		archive.addPackages(true, "edu.uade.ida.deposito");
 		return archive
 				;

@@ -52,19 +52,15 @@ public class SolicitudArticuloTest {
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
-		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test2.war")
-				.addClasses(SolicitudArticulo.class, SolicitudArticuloRequestDTO.class, SolicitudArticuloDTO.class, SolicitudArticulosMDB.class, Resources.class)
+		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test_solicitud_articulo.war")
 				.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				.addAsWebInfResource("test-ds.xml", "test-ds.xml");
-		archive.addClass(ArticuloRepository.class);
-		archive.addClass(SolicitudArticuloRepository.class);
-		archive.addClass(ArticuloDTO.class);
-		archive.addClass(HasDTO.class);
-		archive.addClass(ConfigHolder.class);
-		archive.addClass(Gson.class);
-		archive.addClass(JsonSyntaxException.class);
-		archive.addClass(JsonParseException.class);
+				.addAsWebInfResource("test-ds.xml", "test-ds.xml")
+				.addAsResource("despacho.json")
+				.addAsResource("logistica.json")
+				.addAsResource("portales.json");
+		archive.addPackages(true, "com.google.gson");
+		archive.addPackages(true, "edu.uade.ida.deposito");
 		return archive
 				;
 	}

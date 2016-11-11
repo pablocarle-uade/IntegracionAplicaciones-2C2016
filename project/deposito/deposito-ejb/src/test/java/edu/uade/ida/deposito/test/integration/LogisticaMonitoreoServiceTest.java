@@ -17,9 +17,15 @@ public class LogisticaMonitoreoServiceTest {
 
 	@Deployment
 	public static Archive<?> createDeployment() {
-		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test.war").addAsWebInfResource(EmptyAsset.INSTANCE,
-				"beans.xml").addPackage("");
-		// System.out.println(archive.toString(true));
+		WebArchive archive = ShrinkWrap.create(WebArchive.class, "test_log_mon.war").addAsWebInfResource(EmptyAsset.INSTANCE,
+				"beans.xml")
+				.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+				.addAsWebInfResource("test-ds.xml", "test-ds.xml")
+				.addPackages(true, "edu.uade.ida.deposito")
+				.addAsResource("despacho.json")
+				.addAsResource("logistica.json")
+				.addAsResource("portales.json");
 		return archive;
 	}
 
@@ -31,5 +37,4 @@ public class LogisticaMonitoreoServiceTest {
 	public void test() {
 		fail("Not yet implemented");
 	}
-
 }

@@ -1,0 +1,14 @@
+{
+	servers: [
+		{
+			id: "G01",
+			jmsEndpoint: {
+				providerUrl: "http-remoting://10.100.56.66:8080",
+				jmsQueue: "jms/queue/deposito",
+				jmsTopic: null,
+				user: "guest",
+				password: "guest"
+			}
+		}
+	]
+}

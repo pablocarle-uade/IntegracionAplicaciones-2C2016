@@ -1,0 +1,33 @@
+{
+	servers: [
+		{
+			id: "G01",
+			restEndpoint: {
+				url: "http://locahost:8080",
+				resource: "/rest/nuevoArticulo",
+				method: "post"
+			},
+			jmsEndpoint: {
+				providerUrl: "providerurl",
+				jmsQueue: "queue",
+				jmsTopic: null,
+				user: "user",
+				password: "pass"
+			}
+		},
+		{
+			id: "G02",
+			restEndpoint: {
+				url: "http://locahost:8080",
+				resource: "/rest/nuevoArticulo",
+				method: "post"
+			},
+			jmsEndpoint: {
+				jmsQueue: "queue",
+				jmsTopic: null,
+				user: "user",
+				password: "pass"
+			}
+		}
+	]
+}
