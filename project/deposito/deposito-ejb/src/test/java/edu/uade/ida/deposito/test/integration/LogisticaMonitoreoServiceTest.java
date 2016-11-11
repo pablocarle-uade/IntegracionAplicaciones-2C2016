@@ -26,6 +26,7 @@ public class LogisticaMonitoreoServiceTest {
 				.addAsWebInfResource("test-ds.xml", "test-ds.xml")
 				.addPackages(true, "edu.uade.ida.deposito")
 				.addPackages(true, "com.google.gson")
+				.addPackages(true, "org.mockito")
 				.addAsResource("despacho.json")
 				.addAsResource("logistica.json")
 				.addAsResource("portales.json");

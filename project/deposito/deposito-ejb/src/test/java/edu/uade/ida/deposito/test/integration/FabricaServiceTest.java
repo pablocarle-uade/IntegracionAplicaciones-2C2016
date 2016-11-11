@@ -78,7 +78,7 @@ public class FabricaServiceTest {
 			em.joinTransaction();
 			SolicitudCompraDTO dto = fsl.crearSolicitudCompra(articulo, 5);
 			tr.commit();
-			assertNotNull(dto);
+			assertNotNull("DTO es " + dto, dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -89,9 +89,9 @@ public class FabricaServiceTest {
 		try {
 			tr.begin();
 			em.joinTransaction();
-			asl.crearArticulo(articulosDefault[0]);
+			ArticuloDTO articulo = asl.crearArticulo(articulosDefault[0]);
 			tr.commit();
-			return articulosDefault[0];
+			return articulo;
 		} catch (NotSupportedException | SystemException | SecurityException | IllegalStateException | RollbackException | HeuristicMixedException | HeuristicRollbackException e) {
 			e.printStackTrace();
 			return null;

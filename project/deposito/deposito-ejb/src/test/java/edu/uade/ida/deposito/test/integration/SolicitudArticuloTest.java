@@ -31,21 +31,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
-
-import edu.uade.ida.deposito.dto.ArticuloDTO;
-import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
-import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
-import edu.uade.ida.deposito.repository.ArticuloRepository;
-import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
-import edu.uade.ida.deposito.service.impl.SolicitudArticulosMDB;
-import edu.uade.ida.deposito.util.HasDTO;
-import edu.uade.ida.deposito.util.Resources;
-import edu.uade.ida.deposito.util.config.ConfigHolder;
 
 @RunWith(Arquillian.class)
 public class SolicitudArticuloTest {
@@ -103,7 +90,7 @@ public class SolicitudArticuloTest {
 	@Test
 	public void testSolicitudStockArticuloNoExiste() throws Exception {
 		//Prueba de la conexion, ya que no esperamos resultado alguno de interface JMS
-		String messageBody = "{'idArticulo': '0', 'cantidad': 5, 'idModulo': 'G01'}";
+		String messageBody = "{'idArticulo': '0', 'cantidad': 5, 'idDespacho': 'G01'}";
 		Connection connection = factory.createConnection();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		connection.start();
@@ -129,7 +116,7 @@ public class SolicitudArticuloTest {
 	
 	@Test
 	public void testSolicitudStockArticuloExiste() throws Exception {
-		String messageBody = "{'idArticulo': '123', 'cantidad': 5, 'idModulo': 'G02'}";
+		String messageBody = "{'idArticulo': '123', 'cantidad': 5, 'idDespacho': 'G02'}";
 		Connection connection = factory.createConnection();
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		connection.start();

@@ -15,6 +15,7 @@ import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 @Path("/solicitudArticulo")
 public class SolicitudArticuloController {
 
+	@SuppressWarnings("unused")
 	@Inject
 	private Logger log;
 	
