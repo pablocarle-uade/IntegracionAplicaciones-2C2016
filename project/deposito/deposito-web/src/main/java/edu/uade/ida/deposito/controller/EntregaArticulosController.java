@@ -9,7 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import edu.uade.ida.deposito.dto.ProcesarEntregaArticuloRequestDTO;
+import edu.uade.ida.deposito.dto.CreateEntregaArticuloRequestDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 import edu.uade.ida.deposito.rest.GenericResponseDTO;
 
@@ -26,9 +26,9 @@ public class EntregaArticulosController {
 	@Path("/procesarEntrega")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public GenericResponseDTO procesarEntregaDeArticulos(List<ProcesarEntregaArticuloRequestDTO> entregas) {
-		log.info("Procesar entrega de artículos ");
-		this.as.procesarEntregasArticulos(entregas);
+	public GenericResponseDTO procesarEntregaDeArticulos(List<CreateEntregaArticuloRequestDTO> entregas) {
+		log.info("Se ha solicitado la generación de entregas de artículos ");
+		this.as.createEntregasArticulos(entregas);
 		// TODO: Response alternative scenarios, error, etc
 		return new GenericResponseDTO();
 	}

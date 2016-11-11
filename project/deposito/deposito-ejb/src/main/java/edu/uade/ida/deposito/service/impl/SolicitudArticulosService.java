@@ -11,7 +11,8 @@ import javax.persistence.EntityManager;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
-import edu.uade.ida.deposito.dto.ProcesarEntregaArticuloRequestDTO;
+import edu.uade.ida.deposito.dto.CreateEntregaArticuloRequestDTO;
+import edu.uade.ida.deposito.dto.CreateSolicitudCompraRequestDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
@@ -73,22 +74,6 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	@Override
-	public void procesarEntregasArticulos(List<ProcesarEntregaArticuloRequestDTO> entregas) {
-		// Por cada entrega solicitada se conoce idSolicitudArticulo (pendiente), cantidad
-		for (ProcesarEntregaArticuloRequestDTO entrega: entregas) {
-			try {
-				SolicitudArticulo solicitudDeArticuloAEntregar = em.find(SolicitudArticulo.class, entrega.getIdSolicitudArticulo());
-				this.createEntregaArticulo(solicitudDeArticuloAEntregar.getDTO(), entrega.getCantidad());
-				log.info("Entrega de artículos procesada con éxito a partir de solicitud: " + entrega.getIdSolicitudArticulo());
-			} catch (Exception e) {
-				log.warning("Error al entregar artículo a partir de solicitud: " + entrega.getIdSolicitudArticulo() + " " + e.getMessage());
-				lms.enviarAudit(NivelAudit.ERROR, "Fallo en entrega de articulos a despacho");
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@Override
 	public SolicitudArticuloDTO createSolicitudArticulo(ArticuloDTO articulo, int cantidad, String idModuloSolicitante) throws Exception {
 		if (cantidad <= 0)
 			throw new Exception("cantidad no puede ser menor a 0");
@@ -121,6 +106,20 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	@Override
+	public void createSolicitudesCompra(List<CreateSolicitudCompraRequestDTO> solicitudes) {
+		for (CreateSolicitudCompraRequestDTO solicitud: solicitudes) {
+			try {
+				SolicitudArticulo solicitudDeArticuloAComprar = em.find(SolicitudArticulo.class, solicitud.getIdSolicitudArticulo());
+				this.createSolicitudCompra(solicitudDeArticuloAComprar.getDTO(), solicitud.getCantidad());
+				log.info("Compra de artículos procesada con éxito a partir de solicitud: " + solicitud.getIdSolicitudArticulo());
+			} catch (Exception e) {
+				log.warning("Error al comprar artículo a partir de solicitud: " + solicitud.getIdSolicitudArticulo() + " " + e.getMessage());
+				lms.enviarAudit(NivelAudit.ERROR, "Fallo en compra de artículos a fábrica");
+			}
+		}
+	}
+	
+	@Override
 	public SolicitudCompraDTO createSolicitudCompra(SolicitudArticuloDTO sa, int cantidad) throws Exception {
 		try {
 			SolicitudCompraDTO scd = fabricaService.crearSolicitudCompra(sa.getArticulo(), cantidad);
@@ -132,6 +131,20 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			throw e;
 		}
 	}
+	
+	@Override
+	public void createEntregasArticulos(List<CreateEntregaArticuloRequestDTO> entregas) {
+		for (CreateEntregaArticuloRequestDTO entrega: entregas) {
+			try {
+				SolicitudArticulo solicitudDeArticuloAEntregar = em.find(SolicitudArticulo.class, entrega.getIdSolicitudArticulo());
+				this.createEntregaArticulo(solicitudDeArticuloAEntregar.getDTO(), entrega.getCantidad());
+				log.info("Entrega de artículos procesada con éxito a partir de solicitud: " + entrega.getIdSolicitudArticulo());
+			} catch (Exception e) {
+				log.warning("Error al entregar artículo a partir de solicitud: " + entrega.getIdSolicitudArticulo() + " " + e.getMessage());
+				lms.enviarAudit(NivelAudit.ERROR, "Fallo en entrega de artículos a despacho");
+			}
+		}
+	}
 
 	@Override
 	public EntregaArticuloDTO createEntregaArticulo(SolicitudArticuloDTO solicitudDeArticulo, int cantidadEntrega) throws Exception {
@@ -140,7 +153,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			if (verificaStock(solicitudDeArticuloAEntregar.getArticulo(), cantidadEntrega)) {
 				synchronized (this) {
 					if (verificaStock(solicitudDeArticuloAEntregar.getArticulo(), cantidadEntrega)) {
-						EntregaArticuloDTO entregaArticulo = crearEntregaArticulo(solicitudDeArticuloAEntregar, cantidadEntrega);
+						EntregaArticuloDTO entregaArticulo = doCreateEntregaArticulo(solicitudDeArticuloAEntregar, cantidadEntrega);
 						// Ya que la entrega de artículo se generó correctamnete, notificamos a los sistemas que correspondan
 						notificarEntregaArticulo(entregaArticulo);
 						return entregaArticulo;
@@ -162,7 +175,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 		dsl.notificarEntregaArticulo(entregaArticulo);
 	}
 
-	private EntregaArticuloDTO crearEntregaArticulo(SolicitudArticulo solicitudDeArticulo, int cantidadEntrega) throws Exception {
+	private EntregaArticuloDTO doCreateEntregaArticulo(SolicitudArticulo solicitudDeArticulo, int cantidadEntrega) throws Exception {
 		EntregaArticulo entregaDeArticulo = new EntregaArticulo(solicitudDeArticulo, cantidadEntrega, solicitudDeArticulo.getIdModuloSolicitante());
 		solicitudDeArticulo.getArticulo().setStock(solicitudDeArticulo.getArticulo().getStock() - cantidadEntrega);
 		if (solicitudDeArticulo.getArticulo().getStock() < 0)

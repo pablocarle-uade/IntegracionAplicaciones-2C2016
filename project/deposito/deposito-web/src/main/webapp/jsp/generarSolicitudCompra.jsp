@@ -21,7 +21,7 @@
 			//nothing
 		</script>
 		<script type="text/javascript" src="./resources/js/bootstrap.min.js">
-			//nothing
+			//nothingde de compra de de compra 
 		</script>
 	</head>
 	<body>
@@ -128,19 +128,19 @@
 							 compraDeArticulosRequest.push(itemCompraArticulos);
 						 }
 					 });
-					 alert(JSON.stringify(compraDeArticulosRequest));
-					 // doProcess(compraDeArticulosRequest);
+					 // alert(JSON.stringify(compraDeArticulosRequest));
+					 doProcess(compraDeArticulosRequest);
 				});
 				
 			});
 			
 			function doProcess(compraDeArticulosRequest) {
 				$.ajax({
-		             url: '/deposito-web/rest/solicitudCompraArticulos/procesarSolicitud',
+		             url: '/deposito-web/rest/solicitudCompra',
 		             type: 'post',
 		             contentType:"application/json; charset=utf-8",
 		             success: function(response) {
-		            	 window.location.href = "/deposito-web/jsp/solicitudesDeArticulosPendientes.jsp";
+		            	 window.location.href = "/deposito-web/jsp/solicitudesArticulosPendientes.jsp";
 		             },
 		             error: function (response) {
 		                 alert("No se pudo procesar compra de artículos" + response);

@@ -2,14 +2,14 @@ package edu.uade.ida.deposito.dto;
 
 import java.io.Serializable;
 
-public class ProcesarEntregaArticuloRequestDTO implements Serializable {
+public class CreateEntregaArticuloRequestDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private Integer idSolicitudArticulo;
 	private Integer cantidad;
 
-	public ProcesarEntregaArticuloRequestDTO() {
+	public CreateEntregaArticuloRequestDTO() {
 	}
 
 	public Integer getIdSolicitudArticulo() {
