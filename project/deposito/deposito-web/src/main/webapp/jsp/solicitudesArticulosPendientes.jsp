@@ -54,7 +54,7 @@
 			    "autoWidth": true,
 			    processing: true,
 			    "ajax": {
-			         url: '/deposito-web/rest/solicitudDeArticulos/pendientes', 
+			         url: '/deposito-web/rest/solicitudArticulos/pendientes',
 			         "type": "GET",
 			         "contentType": "application/json",
 			         "bInfo" : false,
@@ -98,7 +98,7 @@
 			})
 			
 			$("#cmdGenerarSolicitudDeCompra").on("click", function() {
-				window.location.href = "/deposito-web/GenerarSolicitudDeCompraWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+				window.location.href = "/deposito-web/GenerarSolicitudCompraWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
 			})
 			// ~
 	});

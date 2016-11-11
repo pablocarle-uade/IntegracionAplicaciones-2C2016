@@ -36,7 +36,7 @@ public class GenerarEntregaArticulosWizard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Obtener solcitudes pendientes de entrega comprendidas en el param idsSolicitudesOrigen
+		// Obtener solicitudes pendientes de entrega comprendidas en el param idsSolicitudesOrigen
 		List<SolicitudArticuloDTO> solicitudesPendientesDeEntrega = getSolicitudesPendientesDeEntrega(request, response);
 		// Cargar la UI que permita editar la entrega a generar y procesarla
 		HttpSession session = request.getSession(true);
