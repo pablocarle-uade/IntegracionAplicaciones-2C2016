@@ -1,6 +1,8 @@
 package edu.uade.ida.deposito.controller;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,12 +37,31 @@ public class GenerarSolicitudCompraWizard extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Obtener solicitudes pendientes de entrega comprendidas en el param idsSolicitudesOrigen
-		List<SolicitudArticuloDTO> solicitudesPendientesDeEntrega = new LinkedList<SolicitudArticuloDTO>();
+		List<SolicitudArticuloDTO> solicitudesPendientesDeEntrega = getSolicitudesPendientesDeEntrega(request, response);
 		// Cargar la UI que permita editar la entrega a generar y procesarla
 		HttpSession session = request.getSession(true);
 		session.setAttribute("solicitudesPendientes", solicitudesPendientesDeEntrega);
 		request.setAttribute("solicitudesPendientes", solicitudesPendientesDeEntrega);
 		request.getRequestDispatcher("/jsp/generarSolicitudCompra.jsp").forward(request, response);
+	}
+	
+	private List<SolicitudArticuloDTO> getSolicitudesPendientesDeEntrega(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<SolicitudArticuloDTO> solicitudesPendientesDeEntrega = new LinkedList<SolicitudArticuloDTO>();
+		String[] idsSolicitudesOrigenValues = request.getParameter("idsSolicitudesOrigen").split(",");
+		List<Integer> idsSolicitudesOrigen = this.getIdsSolicitudesOrigenDeEntrega(idsSolicitudesOrigenValues);
+		if (!idsSolicitudesOrigen.isEmpty()) {
+			solicitudesPendientesDeEntrega = sas.getSolicitudesStock(idsSolicitudesOrigen);
+			Collections.sort(solicitudesPendientesDeEntrega, new SolicitudArticuloComparator());
+		}
+		return solicitudesPendientesDeEntrega;
+	}
+	
+	private List<Integer> getIdsSolicitudesOrigenDeEntrega(String[] idsSolicitudesOrigenValues) {
+		List<Integer> idsSolicitudesOrigen = new LinkedList<Integer>();
+		for (String idSolicitudOrigenValue : idsSolicitudesOrigenValues) {
+			idsSolicitudesOrigen.add(Integer.valueOf(idSolicitudOrigenValue));
+		}
+		return idsSolicitudesOrigen;
 	}
 
 	/**
@@ -50,4 +71,11 @@ public class GenerarSolicitudCompraWizard extends HttpServlet {
 		this.doGet(request, response);
 	}
 	
+	private static class SolicitudArticuloComparator implements Comparator<SolicitudArticuloDTO> {
+
+		@Override
+		public int compare(SolicitudArticuloDTO o1, SolicitudArticuloDTO o2) {
+			return -1 * o1.getFechaCreacion().compareTo(o2.getFechaCreacion());
+		}
+	}
 }
