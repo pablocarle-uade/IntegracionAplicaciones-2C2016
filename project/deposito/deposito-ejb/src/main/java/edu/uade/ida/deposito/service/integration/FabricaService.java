@@ -85,8 +85,10 @@ public class FabricaService implements FabricaServiceLocal {
 			item = new SolicitudCompraItem(sc, art, entry.getValue());
 			items.add(item);
 		}
+		sc.setItems(items);
 		em.persist(sc);
 		invocarRecepcionarCompra(sc);
+		
 		return sc.getDTO();
 	}
 
