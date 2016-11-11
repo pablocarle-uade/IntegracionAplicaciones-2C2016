@@ -192,7 +192,7 @@
 	  	addExtraPropertiesToJsonObject(articulo.datosExtra);
 		// alert("Service payload: " + JSON.stringify(articulo));  
 	  	 $.ajax({
-             url: '/deposito-web/rest/articulos/crearArticulo',
+             url: '/deposito-web/rest/articulo',
              type: 'post',
              contentType:"application/json; charset=utf-8",
              success: function(response) {

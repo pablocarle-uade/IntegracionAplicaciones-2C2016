@@ -101,7 +101,7 @@
 			    "autoWidth": true,
 			    processing: true,
 			    "ajax": {
-			         url: '/deposito-web/rest/articulos/search', 
+			         url: '/deposito-web/rest/articulo/search', 
 			         "type": "POST",
 			         "contentType": "application/json",
 			         "bInfo" : false,

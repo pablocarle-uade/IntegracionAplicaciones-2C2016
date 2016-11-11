@@ -3,6 +3,7 @@ package edu.uade.ida.deposito.service;
 import java.util.List;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.CreateArticuloRequestDTO;
 import edu.uade.ida.deposito.dto.ModificacionStockRequestDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 
@@ -19,10 +20,10 @@ public interface ArticulosServiceLocal {
 	/**
 	 * Crear artículo en el sistema
 	 * 
-	 * @param articuloDTO Los datos del nuevo artículo
+	 * @param createArticuloRequestDTO Los datos del nuevo artículo
 	 * @return
 	 */
-	ArticuloDTO crearArticulo(ArticuloDTO articuloDTO);
+	ArticuloDTO crearArticulo(CreateArticuloRequestDTO createArticuloRequestDTO);
 	
 	/**
 	 * Crear lista de articulos default del sistema

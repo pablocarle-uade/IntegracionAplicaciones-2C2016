@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
+import edu.uade.ida.deposito.dto.CreateArticuloRequestDTO;
 import edu.uade.ida.deposito.dto.ModificacionStockRequestDTO;
 import edu.uade.ida.deposito.dto.SearchArticulosDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
@@ -19,7 +20,7 @@ import edu.uade.ida.deposito.rest.GenericResponseDTO;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
-@Path("/articulos")
+@Path("/")
 public class ArticulosController {
 	
 	@Inject
@@ -32,15 +33,17 @@ public class ArticulosController {
 	private SolicitudArticulosServiceLocal sas;
 	
 	@POST
-	@Path("/crearArticulo")
+	@Path("/articulo")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public ArticuloDTO crearArticulo(ArticuloDTO articuloDTO) {		
-		return as.crearArticulo(articuloDTO);
+	public GenericResponseDTO crearArticulo(CreateArticuloRequestDTO createArticuloRequestDTO) {
+		log.info("Se ha solicitado la creación de un nuevo artículo ");
+		as.crearArticulo(createArticuloRequestDTO);
+		return new GenericResponseDTO();
 	}
 	
 	@PUT
-	@Path("/stock")
+	@Path("/articulos/stock")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public GenericResponseDTO modificarStockArticulos(List<ModificacionStockRequestDTO> modificaciones) {		
@@ -50,7 +53,7 @@ public class ArticulosController {
 	}
 	
 	@POST
-	@Path("/search")
+	@Path("/articulo/search")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public List<ArticuloDTO> search(SearchArticulosDTO searchArticulosDTO) {		
@@ -63,7 +66,7 @@ public class ArticulosController {
 	 */
 	
 	@POST
-	@Path("/test/crearArticulos")
+	@Path("/articulos/test/crearArticulos")
 	@Produces("application/json")
 	public String createArticulosTest() {
 		log.info("create solicitud articulos test (defaults)");
@@ -72,7 +75,7 @@ public class ArticulosController {
 	}	
 
 	@POST
-	@Path("/test/crearSolicitudArticulo")
+	@Path("/articulos/test/crearSolicitudArticulo")
 	@Produces("application/json")
 	@Consumes("application/json")
 	public String createSolicitudArticuloTest(SolicitudArticuloRequestDTO request) {
