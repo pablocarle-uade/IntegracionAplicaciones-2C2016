@@ -12,8 +12,8 @@ import javax.ws.rs.Produces;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
-@Path("/solicitudDeArticulos")
-public class SolicitudArticulosController {
+@Path("/solicitudArticulo")
+public class SolicitudArticuloController {
 
 	@Inject
 	private Logger log;

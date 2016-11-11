@@ -54,7 +54,7 @@
 			    "autoWidth": true,
 			    processing: true,
 			    "ajax": {
-			         url: '/deposito-web/rest/solicitudArticulos/pendientes',
+			         url: '/deposito-web/rest/solicitudArticulo/pendientes',
 			         "type": "GET",
 			         "contentType": "application/json",
 			         "bInfo" : false,

@@ -40,7 +40,7 @@ public class GenerarSolicitudCompraWizard extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		session.setAttribute("solicitudesPendientes", solicitudesPendientesDeEntrega);
 		request.setAttribute("solicitudesPendientes", solicitudesPendientesDeEntrega);
-		request.getRequestDispatcher("/jsp/generarSolicitudArticulos.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/generarSolicitudCompra.jsp").forward(request, response);
 	}
 
 	/**
