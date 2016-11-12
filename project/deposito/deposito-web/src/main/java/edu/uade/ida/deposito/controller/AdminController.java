@@ -27,10 +27,24 @@ public class AdminController {
 	}
 	
 	@POST
-	@Path("/addConfig")
+	@Path("/loadDespachosConfig")
 	@Consumes("application/json")
-	@Produces("application/json")
-	public String addConfig() {
-		return "";
+	public void loadDespachosConfig(String newConfig) {
+		config.reloadDespachosConfig(newConfig);
 	}
+	
+	@POST
+	@Path("/loadPortalesConfig")
+	@Consumes("application/json")
+	public void loadPortalesConfig(String newConfig) {
+		config.reloadPortalesConfig(newConfig);
+	}
+	
+	@POST
+	@Path("/loadLogisticaMonitoreoConfig")
+	@Consumes("application/json")
+	public void loadLogisticaYMonitoreoConfig(String newConfig) {
+		config.reloadLogisticaMonitoreoConfig(newConfig);
+	}
+	
 }
