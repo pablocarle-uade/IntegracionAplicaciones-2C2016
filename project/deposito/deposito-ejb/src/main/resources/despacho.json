@@ -1,32 +1,33 @@
 {
 	servers: [
 		{
-			id: "G01",
+			id: "G11",
 			restEndpoint: {
-				url: "http://locahost:8080",
-				resource: "/rest/nuevoArticulo",
+				url: "http://192.168.1.45:8080",
+				resource: "/DespachoJMS/api/json/solicitudArticulo",
 				method: "post"
 			},
 			jmsEndpoint: {
-				providerUrl: "providerurl",
-				jmsQueue: "queue",
+				providerUrl: "http-remoting://192.168.1.45:8080",
+				jmsQueue: "jms/queue/DespachoNuevoArticulo",
 				jmsTopic: null,
-				user: "user",
-				password: "pass"
+				user: "test",
+				password: "test1234"
 			}
 		},
 		{
-			id: "G02",
+			id: "G08",
 			restEndpoint: {
-				url: "http://locahost:8080",
-				resource: "/rest/nuevoArticulo",
+				url: "http://192.168.1.32:8080",
+				resource: "/DespachoWeb/rest/services/RecepcionStock",
 				method: "post"
 			},
 			jmsEndpoint: {
-				jmsQueue: "queue",
+				providerUrl: "http-remoting://192.168.1.43",
+				jmsQueue: "jms/queue/DespachoNuevoArticulo",
 				jmsTopic: null,
-				user: "user",
-				password: "pass"
+				user: "user1",
+				password: "user1"
 			}
 		}
 	]

@@ -4,15 +4,15 @@
 			id: "logistica1",
 			modo: "sync", //async
 			syncParams: {
-				serverUrl: "http://localhost:8080",
-				resource: "/rest/lala"
+				serverUrl: "http://192.168.1.34:8080",
+				resource: "/LogisticaREST/rest/services/guardarLog"
 			},
 			asyncParams: {
-				providerUrl: "unaurl",
-				jmsQueue: "unaqueue",
+				providerUrl: "http-remoting://192.168.1.34:8080",
+				jmsQueue: "jms/queue/eventoAuditoria",
 				jmsTopic: null,
-				user: "user",
-				password: "pass"
+				user: "guest",
+				password: "guest"
 			}
 		}
 	]

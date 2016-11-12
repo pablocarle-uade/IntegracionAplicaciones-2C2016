@@ -7,11 +7,11 @@
 <script src="../resources/js/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../resources/css/bootstrap-theme.min.css" />
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
-<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="../resources/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/select.dataTables.min.css">
+<script type="text/javascript" charset="utf8" src="../resources/js/jquery.dataTables.js"></script>
 <script src="../resources/js/bootstrap.min.js"></script>
-<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
+<!-- <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/> -->
 <title>Solicitudes de Artículos Pendientes</title>
 </head>
 <body>

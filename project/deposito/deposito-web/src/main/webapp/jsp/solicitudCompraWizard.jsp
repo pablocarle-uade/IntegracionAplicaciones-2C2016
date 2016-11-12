@@ -15,7 +15,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" href="./resources/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="./resources/css/bootstrap-theme.min.css"/>
-		<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>
+		<!-- <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/> -->
 		<title>Solicitudes de Compra</title>
 		<script type="text/javascript" src="./resources/js/jquery-1.11.1.min.js">
 			//nothing
