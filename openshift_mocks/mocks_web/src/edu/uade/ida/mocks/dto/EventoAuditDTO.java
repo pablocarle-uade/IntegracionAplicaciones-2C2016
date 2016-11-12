@@ -1,7 +1,10 @@
 package edu.uade.ida.mocks.dto;
 
-public class EventoAuditDTO {
+import java.io.Serializable;
 
+public class EventoAuditDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String fecha;
 	private String tipo;
 	private String modulo;
