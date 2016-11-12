@@ -16,16 +16,16 @@
 	
 	<h1 style="padding-left: 30px;font-family:'Special Elite',cursive;"> Depósito Grupo 1</h1>
 	<div style="padding: 20px;">
-		<div class="btn-group">
-			<button class="btn btn-group">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					Admin <span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="./jsp/configuraciones.jsp">Cargar Nuevos Valores Config</a></li>
-				</ul>
-			</button>
-		</div>
+<!-- 		<div class="btn-group"> -->
+<!-- 			<button class="btn btn-group"> -->
+<!-- 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> -->
+<!-- 					Admin <span class="caret"></span> -->
+<!-- 				</a> -->
+<!-- 				<ul class="dropdown-menu"> -->
+<!-- 					<li><a href="./jsp/configuraciones.jsp">Cargar Nuevos Valores Config</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</button> -->
+<!-- 		</div> -->
 		<div class="btn-group">
 			<button class="btn btn-group">
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
