@@ -2,7 +2,6 @@ package edu.uade.ida.deposito.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,6 +16,7 @@ import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.TipoDeArticulo;
 import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
 import edu.uade.ida.deposito.service.integration.PortalServiceLocal;
@@ -27,7 +27,7 @@ import edu.uade.ida.deposito.util.NivelAudit;
 public class ArticulosService implements ArticulosServiceLocal {
 	
     @Inject
-    private Logger log;
+    private LoggerLocal log;
 	
 	@Inject
 	private EntityManager em;
@@ -66,7 +66,7 @@ public class ArticulosService implements ArticulosServiceLocal {
         	
         } catch(Exception ex) {
         	this.lms.enviarAudit(NivelAudit.ERROR, "Registrado error al crear nuevo artículo por " + "GO1");
-        	log.info("Error al crear artículo: " + ex.getMessage());
+        	log.info(this, "Error al crear artículo: " + ex.getMessage());
         }
         return nuevoArticuloDTO;
 	}
@@ -77,9 +77,9 @@ public class ArticulosService implements ArticulosServiceLocal {
 			Articulo articulo = articuloRepository.get(modificacion.getIdArticulo());
 			try {
 				modificarStockDeArticulo(articulo, modificacion.getNuevoStock());
-				log.info("Se modificó stock de artículo con éxito: " + "codArticulo: " + articulo.getCodArticulo() + ", nuevoStock: " + articulo.getStock());
+				log.info(this, "Se modificó stock de artículo con éxito: " + "codArticulo: " + articulo.getCodArticulo() + ", nuevoStock: " + articulo.getStock());
 			} catch (Exception e) {
-				log.warning("Error al modificar stock de artículo: " + "codArticulo: " + articulo.getCodArticulo() + " " + e.getMessage());	
+				log.warn(this, "Error al modificar stock de artículo: " + "codArticulo: " + articulo.getCodArticulo() + " " + e.getMessage());	
 			}
 		}
 	}
@@ -110,11 +110,11 @@ public class ArticulosService implements ArticulosServiceLocal {
 				new CreateArticuloRequestDTO("1857363", "Mesa para TV 21\" wengue", "Mesa para TV", "Mica", new BigDecimal("409"), "url", "Argentina", TipoDeArticulo.Mueble.toString(), 40, null),
 				new CreateArticuloRequestDTO("1858018", "Coche Paraguas Gris", "Coche Paraguas", "Love", new BigDecimal("529"), "url", "China", TipoDeArticulo.Niños.toString(), 50, null)
 		};
-		log.info("Crear articulos default");
+		log.info(this, "Crear articulos default");
 		for (int i = 0; i < articulosDefault.length; i++) {
 			crearArticulo(articulosDefault[i]);
 		}
-		log.info("Creados " + articulosDefault.length + " articulos");
+		log.info(this, "Creados " + articulosDefault.length + " articulos");
 		return articulosDefault.length;
 	}
 
