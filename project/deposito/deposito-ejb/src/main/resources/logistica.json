@@ -14,21 +14,6 @@
 				user: "guest",
 				password: "guest"
 			}
-			/*		
-			id: "logistica1",
-			modo: "async", //async
-			syncParams: {
-				url: "http://192.168.1.34:8080",
-				resource: "/LogisticaREST/rest/services/guardarLog"
-			},
-			asyncParams: {
-				providerUrl: "http-remoting://192.168.1.34:8080",
-				jmsQueue: "jms/queue/eventoAuditoria",
-				jmsTopic: null,
-				user: "guest",
-				password: "guest"
-			}
-			*/
 		}
 	]
 }

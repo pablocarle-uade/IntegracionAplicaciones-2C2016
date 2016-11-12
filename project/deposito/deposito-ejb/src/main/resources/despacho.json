@@ -38,8 +38,8 @@
 				method: "post"
 			},
 			jmsEndpoint: {
-				providerUrl: "http-remoting://192.168.1.40",
-				jmsQueue: "jms/queue/nuevoArticuloDeposito",
+				providerUrl: "http-remoting://192.168.1.40:8080",
+				jmsQueue: "java:/jms/queue/nuevoArticuloDeposito",
 				jmsTopic: null,
 				user: "guest",
 				password: "guest"
