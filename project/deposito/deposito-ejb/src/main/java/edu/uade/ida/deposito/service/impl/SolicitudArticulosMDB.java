@@ -1,7 +1,6 @@
 package edu.uade.ida.deposito.service.impl;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -18,6 +17,7 @@ import com.google.gson.JsonSyntaxException;
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
 import edu.uade.ida.deposito.util.NivelAudit;
@@ -35,7 +35,7 @@ import edu.uade.ida.deposito.util.config.ConfigHolder;
 public class SolicitudArticulosMDB implements MessageListener {
 
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	
 	@Inject
 	private ConfigHolder config;
@@ -57,21 +57,21 @@ public class SolicitudArticulosMDB implements MessageListener {
      * @see MessageListener#onMessage(Message)
      */
     public void onMessage(Message message) {
-    	log.info("Recibido mensaje solicitud de artículos");
+    	log.info(this, "Recibido mensaje solicitud de artículos");
     	if (message instanceof TextMessage) {
     		Gson gson = new Gson();
     		try {
     			String messageContent = ((TextMessage) message).getText();
-    			log.info("Recibido mensaje: " + messageContent);
+    			log.info(this, "Recibido mensaje: " + messageContent);
 				SolicitudArticuloRequestDTO request = gson.fromJson(messageContent, SolicitudArticuloRequestDTO.class);
-				log.info("Solicitud de " + request.getCantidad() + " unidades de artículo con id " + request.getCodArticulo());
+				log.info(this, "Solicitud de " + request.getCantidad() + " unidades de artículo con id " + request.getCodArticulo());
 				procesarSolicitudStock(request);
 			} catch (JsonSyntaxException | JMSException e) {
-				log.log(Level.WARNING, "Error en parse de mensaje solicitud de artículo", e);
+				log.log(this, Level.WARNING, "Error en parse de mensaje solicitud de artículo", e);
 				e.printStackTrace();
 			}
     	} else {
-    		log.warning("Se recibió un mensaje no TextMessage. Message es: " + message);
+    		log.warn(this, "Se recibió un mensaje no TextMessage. Message es: " + message);
     	}
     }
 
@@ -79,10 +79,10 @@ public class SolicitudArticulosMDB implements MessageListener {
 		try {
 			SolicitudArticuloDTO sad = sas.createSolicitudArticulo(new ArticuloDTO(request.getCodArticulo()), request.getCantidad(), request.getIdDespacho());
 			lms.enviarAudit(NivelAudit.INFO, "Generada solicitud de artículo " + sad + "en depósito: " + config.getIdDeposito());
-			log.info("Generada correctamente la solicitud de artículo " + sad);
+			log.info(this, "Generada correctamente la solicitud de artículo " + sad);
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.log(Level.WARNING, "Ocurrió un problema al registrar SolicitudDeArticulo: " + e.getMessage(), e);
+			log.log(this, Level.WARNING, "Ocurrió un problema al registrar SolicitudDeArticulo: " + e.getMessage(), e);
 		}
 	}
 }

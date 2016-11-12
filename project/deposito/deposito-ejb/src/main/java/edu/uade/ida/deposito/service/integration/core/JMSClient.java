@@ -2,7 +2,6 @@ package edu.uade.ida.deposito.service.integration.core;
 
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.Singleton;
 import javax.inject.Inject;
@@ -12,11 +11,13 @@ import javax.jms.JMSContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+import edu.uade.ida.deposito.service.LoggerLocal;
+
 @Singleton
 public class JMSClient {
 	
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	 
     public void invoke(JMSClientConfiguration config) throws Exception {
         // Context will be crated from configuration
@@ -34,17 +35,17 @@ public class JMSClient {
             namingContext = new InitialContext(env); 
             // Create connection factory from init context
             ConnectionFactory connectionFactory = (ConnectionFactory) namingContext.lookup("jms/RemoteConnectionFactory");
-            log.info("Got ConnectionFactory");
+            log.info(this, "Got ConnectionFactory");
             // Lookup destination
             Destination destination = (Destination) namingContext.lookup(config.getDestination());
-            log.info("Got JMS Endpoint " + config.getDestination());
+            log.info(this, "Got JMS Endpoint " + config.getDestination());
              // Create the JMS context
             context = connectionFactory.createContext(config.getUser(), config.getPassword());
             // Send message
             context.createProducer().send(destination, config.getMessage());
-            log.info("Sent message " + config.getMessage());
+            log.info(this, "Sent message " + config.getMessage());
         } catch (Exception e) {
-        	log.log(Level.WARNING, "JMSClient invoke failed: " + e.getMessage(), e);
+        	log.log(this, Level.WARNING, "JMSClient invoke failed: " + e.getMessage(), e);
         	e.printStackTrace();
             throw e;
         } finally {

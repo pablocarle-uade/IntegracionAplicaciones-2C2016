@@ -2,7 +2,6 @@ package edu.uade.ida.deposito.service.impl;
 
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -10,8 +9,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import edu.uade.ida.deposito.dto.ArticuloDTO;
-import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.CreateEntregaArticuloRequestDTO;
+import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.ItemSolicitudCompraRequestDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
@@ -20,6 +19,7 @@ import edu.uade.ida.deposito.model.EntregaArticulo;
 import edu.uade.ida.deposito.model.SolicitudArticulo;
 import edu.uade.ida.deposito.repository.ArticuloRepository;
 import edu.uade.ida.deposito.repository.SolicitudArticuloRepository;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 import edu.uade.ida.deposito.service.integration.DespachoServiceLocal;
 import edu.uade.ida.deposito.service.integration.FabricaServiceLocal;
@@ -53,7 +53,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	private FabricaServiceLocal fabricaService;
 	
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	
 	
     /**
@@ -100,7 +100,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			em.merge(sa);
 			solicitudDeArticuloDTO = sa.getDTO();
 		}
-		log.info("Registrada solicitud de artículos desde despacho: " + idModuloSolicitante + "por una cantidad de " + cantidad + " de artículo " + articuloSolicitado.getCodArticulo());
+		log.info(this, "Registrada solicitud de artículos desde despacho: " + idModuloSolicitante + "por una cantidad de " + cantidad + " de artículo " + articuloSolicitado.getCodArticulo());
 		lms.enviarAudit(NivelAudit.INFO, "Registrada solicitud de artículos de despacho " + idModuloSolicitante + " por " + cantidad + " de artículo " + articuloSolicitado.getCodArticulo());
 		return solicitudDeArticuloDTO;
 	}
@@ -111,9 +111,9 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			try {
 				SolicitudArticulo solicitudDeArticuloAComprar = em.find(SolicitudArticulo.class, solicitud.getIdSolicitudArticulo());
 				this.createSolicitudCompra(solicitudDeArticuloAComprar.getDTO(), solicitud.getCantidad());
-				log.info("Compra de artículos procesada con éxito a partir de solicitud: " + solicitud.getIdSolicitudArticulo());
+				log.info(this, "Compra de artículos procesada con éxito a partir de solicitud: " + solicitud.getIdSolicitudArticulo());
 			} catch (Exception e) {
-				log.warning("Error al comprar artículo a partir de solicitud: " + solicitud.getIdSolicitudArticulo() + " " + e.getMessage());
+				log.warn(this, "Error al comprar artículo a partir de solicitud: " + solicitud.getIdSolicitudArticulo() + " " + e.getMessage());
 				lms.enviarAudit(NivelAudit.ERROR, "Fallo en compra de artículos a fábrica");
 			}
 		}
@@ -126,7 +126,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			lms.enviarAudit(NivelAudit.INFO, "Enviada solicitud de compra a fabrica");
 			return scd;
 		} catch (Exception e) {
-			log.log(Level.WARNING, "Error en solicitud a la fabrica", e);
+			log.log(this, Level.WARNING, "Error en solicitud a la fabrica", e);
 			lms.enviarAudit(NivelAudit.ERROR, "Error en envio de solicitud compra a fabrica");
 			throw e;
 		}
@@ -138,10 +138,10 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 			try {
 				SolicitudArticulo solicitudArticuloEntrega = em.find(SolicitudArticulo.class, entrega.getIdSolicitudArticulo());
 				this.createEntregaArticulo(solicitudArticuloEntrega.getDTO(), entrega.getCantidad());
-				log.info("Entrega de artículos procesada con éxito a partir de solicitud: " + entrega.getIdSolicitudArticulo());
+				log.info(this, "Entrega de artículos procesada con éxito a partir de solicitud: " + entrega.getIdSolicitudArticulo());
 				lms.enviarAudit(NivelAudit.INFO, "Creada entrega de artículo a despacho " + solicitudArticuloEntrega.getIdModuloSolicitante());
 			} catch (Exception e) {
-				log.warning("Error al entregar artículo a partir de solicitud: " + entrega.getIdSolicitudArticulo() + " " + e.getMessage());
+				log.warn(this, "Error al entregar artículo a partir de solicitud: " + entrega.getIdSolicitudArticulo() + " " + e.getMessage());
 				lms.enviarAudit(NivelAudit.ERROR, "Fallo en entrega de artículos a despacho");
 			}
 		}
@@ -171,7 +171,7 @@ public class SolicitudArticulosService implements SolicitudArticulosServiceLocal
 	}
 
 	private void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
-		log.info("Generada entrega de artículo " + entregaArticulo.getIdEntregaArticulo());
+		log.info(this, "Generada entrega de artículo " + entregaArticulo.getIdEntregaArticulo());
 		lms.enviarAudit(NivelAudit.INFO, "Generada entrega de artículo para artículo " + entregaArticulo.getCodArticulo() + " x " + entregaArticulo.getCantidadAsignada());
 		dsl.notificarEntregaArticulo(entregaArticulo);
 	}

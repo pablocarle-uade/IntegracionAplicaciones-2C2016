@@ -4,18 +4,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 
 import com.google.gson.Gson;
 
+import edu.uade.ida.deposito.service.LoggerLocal;
+
 @Singleton
 public class ConfigHolder {
 		
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 
 	private static Gson gson = new Gson();
 	
@@ -117,21 +118,21 @@ public class ConfigHolder {
 	}
 	
 	public void reloadDespachosConfig(String config) {
-		log.info("Starting reloadDespachosConfig() for new config");
+		log.info(this, "Starting reloadDespachosConfig() for new config");
 		despachosConfig = gson.fromJson(config, DespachosConfig.class);
-		log.info("Finished reloadDespachosConfig() for new config");
+		log.info(this, "Finished reloadDespachosConfig() for new config");
 	}
 	
 	public void reloadPortalesConfig(String config) {
-		log.info("Starting reloadPortalesConfig() for new config");
+		log.info(this, "Starting reloadPortalesConfig() for new config");
 		portalesConfig = gson.fromJson(config, PortalesConfig.class);
-		log.info("Finished reloadPortalesConfig() for new config");
+		log.info(this, "Finished reloadPortalesConfig() for new config");
 	}
 	
 	public void reloadLogisticaMonitoreoConfig(String config) {
-		log.info("Starting reloadLogisticaConfig() for new config");
+		log.info(this, "Starting reloadLogisticaConfig() for new config");
 		logisticaConfig = gson.fromJson(config, LogisticaMonitoreoConfig.class);
-		log.info("Finished reloadLogisticaConfig() for new config");
+		log.info(this, "Finished reloadLogisticaConfig() for new config");
 	}
 
 }

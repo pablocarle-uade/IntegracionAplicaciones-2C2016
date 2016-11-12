@@ -1,7 +1,6 @@
 package edu.uade.ida.deposito.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -18,13 +17,14 @@ import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
 import edu.uade.ida.deposito.dto.SolicitudArticuloRequestDTO;
 import edu.uade.ida.deposito.rest.GenericResponseDTO;
 import edu.uade.ida.deposito.service.ArticulosServiceLocal;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
 @Path("/")
 public class ArticulosController {
 	
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	
 	@Inject
 	private ArticulosServiceLocal as;
@@ -37,7 +37,7 @@ public class ArticulosController {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public GenericResponseDTO crearArticulo(CreateArticuloRequestDTO createArticuloRequestDTO) {
-		log.info("Se ha solicitado la creación de un nuevo artículo ");
+		log.info(this, "Se ha solicitado la creación de un nuevo artículo ");
 		as.crearArticulo(createArticuloRequestDTO);
 		return new GenericResponseDTO();
 	}
@@ -47,7 +47,7 @@ public class ArticulosController {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public GenericResponseDTO modificarStockArticulos(List<ModificacionStockRequestDTO> modificaciones) {		
-		log.info("Se ha solicitado la modificación de stocks de artículos ");
+		log.info(this, "Se ha solicitado la modificación de stocks de artículos ");
 		as.modificarStockDeArticulos(modificaciones);
 		return new GenericResponseDTO();
 	}
@@ -69,7 +69,7 @@ public class ArticulosController {
 	@Path("/articulos/test/crearArticulos")
 	@Produces("application/json")
 	public String createArticulosTest() {
-		log.info("create solicitud articulos test (defaults)");
+		log.info(this, "create solicitud articulos test (defaults)");
 		as.createArticulosDefault();
 		return "{data: 'ok'}";
 	}	
@@ -79,10 +79,10 @@ public class ArticulosController {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public String createSolicitudArticuloTest(SolicitudArticuloRequestDTO request) {
-		log.info("crear solicitud de articulo test: " + request);
+		log.info(this, "crear solicitud de articulo test: " + request);
 		try {
 			SolicitudArticuloDTO sad = sas.createSolicitudArticulo(new ArticuloDTO(String.valueOf(request.getCodArticulo())), request.getCantidad(), request.getIdDespacho());
-			log.info("creada solicitud de articulo con id " + sad.getIdSolicitudArticulo());
+			log.info(this, "creada solicitud de articulo con id " + sad.getIdSolicitudArticulo());
 			return "{data: 'ok', idSolicitudArticulo:" + sad.getIdSolicitudArticulo() + ", requestEntregaArticulo: {"
 					+ "idSolicitudArticulo: " + sad.getIdSolicitudArticulo() + ", cantidad: ??}}";
 		} catch (Exception e) {

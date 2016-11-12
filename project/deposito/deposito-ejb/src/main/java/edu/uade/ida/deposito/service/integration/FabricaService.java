@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
@@ -31,6 +30,7 @@ import edu.uade.ida.deposito.dto.SolicitudCompraDTO;
 import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.SolicitudCompra;
 import edu.uade.ida.deposito.model.SolicitudCompraItem;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 
 /**
@@ -41,7 +41,7 @@ import edu.uade.ida.deposito.util.config.ConfigHolder;
 public class FabricaService implements FabricaServiceLocal {
 
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 
 	@SuppressWarnings("unused")
 	@Inject
@@ -72,7 +72,7 @@ public class FabricaService implements FabricaServiceLocal {
 
 	@Override
 	public SolicitudCompraDTO crearSolicitudCompra(Map<ArticuloDTO, Integer> cantidades) throws Exception {
-		log.info("Solicitud de compra");
+		log.info(this, "Solicitud de compra");
 		
 		SolicitudCompra sc = new SolicitudCompra();
 		List<SolicitudCompraItem> items = new ArrayList<>();
@@ -114,16 +114,16 @@ public class FabricaService implements FabricaServiceLocal {
 				
 				@Override
 				public void onException(Message arg0, Exception arg1) {
-					log.log(Level.WARNING, "Error en delivery de jms a fabrica", arg1);
+					log.log(this, Level.WARNING, "Error en delivery de jms a fabrica", arg1);
 				}
 				
 				@Override
 				public void onCompletion(Message arg0) {
-					log.info("JMS entregado correctamente a fabrica");
+					log.info(this, "JMS entregado correctamente a fabrica");
 				}
 			});
 		} catch (JMSException e) {
-			log.log(Level.WARNING, "Error al simular fabrica enviando recepcion de compra", e);
+			log.log(this, Level.WARNING, "Error al simular fabrica enviando recepcion de compra", e);
 			e.printStackTrace();
 		} finally {
 			if (conn != null)

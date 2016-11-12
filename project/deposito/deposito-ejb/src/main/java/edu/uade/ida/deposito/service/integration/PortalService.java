@@ -2,7 +2,6 @@ package edu.uade.ida.deposito.service.integration;
 
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -11,6 +10,7 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 
 import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.service.integration.core.JMSClient;
 import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 import edu.uade.ida.deposito.util.NivelAudit;
@@ -23,7 +23,7 @@ import edu.uade.ida.deposito.util.config.JmsEndpointConfig;
 public class PortalService implements PortalServiceLocal, PortalServiceRemote {
 
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	
 	@Inject
 	private ConfigHolder config;
@@ -36,20 +36,20 @@ public class PortalService implements PortalServiceLocal, PortalServiceRemote {
 	
 	@Override
 	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
-		log.info("Notificando a Portales sobre nuevo artículo...");
+		log.info(this, "Notificando a Portales sobre nuevo artículo...");
 		List<JmsEndpointConfig> endpointConfigs = config.getAsyncServers(ConfigModulo.PORTAL);
 		
 		String body = buildJsonBody(notificacionNuevoArticulo);
 		try {
 			for (JmsEndpointConfig jms : endpointConfigs) {
-				log.info("Enviando: " + body + " a portal " + jms.getProviderUrl() + " en queue " + jms.getJmsQueue() + " con user " + jms.getUser() + " y pass " + jms.getPassword());
+				log.info(this, "Enviando: " + body + " a portal " + jms.getProviderUrl() + " en queue " + jms.getJmsQueue() + " con user " + jms.getUser() + " y pass " + jms.getPassword());
 				JMSClientConfiguration clientConfig = new JMSClientConfiguration(body, jms.getJmsQueue(),
 						jms.getProviderUrl(), jms.getUser(), jms.getPassword());
 
 				jmsClient.invoke(clientConfig);
 			}
 		} catch (Exception e) {
-			log.log(Level.WARNING, "Error notificando a portales de nuevo artículo", e);
+			log.log(this, Level.WARNING, "Error notificando a portales de nuevo artículo", e);
 			lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo artículo");
 		}
 	}

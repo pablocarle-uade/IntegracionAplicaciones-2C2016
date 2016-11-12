@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -18,6 +17,7 @@ import javax.inject.Inject;
 import com.google.gson.Gson;
 
 import edu.uade.ida.deposito.dto.MensajeAuditDTO;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.service.integration.core.JMSClient;
 import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 import edu.uade.ida.deposito.util.EscapeUtil;
@@ -39,7 +39,7 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 	private static Gson gson = new Gson();
 	
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	
 	@Inject
 	private JMSClient jmsClient;
@@ -70,7 +70,7 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 		String auditServerRestEndpointUrl = config.getRESTEndpointURL(ConfigModulo.LOGISTICA);
 		MensajeAuditDTO mad = buildMensaje(nivel, mensaje);
 		String body = gson.toJson(mad);
-		log.info("Enviar sync a audit [" + body + "] " + " a " + auditServerRestEndpointUrl);
+		log.info(this, "Enviar sync a audit [" + body + "] " + " a " + auditServerRestEndpointUrl);
 		
 		try {
 			URL url = new URL(auditServerRestEndpointUrl);
@@ -84,11 +84,11 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 			os.close();
 			
 			int responseCode = con.getResponseCode();
-			log.info("Envio sync a audit volvio con codigo [" + responseCode + "]");
+			log.info(this, "Envio sync a audit volvio con codigo [" + responseCode + "]");
 			
 			con.disconnect();
 		} catch (IOException e) {
-			log.log(Level.WARNING, "Error al enviar mensaje de audit sync", e);
+			log.log(this, Level.WARNING, "Error al enviar mensaje de audit sync", e);
 			e.printStackTrace();
 		}
 	}
@@ -99,12 +99,12 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 			MensajeAuditDTO mad = buildMensaje(nivel, mensaje);
 			String body = gson.toJson(mad);
 			for (JmsEndpointConfig logistica : logisticaConf) {
-				log.info("Enviando mensaje de auditoria con " + mad);
+				log.info(this, "Enviando mensaje de auditoria con " + mad);
 				JMSClientConfiguration conf = new JMSClientConfiguration(body, logistica.getJmsQueue(), logistica.getProviderUrl(), logistica.getUser(), logistica.getPassword());
 				jmsClient.invoke(conf);
 			}
 		} catch (Exception e) {
-			log.log(Level.WARNING, "Error al invocar", e);
+			log.log(this, Level.WARNING, "Error al invocar", e);
 			e.printStackTrace();
 		}
 	}

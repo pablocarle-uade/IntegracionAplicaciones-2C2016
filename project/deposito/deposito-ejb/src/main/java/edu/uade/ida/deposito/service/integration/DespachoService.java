@@ -9,7 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -20,6 +19,7 @@ import com.google.gson.Gson;
 import edu.uade.ida.deposito.dto.EntregaArticuloDTO;
 import edu.uade.ida.deposito.dto.EntregaArticuloRequestDTO;
 import edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.service.integration.core.JMSClient;
 import edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration;
 import edu.uade.ida.deposito.util.NivelAudit;
@@ -44,7 +44,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 	private ConfigHolder config;
 	
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	
     public DespachoService() {
     	super();
@@ -52,20 +52,20 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 
 	@Override
 	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
-		log.info("Notificando a Despachos sobre nuevo artículo...");
+		log.info(this, "Notificando a Despachos sobre nuevo artículo...");
 		List<JmsEndpointConfig> endpointConfigs = config.getAsyncServers(ConfigModulo.DESPACHO);
 		// NotificacionNuevoArticuloDTO to json
 		String body = buildJsonBody(notificacionNuevoArticulo);
 		try {
 			for (JmsEndpointConfig jms : endpointConfigs) {
-				log.info("Enviando: " + body + " a despacho " + jms.getProviderUrl());
+				log.info(this, "Enviando: " + body + " a despacho " + jms.getProviderUrl());
 				JMSClientConfiguration clientConfig = new JMSClientConfiguration(body, jms.getJmsQueue(),
 						jms.getProviderUrl(), jms.getUser(), jms.getPassword());
 
 				jmsClient.invoke(clientConfig);
 			}
 		} catch (Exception e) {
-			log.log(Level.WARNING, "Error notificando a despachos de nuevo artículo", e);
+			log.log(this, Level.WARNING, "Error notificando a despachos de nuevo artículo", e);
 			lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo artículo");
 		}
 	}
@@ -89,12 +89,12 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 			int responseCode = con.getResponseCode();
 			BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			if (responseCode < 200 || responseCode > 299 || !verificarRetornoDespacho(bf)) {
-				log.warning("Envio de notificación con error. Codigo " + responseCode);
+				log.warn(this, "Envio de notificación con error. Codigo " + responseCode);
 				lms.enviarAudit(NivelAudit.WARN, "No se pudo enviar notificacion a despacho de entrega de articulo " + entregaArticulo.getIdModuloSolicitante());
 			}
 			bf.close();
 		} catch (IOException e) {
-			log.log(Level.WARNING, "Error en comunicacion con despacho para entrega de articulos", e);
+			log.log(this, Level.WARNING, "Error en comunicacion con despacho para entrega de articulos", e);
 			e.printStackTrace();
 		}
 	}

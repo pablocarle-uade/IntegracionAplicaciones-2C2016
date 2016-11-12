@@ -1,7 +1,6 @@
 package edu.uade.ida.deposito.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -10,14 +9,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import edu.uade.ida.deposito.dto.SolicitudArticuloDTO;
+import edu.uade.ida.deposito.service.LoggerLocal;
 import edu.uade.ida.deposito.service.SolicitudArticulosServiceLocal;
 
 @Path("/solicitudArticulo")
 public class SolicitudArticuloController {
 
-	@SuppressWarnings("unused")
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	
 	@Inject
 	private SolicitudArticulosServiceLocal sas;
@@ -26,7 +25,8 @@ public class SolicitudArticuloController {
 	@Path("/pendientes")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public List<SolicitudArticuloDTO> getSolicitudesPendientes() {		
+	public List<SolicitudArticuloDTO> getSolicitudesPendientes() {
+		log.info(this, "llamada a obtener solicitudes pendientes");
 		return this.sas.getSolicitudesStockPendientes();
 	}
 	
