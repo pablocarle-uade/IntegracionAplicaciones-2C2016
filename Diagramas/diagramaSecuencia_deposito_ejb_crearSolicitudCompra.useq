@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.11" icons="true" automaticImage="JPEG">  
+  <object id="1" language="java" name="edu.uade.ida.deposito.model.Usuario" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/model/Usuario.java" binary="false" label="usuario" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="122" y="0"/>    
+    <execution id="2">      
+      <position height="717" width="0" x="0" y="103"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="edu.uade.ida.deposito.controller.SolicitudCompraController" 
+    project="deposito-web" 
+    file="/deposito-web/src/main/java/edu/uade/ida/deposito/controller/SolicitudCompraController.java" binary="false" 
+    label="solicitudCompraController" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="4">      
+      <position height="669" width="0" x="0" y="127"/>    
+    </execution>  
+  </object>  
+  <object id="8" language="java" name="edu.uade.ida.deposito.service.impl.SolicitudArticulosService" 
+    project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/impl/SolicitudArticulosService.java" binary="false" 
+    label="solicitudArticulosService" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="611" width="0" x="0" y="161"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="406" width="7" x="491" y="342"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="edu.uade.ida.deposito.service.integration.LogisticaMonitoreoService" 
+    project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/LogisticaMonitoreoService.java" 
+    binary="false" label="logisticaMonitoreoService" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="24" width="0" x="0" y="700"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="edu.uade.ida.deposito.service.integration.FabricaService" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/FabricaService.java" binary="false" 
+    label="fabricaService" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="14">      
+      <position height="268" width="0" x="0" y="377"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="173" width="7" x="712" y="448"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="javax.persistence.EntityManager" project="deposito-ejb" 
+    file="C:/Users/GP07/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar" 
+    binary="true" label="entityManager" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="436" y="0"/>    
+    <execution id="10">      
+      <position height="24" width="125" x="599" y="251"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="24" width="125" x="836" y="573"/>    
+    </execution>  
+  </object>  
+  <note id="24">    
+    <position height="27" width="200" x="401" y="192"/>    
+    <text><![CDATA[POR CADA SOLICITUD
+    ]]>
+    </text>  
+  </note>  
+  <note id="25">    
+    <position height="47" width="292" x="813" y="487"/>    
+    <text><![CDATA[SE ARMA LA SOLICITUDCOMPRA CON LOS DATOS Y SE LA PERSISTE.
+    ]]>
+    </text>  
+  </note>  
+  <message id="3" 
+    operation="createSolicitudDeCompra(java.util.List&lt;edu.uade.ida.deposito.dto.ItemSolicitudCompraRequestDTO&gt;):edu.uade.ida.deposito.rest.GenericResponseDTO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" 
+    operation="createSolicitudesCompra(java.util.List&lt;edu.uade.ida.deposito.dto.ItemSolicitudCompraRequestDTO&gt;):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="9" operation="find(java.lang.Class&lt;T&gt;,java.lang.Object):T" asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" 
+    operation="createSolicitudCompra(edu.uade.ida.deposito.dto.SolicitudArticuloDTO,int):edu.uade.ida.deposito.dto.SolicitudCompraDTO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" 
+    operation="crearSolicitudCompra(edu.uade.ida.deposito.dto.ArticuloDTO,int):edu.uade.ida.deposito.dto.SolicitudCompraDTO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="enviarAudit(edu.uade.ida.deposito.util.NivelAudit,java.lang.String):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="19" 
+    operation="crearSolicitudCompra(java.util.Map&lt;edu.uade.ida.deposito.dto.ArticuloDTO,java.lang.Integer&gt;):edu.uade.ida.deposito.dto.SolicitudCompraDTO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" operation="persist(java.lang.Object):void" asynchronous="false">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>
+</sequence-diagram>
