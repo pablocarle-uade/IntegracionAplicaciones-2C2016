@@ -1,0 +1,22 @@
+Wildfly openshift
+
+(rhc port-forward jbosswildfly)
+
+   Username: adminkq5chgL
+   Password: K2ACgiN9d9Ub
+   
+   run 'rhc port-forward jbosswildfly' to access the web admin area on port 9990.
+
+https://openshift.redhat.com/app/console/application/5827729f0c1e66bf17000019-jbosswildfly
+
+
+MySQL 5.5 database added.  Please make note of these credentials:
+
+       Root User: adminHJivalg
+   Root Password: dw1MY2_U8jXD
+   Database Name: jbosswildfly
+
+Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
+
+You can manage your new MySQL database by also embedding phpmyadmin.
+The phpmyadmin username and password will be the same as the MySQL credentials above.
