@@ -4,11 +4,11 @@
 			id: "logistica4",
 			modo: "async", //async
 			syncParams: {
-				url: "http://uadelabsvm.brazilsouth.cloudapp.azure.com:8080",
+				url: "http://192.168.1.52:8080",
 				resource: "/LogisticaWebServices/rest/eventos/recibir"
 			},
 			asyncParams: {
-				providerUrl: "http-remoting://uadelabsvm.brazilsouth.cloudapp.azure.com:8080",
+				providerUrl: "http-remoting://192.168.1.52:8080",
 				jmsQueue: "jms/queue/eventoAuditoria",
 				jmsTopic: null,
 				user: "guest",

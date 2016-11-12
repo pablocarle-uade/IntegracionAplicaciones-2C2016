@@ -74,6 +74,26 @@
         </dependency>
         
         <dependency>
+        	<groupId>org.apache.activemq</groupId>
+        	<artifactId>artemis-commons</artifactId>
+        </dependency>
+        
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+        	<artifactId>artemis-core-client</artifactId>
+        </dependency>
+        
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+        	<artifactId>artemis-hqclient-protocol</artifactId>
+        </dependency>
+        
+        <dependency>
+        	<groupId>org.apache.activemq</groupId>
+        	<artifactId>artemis-jms-client</artifactId>
+        </dependency>
+        
+        <dependency>
 		    <groupId>org.jboss.spec.javax.jms</groupId>
 		    <artifactId>jboss-jms-api_2.0_spec</artifactId>
 		    <scope>provided</scope>
