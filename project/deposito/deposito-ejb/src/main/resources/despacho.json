@@ -29,6 +29,21 @@
 				user: "user1",
 				password: "user1"
 			}
+		},
+		{
+			id: "G05",
+			restEndpoint: {
+				url: "http://192.168.1.40:8080",
+				resource: "/WebSite/rest/despachador/recibirArticulos",
+				method: "post"
+			},
+			jmsEndpoint: {
+				providerUrl: "http-remoting://192.168.1.40",
+				jmsQueue: "jms/queue/nuevoArticuloDeposito",
+				jmsTopic: null,
+				user: "guest",
+				password: "guest"
+			}
 		}
 	]
 }

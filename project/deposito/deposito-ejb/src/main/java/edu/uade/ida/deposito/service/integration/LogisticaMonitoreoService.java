@@ -70,7 +70,7 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 		String auditServerRestEndpointUrl = config.getRESTEndpointURL(ConfigModulo.LOGISTICA);
 		MensajeAuditDTO mad = buildMensaje(nivel, mensaje);
 		String body = gson.toJson(mad);
-		log.info("Enviar sync a audit [" + body + "]");
+		log.info("Enviar sync a audit [" + body + "] " + " a " + auditServerRestEndpointUrl);
 		
 		try {
 			URL url = new URL(auditServerRestEndpointUrl);

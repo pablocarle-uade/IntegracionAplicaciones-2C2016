@@ -50,6 +50,12 @@ public class ConfigHolderTest {
 		String restPortal = config.getRESTEndpointURL(ConfigModulo.PORTAL);
 		assertTrue(restPortal == null || restPortal.length() == 0);
 	}
+	
+	@Test
+	public void testGetAsyncServers2() {
+		List<JmsEndpointConfig> configs = config.getAsyncServers(ConfigModulo.DESPACHO);
+		assertTrue(configs != null && !configs.isEmpty());
+	}
 
 	@Test
 	public void testGetLogisticaMonitoreoConfig() {

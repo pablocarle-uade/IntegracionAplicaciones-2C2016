@@ -8,6 +8,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
+import edu.uade.ida.deposito.util.NivelAudit;
 import edu.uade.ida.deposito.util.config.ConfigHolder;
 
 
@@ -19,6 +21,9 @@ public class AdminController {
 
 	@Inject
 	private ConfigHolder config;
+	
+	@Inject
+	private LogisticaMonitoreoServiceLocal lms;
 	
 	@GET
 	@Path("/reloadConfig")
@@ -45,6 +50,12 @@ public class AdminController {
 	@Consumes("application/json")
 	public void loadLogisticaYMonitoreoConfig(String newConfig) {
 		config.reloadLogisticaMonitoreoConfig(newConfig);
+	}
+	
+	@POST
+	@Path("/testLogMon")
+	public void testLogMon() {
+		lms.enviarAudit(NivelAudit.INFO, "TEST");
 	}
 	
 }
