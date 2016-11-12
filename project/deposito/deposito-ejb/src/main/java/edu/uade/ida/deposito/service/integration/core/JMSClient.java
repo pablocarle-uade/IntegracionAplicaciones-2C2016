@@ -26,7 +26,7 @@ public class JMSClient {
             final Properties env = new Properties();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
             env.put(Context.PROVIDER_URL, config.getProviderUrl());
-            env.put("jboss.naming.client.connect.timeout", String.valueOf(30 * 1000));
+            env.put("jboss.naming.client.connect.timeout", String.valueOf(10 * 1000));
             
             env.put(Context.SECURITY_PRINCIPAL, config.getUser());
             env.put(Context.SECURITY_CREDENTIALS, config.getPassword());

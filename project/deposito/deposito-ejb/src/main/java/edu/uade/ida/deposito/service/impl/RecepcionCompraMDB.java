@@ -3,7 +3,6 @@ package edu.uade.ida.deposito.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -22,6 +21,7 @@ import edu.uade.ida.deposito.model.Articulo;
 import edu.uade.ida.deposito.model.RecepcionDeCompra;
 import edu.uade.ida.deposito.model.RecepcionDeCompraItem;
 import edu.uade.ida.deposito.model.SolicitudCompra;
+import edu.uade.ida.deposito.service.LoggerLocal;
 
 /**
  * Message-Driven Bean implementation class for: RecepcionCompraMDB
@@ -35,7 +35,7 @@ import edu.uade.ida.deposito.model.SolicitudCompra;
 public class RecepcionCompraMDB implements MessageListener {
 
 	@Inject
-	private Logger log;
+	private LoggerLocal log;
 	
 	@Inject
 	private EntityManager em;
@@ -56,11 +56,11 @@ public class RecepcionCompraMDB implements MessageListener {
 				String json = ((TextMessage) message).getText();
 				procesarRecepcionCompra(json);
 			} catch (JMSException e) {
-				log.log(Level.WARNING, "Error obteniendo contenido del mensaje", e);
+				log.log(this, Level.WARNING, "Error obteniendo contenido del mensaje", e);
 				e.printStackTrace();
 			}
     	} else {
-    		log.log(Level.WARNING, "Mensaje debe ser TextMessage pero es: " + message);
+    		log.log(this, Level.WARNING, "Mensaje debe ser TextMessage pero es: " + message);
     	}
     }
 
@@ -68,10 +68,10 @@ public class RecepcionCompraMDB implements MessageListener {
 		RecepcionCompraDTO rcd = new Gson().fromJson(json, RecepcionCompraDTO.class);
 		SolicitudCompra sc = em.find(SolicitudCompra.class, rcd.getIdSolicitudCompra());
 		if (sc == null) {
-			log.log(Level.WARNING, "No se encontro la solicitud de compra con id " + rcd.getIdSolicitudCompra());
+			log.log(this, Level.WARNING, "No se encontro la solicitud de compra con id " + rcd.getIdSolicitudCompra());
 			return;
 		} else if (sc.getEstado().equals(SolicitudCompra.ESTADO_ENTREGADO)) {
-			log.log(Level.WARNING, "La solicitud de compra ya esta entregada");
+			log.log(this, Level.WARNING, "La solicitud de compra ya esta entregada");
 			return;
 		}
 		sc.setEstado(SolicitudCompra.ESTADO_ENTREGADO);
@@ -80,7 +80,7 @@ public class RecepcionCompraMDB implements MessageListener {
 	}
 
 	private void actualizarStocks(RecepcionCompraDTO rcd, SolicitudCompra sc) {
-		log.info("Actualizando stocks por solicitud de compra");
+		log.info(this, "Actualizando stocks por solicitud de compra");
 		Articulo articulo = null;
 		RecepcionDeCompra recepcionCompraEntity = new RecepcionDeCompra();
 		List<RecepcionDeCompraItem> items = new ArrayList<>(rcd.getItems().size());
@@ -98,10 +98,10 @@ public class RecepcionCompraMDB implements MessageListener {
 				em.merge(articulo);
 				items.add(itemEntity);
 			} else {
-				log.warning("No se encontro el articulo con codigo " + item.getCodArticulo() + " en solicitud de compra " + sc.getIdSolicitudCompra());
+				log.warn(this, "No se encontro el articulo con codigo " + item.getCodArticulo() + " en solicitud de compra " + sc.getIdSolicitudCompra());
 			}
 		}
 		em.persist(recepcionCompraEntity);
-		log.info("Fin actualizacion stocks por solicitud de compra");
+		log.info(this, "Fin actualizacion stocks por solicitud de compra");
 	}
 }
