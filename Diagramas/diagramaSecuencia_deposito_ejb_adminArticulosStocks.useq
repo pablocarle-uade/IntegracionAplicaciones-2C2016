@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.11" icons="true" automaticImage="JPEG">  
+  <object id="1" language="java" name="edu.uade.ida.deposito.model.Usuario" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/model/Usuario.java" binary="false" label="usuario" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="179" y="0"/>    
+    <execution id="2">      
+      <position height="1591" width="0" x="0" y="89"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="edu.uade.ida.deposito.controller.ArticulosController" project="deposito-web" 
+    file="/deposito-web/src/main/java/edu/uade/ida/deposito/controller/ArticulosController.java" binary="false" 
+    label="articulosController" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="4">      
+      <position height="1543" width="0" x="0" y="113"/>    
+    </execution>  
+  </object>  
+  <object id="8" language="java" name="edu.uade.ida.deposito.service.impl.ArticulosService" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/impl/ArticulosService.java" binary="false" 
+    label="articulosService" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="1486" width="0" x="0" y="146"/>    
+    </execution>  
+  </object>  
+  <object id="17" language="java" name="javax.persistence.EntityManager" project="deposito-ejb" 
+    file="C:/Users/GP07/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar" 
+    binary="true" label="entityManager" type="interface" autoSize="true">    
+    <position height="-1" width="-1" x="693" y="0"/>    
+    <execution id="10">      
+      <position height="24" width="125" x="568" y="170"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="edu.uade.ida.deposito.service.integration.PortalService" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/PortalService.java" binary="false" 
+    label="portalService" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="309" width="0" x="0" y="1299"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="24" width="7" x="810" y="1410"/>    
+    </execution>  
+  </object>  
+  <object id="27" language="java" name="edu.uade.ida.deposito.service.integration.DespachoService" 
+    project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/DespachoService.java" binary="false" 
+    label="despachoService" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="14">      
+      <position height="310" width="0" x="0" y="948"/>    
+    </execution>    
+    <execution id="31">      
+      <position height="24" width="7" x="1047" y="1065"/>    
+    </execution>  
+  </object>  
+  <object id="36" language="java" name="edu.uade.ida.deposito.service.integration.core.JMSClient" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/core/JMSClient.java" binary="false" 
+    label="jmsClient" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="35">      
+      <position height="24" width="0" x="0" y="1210"/>    
+    </execution>    
+    <execution id="26">      
+      <position height="24" width="260" x="1171" y="1560"/>    
+    </execution>  
+  </object>  
+  <object id="37" language="java" name="edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration" 
+    project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/core/JMSClientConfiguration.java" 
+    binary="false" label="jmsClientConfiguration" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="33">      
+      <position height="24" width="0" x="0" y="1156"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="24" width="260" x="1435" y="1517"/>    
+    </execution>  
+  </object>  
+  <object id="38" language="java" name="edu.uade.ida.deposito.util.config.ConfigHolder" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/util/config/ConfigHolder.java" binary="false" 
+    label="configHolder" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="29">      
+      <position height="24" width="0" x="0" y="982"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="24" width="185" x="1699" y="1335"/>    
+    </execution>  
+  </object>  
+  <object id="39" language="java" name="edu.uade.ida.deposito.service.integration.LogisticaMonitoreoService" 
+    project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/LogisticaMonitoreoService.java" 
+    binary="false" label="logisticaMonitoreoService" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="660" width="0" x="0" y="228"/>    
+    </execution>    
+    <execution id="41">      
+      <position height="24" width="0" x="0" y="281"/>    
+    </execution>    
+    <execution id="43">      
+      <position height="24" width="7" x="1155" y="359"/>    
+    </execution>    
+    <execution id="50">      
+      <position height="72" width="233" x="1888" y="632"/>    
+    </execution>  
+  </object>  
+  <object id="53" language="java" name="edu.uade.ida.deposito.service.integration.core.JMSClient" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/core/JMSClient.java" binary="false" 
+    label="jmsClient1" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="49">      
+      <position height="24" width="0" x="0" y="840"/>    
+    </execution>  
+  </object>  
+  <object id="54" language="java" name="edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration" 
+    project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/service/integration/core/JMSClientConfiguration.java" 
+    binary="false" label="jmsClientConfiguration1" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="47">      
+      <position height="24" width="0" x="0" y="786"/>    
+    </execution>  
+  </object>  
+  <object id="55" language="java" name="edu.uade.ida.deposito.util.config.ConfigHolder" project="deposito-ejb" 
+    file="/deposito-ejb/src/main/java/edu/uade/ida/deposito/util/config/ConfigHolder.java" binary="false" 
+    label="configHolder1" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="45">      
+      <position height="24" width="0" x="0" y="457"/>    
+    </execution>    
+    <execution id="52">      
+      <position height="24" width="185" x="2125" y="656"/>    
+    </execution>  
+  </object>  
+  <note id="56">    
+    <position height="26" width="670" x="960" y="1097"/>    
+    <text><![CDATA[PARA CADA JmsEndpointConfig]]>
+    </text>  
+  </note>  
+  <note id="57">    
+    <position height="29" width="880" x="756" y="1452"/>    
+    <text><![CDATA[PARA CADA JmsEndpointConfig]]>
+    </text>  
+  </note>  
+  <note id="58">    
+    <position height="25" width="357" x="1909" y="400"/>    
+    <text><![CDATA[IF MODO == SYNC]]>
+    </text>  
+  </note>  
+  <note id="59">    
+    <position height="68" width="199" x="1938" y="495"/>    
+    <text><![CDATA[Se abre una conexión con el endpoint obtenido y se le envía el mensaje creado.]]>
+    </text>  
+  </note>  
+  <note id="60">    
+    <position height="28" width="360" x="1912" y="587"/>    
+    <text><![CDATA[IF MODO == ASYNC]]>
+    </text>  
+  </note>  
+  <note id="61">    
+    <position height="29" width="656" x="1923" y="719"/>    
+    <text><![CDATA[PARA CADA JmsEndpointConfig]]>
+    </text>  
+  </note>  
+  <message id="3" 
+    operation="crearArticulo(edu.uade.ida.deposito.dto.CreateArticuloRequestDTO):edu.uade.ida.deposito.rest.GenericResponseDTO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" 
+    operation="crearArticulo(edu.uade.ida.deposito.dto.CreateArticuloRequestDTO):edu.uade.ida.deposito.dto.ArticuloDTO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="9" operation="persist(java.lang.Object):void" asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="enviarAudit(edu.uade.ida.deposito.util.NivelAudit,java.lang.String):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="noticarNuevoArticulo(edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="noticarNuevoArticulo(edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="19" 
+    operation="getAsyncServers(edu.uade.ida.deposito.util.config.ConfigModulo):java.util.List&lt;JmsEndpointConfig&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" operation="buildJsonBody(edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO):java.lang.String" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="23" 
+    operation="JMSClientConfiguration(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="24"/>  
+  </message>  
+  <message id="25" operation="invoke(edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="28" 
+    operation="getAsyncServers(edu.uade.ida.deposito.util.config.ConfigModulo):java.util.List&lt;JmsEndpointConfig&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="29"/>  
+  </message>  
+  <message id="30" operation="buildJsonBody(edu.uade.ida.deposito.dto.NotificacionNuevoArticuloDTO):java.lang.String" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="31"/>  
+  </message>  
+  <message id="32" 
+    operation="JMSClientConfiguration(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="33"/>  
+  </message>  
+  <message id="34" operation="invoke(edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="35"/>  
+  </message>  
+  <message id="40" operation="getModo():edu.uade.ida.deposito.service.integration.LogisticaMonitoreoService.Modo" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="41"/>  
+  </message>  
+  <message id="42" 
+    operation="buildMensaje(edu.uade.ida.deposito.util.NivelAudit,java.lang.String):edu.uade.ida.deposito.dto.MensajeAuditDTO" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="43"/>  
+  </message>  
+  <message id="44" operation="getRESTEndpointURL(edu.uade.ida.deposito.util.config.ConfigModulo):java.lang.String" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="45"/>  
+  </message>  
+  <message id="46" 
+    operation="JMSClientConfiguration(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="47"/>  
+  </message>  
+  <message id="48" operation="invoke(edu.uade.ida.deposito.service.integration.core.JMSClientConfiguration):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="49"/>  
+  </message>  
+  <message id="51" 
+    operation="getAsyncServers(edu.uade.ida.deposito.util.config.ConfigModulo):java.util.List&lt;JmsEndpointConfig&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="52"/>  
+  </message>
+</sequence-diagram>
