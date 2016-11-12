@@ -2,13 +2,13 @@
 	servers: [
 		{
 			id: "logistica4",
-			modo: "sync", //async
+			modo: "async", //async
 			syncParams: {
 				url: "http://jbosswilfly-pcarleuade.rhcloud.com",
 				resource: "/mocks_web/rest/logMonAudit/recibir"
 			},
 			asyncParams: {
-				providerUrl: "http-remoting://jbosswilfly-pcarleuade.rhcloud.com",
+				providerUrl: "http-remoting://localhost:8081",
 				jmsQueue: "jms/queue/eventoAuditoria",
 				jmsTopic: null,
 				user: "guest",
