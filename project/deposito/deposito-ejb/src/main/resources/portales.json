@@ -3,7 +3,7 @@
 		{
 			id: "G13",
 			jmsEndpoint: {
-				providerUrl: "http-remoting://jbosswilfly-pcarleuade.rhcloud.com",
+				providerUrl: "http-remoting://192.168.10.105:8080",
 				jmsQueue: "jms/queue/PortalNuevoArticulo",
 				jmsTopic: null,
 				user: "guest",
