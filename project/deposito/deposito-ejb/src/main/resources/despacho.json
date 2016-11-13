@@ -3,12 +3,12 @@
 		{
 			id: "G11",
 			restEndpoint: {
-				url: "http://192.168.10.105:8080",
+				url: "http://186.22.186.235:8010",
 				resource: "/mocks_web/rest/despacho/entregaArticulos",
 				method: "post"
 			},
 			jmsEndpoint: {
-				providerUrl: "http-remoting://192.168.10.105:8080",
+				providerUrl: "http-remoting://186.22.186.235:8010",
 				jmsQueue: "jms/queue/DespachoNuevoArticulo",
 				jmsTopic: null,
 				user: "guest",

@@ -4,11 +4,11 @@
 			id: "logistica4",
 			modo: "async", //async
 			syncParams: {
-				url: "http://192.168.10.105:8080",
+				url: "http://186.22.186.235:8010",
 				resource: "/mocks_web/rest/logMonAudit/recibir"
 			},
 			asyncParams: {
-				providerUrl: "http-remoting://192.168.10.105:8080",
+				providerUrl: "http-remoting://186.22.186.235:8010",
 				jmsQueue: "jms/queue/eventoAuditoria",
 				jmsTopic: null,
 				user: "guest",

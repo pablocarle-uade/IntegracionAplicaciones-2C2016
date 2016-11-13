@@ -108,7 +108,7 @@ public class ArticulosService implements ArticulosServiceLocal {
 				new CreateArticuloRequestDTO("1351953", "Aire Acondicionado Split WBC 12B-13B 2645 F/C", "4 modos de operación diferentes: Frío, deshumidificación, ventilación y calor", "Whirlpool", new BigDecimal("4633"), "url", "Argentina", TipoDeArticulo.Electro.toString(), 20, null),
 				new CreateArticuloRequestDTO("3122", "Musculosa Pale", "Musculosa Basement con Breteles", "Basement", new BigDecimal("79"), "url", "Brasil", TipoDeArticulo.Moda.toString(), 30, null),
 				new CreateArticuloRequestDTO("1857363", "Mesa para TV 21\" wengue", "Mesa para TV", "Mica", new BigDecimal("409"), "url", "Argentina", TipoDeArticulo.Mueble.toString(), 40, null),
-				new CreateArticuloRequestDTO("1858018", "Coche Paraguas Gris", "Coche Paraguas", "Love", new BigDecimal("529"), "url", "China", TipoDeArticulo.Niños.toString(), 50, null)
+				new CreateArticuloRequestDTO("1858018", "Coche Paraguas Gris", "Coche Paraguas", "Love", new BigDecimal("529"), "url", "China", TipoDeArticulo.Infantil.toString(), 50, null)
 		};
 		log.info(this, "Crear articulos default");
 		for (int i = 0; i < articulosDefault.length; i++) {

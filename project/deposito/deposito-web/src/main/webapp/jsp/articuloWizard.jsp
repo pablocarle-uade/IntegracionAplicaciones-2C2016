@@ -14,6 +14,10 @@
 <body>
 	<h1 style="padding-left: 30px;font-family:'Special Elite',cursive;">Crear nuevo artículo</h1>
 	<br>
+<!-- 	<div class="alert alert-danger" role="alert"> -->
+<!-- 		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> -->
+<!--  		<span class="sr-only">Error:</span> Enter a valid email address -->
+<!-- 	</div> -->
 	<form id="articuloBasePropertiesForm">
 		<div id="articuloBasePropertiesContainer" class="form-group basePropertiesContainer">
 			<div class="col-lg-8">
@@ -56,7 +60,7 @@
 						<option value="Electro">Electro</option>
 						<option value="Moda">Moda</option>
 						<option value="Mueble">Mueble</option>
-						<option value="Niños">Niños</option>
+						<option value="Infantil">Infantil</option>
 					</select>
 				</div>
 				<br/><br/>
@@ -89,8 +93,8 @@
 			</div>
 		</div>
 	</form>
-	<form id="NiñosPropertiesForm">
-		<div id="NiñosPropertiesContainer" class="propertiesContainer">
+	<form id="InfantilPropertiesForm">
+		<div id="InfantilPropertiesContainer" class="propertiesContainer">
 			<div class="col-lg-8">
 				<div class="input-group col s12">
 					<span class="input-group-addon">Edad Recomendada</span> 
