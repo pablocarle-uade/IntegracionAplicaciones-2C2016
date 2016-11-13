@@ -47,6 +47,7 @@ public class PortalService implements PortalServiceLocal, PortalServiceRemote {
 						jms.getProviderUrl(), jms.getUser(), jms.getPassword());
 
 				jmsClient.invoke(clientConfig);
+				lms.enviarAudit(NivelAudit.INFO, "Enviada notificacion nuevo articulo " + notificacionNuevoArticulo.getCodArticulo() + " a portal " + jms.getProviderUrl());
 			}
 		} catch (Exception e) {
 			log.log(this, Level.WARNING, "Error notificando a portales de nuevo artículo", e);
@@ -57,5 +58,4 @@ public class PortalService implements PortalServiceLocal, PortalServiceRemote {
 	private String buildJsonBody(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
 		return new Gson().toJson(notificacionNuevoArticulo);
 	}
-
 }

@@ -1,0 +1,2 @@
+ssh 5827729f0c1e66bf17000019@jbosswildfly-pcarleuade.rhcloud.com
+cd $OPENSHIFT_WILDFLY_LOG_DIR && tail -100f server.log

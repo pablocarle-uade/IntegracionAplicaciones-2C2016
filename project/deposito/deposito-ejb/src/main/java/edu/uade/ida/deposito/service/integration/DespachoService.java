@@ -82,6 +82,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 			con.setRequestProperty("Content-Type", "application/json");
 			
 			String body = buildJsonBody(new EntregaArticuloRequestDTO(config.getIdDeposito(), entregaArticulo.getCodArticulo(), entregaArticulo.getCantidadAsignada()));
+			log.info(this, "Enviando entrega de articulos [" + body + "] a despacho " + entregaArticulo.getIdModuloSolicitante());
 			OutputStream os = con.getOutputStream();
 			os.write(body.getBytes("UTF-8"));
 			os.flush();
@@ -91,6 +92,9 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 			if (responseCode < 200 || responseCode > 299 || !verificarRetornoDespacho(bf)) {
 				log.warn(this, "Envio de notificación con error. Codigo " + responseCode);
 				lms.enviarAudit(NivelAudit.WARN, "No se pudo enviar notificacion a despacho de entrega de articulo " + entregaArticulo.getIdModuloSolicitante());
+			} else {
+				log.info(this, "Envio de notificacion de entrega de articulos volvio ok");
+				lms.enviarAudit(NivelAudit.INFO, "Envio de entrega de articulos a depsacho " + entregaArticulo.getIdModuloSolicitante() + " ok");
 			}
 			bf.close();
 		} catch (IOException e) {
