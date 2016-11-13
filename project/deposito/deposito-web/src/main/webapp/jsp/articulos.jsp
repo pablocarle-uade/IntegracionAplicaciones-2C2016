@@ -50,7 +50,7 @@
 							<option value="Electro">Electro</option>
 							<option value="Moda">Moda</option>
 							<option value="Mueble">Mueble</option>
-							<option value="Niños">Niños</option>
+							<option value="Infantil">Infantil</option>
 						</select>
 					</div>
 				</div>

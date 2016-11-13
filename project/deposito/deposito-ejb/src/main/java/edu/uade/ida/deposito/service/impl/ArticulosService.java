@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import edu.uade.ida.deposito.util.StringUtils;
+
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.CreateArticuloRequestDTO;
 import edu.uade.ida.deposito.dto.ModificacionStockRequestDTO;
@@ -97,8 +99,10 @@ public class ArticulosService implements ArticulosServiceLocal {
 	}
 
 	@Override
-	public List<ArticuloDTO> buscarArticulos(SearchArticulosDTO searchArticulosDTO) {
-		List<Articulo> articulos = articuloRepository.findAll(); // TODO Search (criteria / hql)
+	public List<ArticuloDTO> buscarArticulos(SearchArticulosDTO searchDTO) {
+		// Null or empty search params means not to apply any filters on that specific property
+		TipoDeArticulo tipoArticulo = StringUtils.isNullOrEmpty(searchDTO.getTipo()) ? null : TipoDeArticulo.parse(searchDTO.getTipo());
+		List<Articulo> articulos = articuloRepository.search(searchDTO.getCodArticulo(), searchDTO.getNombre(), searchDTO.getMarca(), tipoArticulo);
 		return DTOUtil.getDTOs(articulos, ArticuloDTO.class);
 	}
 
