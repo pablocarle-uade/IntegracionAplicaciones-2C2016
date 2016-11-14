@@ -4,16 +4,31 @@
 			id: "logistica4",
 			modo: "async", //async
 			syncParams: {
-				url: "http://186.22.186.235:8010",
-				resource: "/mocks_web/rest/logMonAudit/recibir"
+				url: "http://172.16.164.41:8080",
+				resource: "/LogisticaWebServices/rest/eventos/recibir"
 			},
 			asyncParams: {
-				providerUrl: "http-remoting://186.22.186.235:8010",
+				providerUrl: "http-remoting://172.16.164.41:8080",
 				jmsQueue: "jms/queue/eventoAuditoria",
 				jmsTopic: null,
 				user: "guest",
 				password: "guest"
 			}
-		}
+		}/*,
+		{
+                        id: "logistica4",
+                        modo: "async", //async
+                        syncParams: {
+                                url: "http://186.22.186.235:8010",
+                                resource: "/mocks_web/rest/logMonAudit/recibir"
+                        },
+                        asyncParams: {
+                                providerUrl: "http-remoting://186.22.186.235:8010",
+                                jmsQueue: "jms/queue/eventoAuditoria",
+                                jmsTopic: null,
+                                user: "guest",
+                                password: "guest"
+                        }
+                }*/	
 	]
 }

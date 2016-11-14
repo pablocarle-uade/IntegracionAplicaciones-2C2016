@@ -3,23 +3,43 @@
 		{
 			id: "G13",
 			jmsEndpoint: {
-				providerUrl: "http-remoting://186.22.186.235:8010",
-				jmsQueue: "jms/queue/PortalNuevoArticulo",
+				providerUrl: "http-remoting://172.16.164.52:8080",
+				jmsQueue: "jms/queue/deposito",
 				jmsTopic: null,
 				user: "guest",
 				password: "guest"
 			}
-		}/*,
+		},
 		{
 			id: "G07",
 			jmsEndpoint: {
-				providerUrl: "http-remoting://10.100.56.66:8080",
+				providerUrl: "http-remoting://172.16.164.49:8080",
+				jmsQueue: "jms/queue/deposito",
+				jmsTopic: null,
+				user: "guest",
+				password: "guest"
+			}
+		},
+		{
+			id: "G03",
+			jmsEndpoint: {
+				providerUrl: "http-remoting://172.16.164.56:8080",
 				jmsQueue: "jms/queue/deposito",
 				jmsTopic: null,
 				user: "guest",
 				password: "guest"
 			}
 		}
-		*/
+		/*,
+		{
+			id: "G10",
+			jmsEndpoint: {
+				providerUrl: "http-remoting://172.16.164.54:8080",
+				jmsQueue: "jms/queue/deposito2",
+				jmsTopic: null,
+				user: "guest",
+				password: "guest"
+			}
+		}*/
 	]
 }
