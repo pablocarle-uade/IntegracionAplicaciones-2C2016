@@ -43,7 +43,7 @@
 				</div>
 				<div class="input-group col s12">
 					<span class="input-group-addon">Stock</span> 
-					<input name="stock" type="number" class="form-control" required />
+					<input name="stock" type="number" class="form-control" value="0" required />
 				</div>
 				<div class="input-group col s12">
 					<span class="input-group-addon">Origen</span> 
@@ -165,6 +165,7 @@
   	});
   	
   	$("#btnCreateArticulo").on("click", function() {
+  		$(this).css("color","yellow");
   		onCreateArticulo();
   	});
   
@@ -194,19 +195,33 @@
 	  	addFormDataPropertiesToJsonObject("articuloBasePropertiesForm", articulo);
 	  	addFormDataPropertiesToJsonObject(getTipoDeArticulo() + "PropertiesForm", articulo.datosExtra);
 	  	addExtraPropertiesToJsonObject(articulo.datosExtra);
-		// alert("Service payload: " + JSON.stringify(articulo));  
-	  	 $.ajax({
-             url: '/deposito-web/rest/articulo',
-             type: 'post',
-             contentType:"application/json; charset=utf-8",
-             success: function(response) {
-                 window.location.href = "/deposito-web/jsp/articulos.jsp";
-             },
-             error: function (response) {
-                 alert("No se pudo crear el artículo" + response);
-             },
-             data: JSON.stringify(articulo)
-         });	
+	 	// alert("Service payload: " + JSON.stringify(articulo));
+	  	if (!validateArticulo(articulo)) {
+			alert("Es requerido un valor para: Código, Nombre, Marca, Precio");	  		
+	  	} else {
+		  	 $.ajax({
+		    	 timeout: 1000,
+		    	 url: '/deposito-web/rest/articulo',
+	             type: 'post',
+	             contentType:"application/json; charset=utf-8",
+	             success: function(response) {
+	                 window.location.href = "/deposito-web/jsp/articulos.jsp";
+	             },
+	             error: function (jqXHR, textStatus, errorThrown) {
+		  		 	if (textStatus == "timeout") {
+		  		 		alert("Procesando la creación, el nuevo artículo aparecerá en la lista de artículos}");
+		  		 		window.location.href = "/deposito-web/index.jsp";
+		  		 	} else {
+		  		 		alert("No se pudo crear el artículo" + errorThrown);	
+		  		 	}
+	             },
+	             data: JSON.stringify(articulo)
+	         });	
+	  	}
+  }
+  
+  function validateArticulo(articulo) {
+	  return articulo.codigo != ""  && articulo.nombre != "" && articulo.marca != "" && articulo.origen != "";
   }
 
 	function addExtraPropertiesToJsonObject(jsonObject) {

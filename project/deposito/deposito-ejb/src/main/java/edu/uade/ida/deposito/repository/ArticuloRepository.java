@@ -64,11 +64,11 @@ public class ArticuloRepository {
 			queryParams.put("codArticulo", codArticulo);
 		}
 		if (!StringUtils.isNullOrEmpty(nombre)) {
-			queryBuilder.append("and nombre like :nombre");
+			queryBuilder.append("and nombre like :nombre ");
 			queryParams.put("nombre", "%" + nombre + "%");
 		}
 		if (!StringUtils.isNullOrEmpty(marca)) {
-			queryBuilder.append("and marca like :marca");
+			queryBuilder.append("and marca like :marca ");
 			queryParams.put("marca", "%" + marca + "%");
 		}
 		if (tipo != null) {

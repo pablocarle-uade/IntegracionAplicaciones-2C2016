@@ -101,7 +101,7 @@
 			    "autoWidth": true,
 			    processing: true,
 			    "ajax": {
-			         url: '/deposito-web/rest/articulo/search', 
+			    	 url: '/deposito-web/rest/articulo/search', 
 			         "type": "POST",
 			         "contentType": "application/json",
 			         "bInfo" : false,
@@ -155,7 +155,8 @@
 			});
 
 			$("#cmdModificarStockArticulos").on("click", function() {
-				window.location.href = "/deposito-web/ModificarStockArticulosWizard" + "?idsarticulosModificacionStock=" + selected.toString();
+				if (selected.length < 1) { alert("Seleccione uno o más items para poder realizar una acción"); } 
+				else { window.location.href = "/deposito-web/ModificarStockArticulosWizard" + "?idsarticulosModificacionStock=" + selected.toString(); }
 			});
 			// ~
 	});

@@ -84,7 +84,8 @@
 									<span class="input-group-addon" style="border-left: 0; border-right: 0;">Cantidad a Entregar</span>
 									<jsp:scriptlet>
 										<![CDATA[
-											out.println("<input type='number' class='form-control contidadAEntregarValueHolder' value='" + sad.getCantidad() + "'></input>");
+										    int cantidadAEntregar = sad.getCantidad() < sad.getArticulo().getStock() ? sad.getCantidad() : sad.getArticulo().getStock();     
+											out.println("<input type='number' class='form-control contidadAEntregarValueHolder' value='" + cantidadAEntregar + "'></input>");
 										]]>
 									</jsp:scriptlet>	
 								</div>

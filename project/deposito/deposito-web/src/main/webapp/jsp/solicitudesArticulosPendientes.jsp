@@ -74,8 +74,7 @@
 					{ data: "articulo.nombre", width: "40%" },
 					{ data: "articulo.stock", width: "10%" },
 					{ data: "cantidad", width: "10%" },
-					{ defaultContent: getCurrentDate(), width: "20%" }
-					// { data: "fechaCreacion", width: "20%" }
+					{ data: "fechaCreacion", width: "10%", render: function (value) { return getDate(value); }  }
 			    ],
 				"rowCallback" : function(row, data) {
 					if ($.inArray(data.DT_RowId, selectedSP) !== -1) {
@@ -94,21 +93,20 @@
 			});
 			
 			$("#cmdGenerarEntregaDeArticulos").on("click", function() {
-				window.location.href = "/deposito-web/EntregaArticulosWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+				if (selectedSP.length < 1) { alert("Seleccione uno o más items para poder realizar una acción"); } 
+                else { window.location.href = "/deposito-web/EntregaArticulosWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); } 
 			})
 			
 			$("#cmdGenerarSolicitudDeCompra").on("click", function() {
-				window.location.href = "/deposito-web/SolicitudCompraWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); 
+				if (selectedSP.length < 1) { alert("Seleccione uno o más items para poder realizar una acción"); } 
+				else { window.location.href = "/deposito-web/SolicitudCompraWizard" + "?idsSolicitudesOrigen=" + selectedSP.toString(); } 
 			})
 			// ~
 	});
 	
-	function getCurrentDate() {
-		var date = new Date();
-		var day = date.getDate();
-		var month = date.getMonth() + 1;
-		var year = date.getFullYear();
-		return day + "/" + month + "/" + year;
+	function getDate(dateValue) {
+		var date = new Date(dateValue);
+		return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
 	}
 	
 </script>
