@@ -51,23 +51,27 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
     }
 
 	@Override
-	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
-		log.info(this, "Notificando a Despachos sobre nuevo artículo...");
-		List<JmsEndpointConfig> endpointConfigs = config.getAsyncServers(ConfigModulo.DESPACHO);
-		// NotificacionNuevoArticuloDTO to json
-		String body = buildJsonBody(notificacionNuevoArticulo);
-		try {
-			for (JmsEndpointConfig jms : endpointConfigs) {
-				log.info(this, "Enviando: " + body + " a despacho " + jms.getProviderUrl());
-				JMSClientConfiguration clientConfig = new JMSClientConfiguration(body, jms.getJmsQueue(),
-						jms.getProviderUrl(), jms.getUser(), jms.getPassword());
+	public void noticarNuevoArticulo(final NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
+		new Thread(new Runnable() {
+		    public void run() {
+				log.info(this, "Notificando a Despachos sobre nuevo artículo...");
+				List<JmsEndpointConfig> endpointConfigs = config.getAsyncServers(ConfigModulo.DESPACHO);
+				// NotificacionNuevoArticuloDTO to json
+				String body = buildJsonBody(notificacionNuevoArticulo);
+				try {
+					for (JmsEndpointConfig jms : endpointConfigs) {
+						log.info(this, "Enviando: " + body + " a despacho " + jms.getProviderUrl());
+						JMSClientConfiguration clientConfig = new JMSClientConfiguration(body, jms.getJmsQueue(),
+								jms.getProviderUrl(), jms.getUser(), jms.getPassword());
 
-				jmsClient.invoke(clientConfig);
-			}
-		} catch (Exception e) {
-			log.log(this, Level.WARNING, "Error notificando a despachos de nuevo artículo", e);
-			lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo artículo");
-		}
+						jmsClient.invoke(clientConfig);
+					}
+				} catch (Exception e) {
+					log.log(this, Level.WARNING, "Error notificando a despachos de nuevo artículo", e);
+					lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo artículo");
+				}
+		    }
+		}).start();
 	}
     
 	@Override

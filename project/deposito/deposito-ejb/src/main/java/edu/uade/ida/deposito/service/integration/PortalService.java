@@ -35,24 +35,28 @@ public class PortalService implements PortalServiceLocal, PortalServiceRemote {
 	private LogisticaMonitoreoServiceLocal lms;
 	
 	@Override
-	public void noticarNuevoArticulo(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
-		log.info(this, "Notificando a Portales sobre nuevo artículo...");
-		List<JmsEndpointConfig> endpointConfigs = config.getAsyncServers(ConfigModulo.PORTAL);
-		
-		String body = buildJsonBody(notificacionNuevoArticulo);
-		try {
-			for (JmsEndpointConfig jms : endpointConfigs) {
-				log.info(this, "Enviando: " + body + " a portal " + jms.getProviderUrl() + " en queue " + jms.getJmsQueue() + " con user " + jms.getUser() + " y pass " + jms.getPassword());
-				JMSClientConfiguration clientConfig = new JMSClientConfiguration(body, jms.getJmsQueue(),
-						jms.getProviderUrl(), jms.getUser(), jms.getPassword());
+	public void noticarNuevoArticulo(final NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {
+		new Thread(new Runnable() {
+		    public void run() {
+				log.info(this, "Notificando a Portales sobre nuevo artículo...");
+				List<JmsEndpointConfig> endpointConfigs = config.getAsyncServers(ConfigModulo.PORTAL);
+				
+				String body = buildJsonBody(notificacionNuevoArticulo);
+				try {
+					for (JmsEndpointConfig jms : endpointConfigs) {
+						log.info(this, "Enviando: " + body + " a portal " + jms.getProviderUrl() + " en queue " + jms.getJmsQueue() + " con user " + jms.getUser() + " y pass " + jms.getPassword());
+						JMSClientConfiguration clientConfig = new JMSClientConfiguration(body, jms.getJmsQueue(),
+								jms.getProviderUrl(), jms.getUser(), jms.getPassword());
 
-				jmsClient.invoke(clientConfig);
-				lms.enviarAudit(NivelAudit.INFO, "Enviada notificacion nuevo articulo " + notificacionNuevoArticulo.getCodArticulo() + " a portal " + jms.getProviderUrl());
-			}
-		} catch (Exception e) {
-			log.log(this, Level.WARNING, "Error notificando a portales de nuevo artículo", e);
-			lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo artículo");
-		}
+						jmsClient.invoke(clientConfig);
+						lms.enviarAudit(NivelAudit.INFO, "Enviada notificacion nuevo articulo " + notificacionNuevoArticulo.getCodArticulo() + " a portal " + jms.getProviderUrl());
+					}
+				} catch (Exception e) {
+					log.log(this, Level.WARNING, "Error notificando a portales de nuevo artículo", e);
+					lms.enviarAudit(NivelAudit.WARN, "Error notificando a portales de nuevo artículo");
+				}
+		    }
+		}).start();
 	}
 	
 	private String buildJsonBody(NotificacionNuevoArticuloDTO notificacionNuevoArticulo) {

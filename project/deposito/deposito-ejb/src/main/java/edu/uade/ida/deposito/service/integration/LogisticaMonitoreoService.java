@@ -93,20 +93,24 @@ public class LogisticaMonitoreoService implements LogisticaMonitoreoServiceLocal
 		}
 	}
 	
-	private void enviarAuditAsync(NivelAudit nivel, String mensaje) {
-		List<JmsEndpointConfig> logisticaConf = config.getAsyncServers(ConfigModulo.LOGISTICA);
-		try {
-			MensajeAuditDTO mad = buildMensaje(nivel, mensaje);
-			String body = gson.toJson(mad);
-			for (JmsEndpointConfig logistica : logisticaConf) {
-				log.info(this, "Enviando mensaje de auditoria con " + mad);
-				JMSClientConfiguration conf = new JMSClientConfiguration(body, logistica.getJmsQueue(), logistica.getProviderUrl(), logistica.getUser(), logistica.getPassword());
-				jmsClient.invoke(conf);
-			}
-		} catch (Exception e) {
-			log.log(this, Level.WARNING, "Error al invocar", e);
-			e.printStackTrace();
-		}
+	private void enviarAuditAsync(final NivelAudit nivel, final String mensaje) {
+		new Thread(new Runnable() {
+		    public void run() {
+				List<JmsEndpointConfig> logisticaConf = config.getAsyncServers(ConfigModulo.LOGISTICA);
+				try {
+					MensajeAuditDTO mad = buildMensaje(nivel, mensaje);
+					String body = gson.toJson(mad);
+					for (JmsEndpointConfig logistica : logisticaConf) {
+						log.info(this, "Enviando mensaje de auditoria con " + mad);
+						JMSClientConfiguration conf = new JMSClientConfiguration(body, logistica.getJmsQueue(), logistica.getProviderUrl(), logistica.getUser(), logistica.getPassword());
+						jmsClient.invoke(conf);
+					}
+				} catch (Exception e) {
+					log.log(this, Level.WARNING, "Error al invocar", e);
+					e.printStackTrace();
+				}
+		    }
+		}).start();
 	}
 	
 	private MensajeAuditDTO buildMensaje(NivelAudit nivel, String mensaje) {
