@@ -209,7 +209,7 @@
 	             },
 	             error: function (jqXHR, textStatus, errorThrown) {
 		  		 	if (textStatus == "timeout") {
-		  		 		alert("Procesando la creación, el nuevo artículo aparecerá en la lista de artículos}");
+		  		 		alert("Procesando la creación, el nuevo artículo aparecerá en la lista de artículos");
 		  		 		window.location.href = "/deposito-web/index.jsp";
 		  		 	} else {
 		  		 		alert("No se pudo crear el artículo" + errorThrown);	

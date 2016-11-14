@@ -76,7 +76,7 @@
 									<span class="input-group-addon" style="border-left: 0; border-right:0;">Stock Actual</span>
 									<jsp:scriptlet>
 										<![CDATA[
-											out.println("<input type='text' class='form-control' value='" + sad.getArticulo().getStock() + "' readonly='true'></input>");
+											out.println("<input type='text' class='form-control stockValueHolder' value='" + sad.getArticulo().getStock() + "' readonly='true'></input>");
 										]]>
 									</jsp:scriptlet>	
 								</div>
@@ -85,7 +85,7 @@
 									<jsp:scriptlet>
 										<![CDATA[
 										    int cantidadAEntregar = sad.getCantidad() < sad.getArticulo().getStock() ? sad.getCantidad() : sad.getArticulo().getStock();     
-											out.println("<input type='number' class='form-control contidadAEntregarValueHolder' value='" + cantidadAEntregar + "'></input>");
+											out.println("<input type='number' class='form-control cantidadAEntregarValueHolder' data-stock='" + sad.getArticulo().getStock() + "'" + " value='" + cantidadAEntregar + "'></input>");
 										]]>
 									</jsp:scriptlet>	
 								</div>
@@ -122,7 +122,8 @@
 						 var itemEntregaArticulos = {}
 						 var idSolicitudArticulo = $(this).attr("id");
 						 var includeItem = $("#" + idSolicitudArticulo + " .isIncludedValueHolder").is(":checked");
-						 var cantidadAEntregar = $("#" + idSolicitudArticulo + " .contidadAEntregarValueHolder").val();
+						 var cantidadAEntregar = $("#" + idSolicitudArticulo + " .cantidadAEntregarValueHolder").val();
+						 // var stock = $("#" + idSolicitudArticulo + " .stockValueHolder").val();
 						 if (includeItem) {
 							 itemEntregaArticulos.idSolicitudArticulo = idSolicitudArticulo;
 							 itemEntregaArticulos.cantidad = cantidadAEntregar;
@@ -133,18 +134,32 @@
 					 doProcess(entregaDeArticulosRequest);
 				});
 				
+				$(".cantidadAEntregarValueHolder").on("input", function() {
+					if (parseInt($(this).attr("data-stock")) < parseInt($(this).val())) {
+						$(this).css('border-color', 'red');
+					} else {
+						$(this).css('border-color', 'green');
+					}		
+				});
+				
 			});
 			
 			function doProcess(entregaDeArticulosRequest) {
 				$.ajax({
-		             url: '/deposito-web/rest/entregasArticulo',
+					 timeout: 1000,
+					 url: '/deposito-web/rest/entregasArticulo',
 		             type: 'post',
 		             contentType:"application/json; charset=utf-8",
 		             success: function(response) {
 		            	 window.location.href = "/deposito-web/jsp/solicitudesArticulosPendientes.jsp";
 		             },
-		             error: function (response) {
-		                 alert("No se pudo procesar entrega de artículos" + response);
+		             error: function (jqXHR, textStatus, errorThrown) {
+		            	 if (textStatus == "timeout") {
+			  		 		alert("Procesando la entrega, chequee las solicitudes pendientes");
+			  		 		window.location.href = "/deposito-web/index.jsp";
+			  		 	} else {
+			  		 		alert("No se pudo procesar la entrega de artículos " + errorThrown);	
+			  		 	}
 		             },
 		             data: JSON.stringify(entregaDeArticulosRequest)
 		         });					
