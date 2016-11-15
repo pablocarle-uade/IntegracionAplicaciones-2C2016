@@ -1,6 +1,6 @@
 {
 	servers: [
-		/*{
+		{
 			id: "G11",
 			restEndpoint: {
 				url: "http://172.16.164.51:8080",
@@ -14,11 +14,11 @@
 				user: "test",
 				password: "test1234"
 			}
-		},*/
+		},
 		{
 			id: "G08",
 			restEndpoint: {
-				url: "http://172.16.164.50",
+				url: "http://172.16.164.50:8080",
 				resource: "/DespachoWeb/rest/services/recepcionStock",
 				method: "post"
 			},

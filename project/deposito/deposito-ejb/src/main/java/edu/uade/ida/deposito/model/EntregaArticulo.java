@@ -101,6 +101,7 @@ public class EntregaArticulo implements HasDTO<EntregaArticuloDTO> {
 		dto.setIdArticulo(sa.getArticulo().getId().intValue());
 		dto.setCodArticulo(Integer.valueOf(sa.getArticulo().getCodArticulo()));
 		dto.setIdSolicitudArticulo(sa.getIdSolicitudStock());
+		dto.setIdModuloSolicitante(idModuloSolicitante);
 		return dto;
 	}
 }

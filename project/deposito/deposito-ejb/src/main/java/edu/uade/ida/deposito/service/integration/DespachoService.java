@@ -74,6 +74,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 	public void notificarEntregaArticulo(EntregaArticuloDTO entregaArticulo) {
 		// REST
 		String restEndpoint = config.getRESTEndpointURL(ConfigModulo.DESPACHO, entregaArticulo.getIdModuloSolicitante());
+		log.info(this, "Notificar entrega de articulo a rest endpoint " + restEndpoint + " de id modulo " + entregaArticulo.getIdModuloSolicitante());
 		try {
 			URL url = new URL(restEndpoint);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -86,6 +87,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 			OutputStream os = con.getOutputStream();
 			os.write(body.getBytes("UTF-8"));
 			os.flush();
+			os.close();
 			
 			int responseCode = con.getResponseCode();
 			BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -99,6 +101,7 @@ public class DespachoService implements DespachoServiceRemote, DespachoServiceLo
 			bf.close();
 		} catch (IOException e) {
 			log.log(this, Level.WARNING, "Error en comunicacion con despacho para entrega de articulos", e);
+			lms.enviarAudit(NivelAudit.ERROR, "Error en comunicacion con despacho " + entregaArticulo.getIdModuloSolicitante());
 			e.printStackTrace();
 		}
 	}
