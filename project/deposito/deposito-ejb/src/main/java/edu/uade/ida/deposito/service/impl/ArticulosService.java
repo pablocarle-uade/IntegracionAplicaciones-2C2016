@@ -7,8 +7,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import edu.uade.ida.deposito.util.StringUtils;
-
 import edu.uade.ida.deposito.dto.ArticuloDTO;
 import edu.uade.ida.deposito.dto.CreateArticuloRequestDTO;
 import edu.uade.ida.deposito.dto.ModificacionStockRequestDTO;
@@ -24,6 +22,8 @@ import edu.uade.ida.deposito.service.integration.LogisticaMonitoreoServiceLocal;
 import edu.uade.ida.deposito.service.integration.PortalServiceLocal;
 import edu.uade.ida.deposito.util.DTOUtil;
 import edu.uade.ida.deposito.util.NivelAudit;
+import edu.uade.ida.deposito.util.StringUtils;
+import edu.uade.ida.deposito.util.config.ConfigHolder;
 
 @Stateless
 public class ArticulosService implements ArticulosServiceLocal {
@@ -46,6 +46,9 @@ public class ArticulosService implements ArticulosServiceLocal {
 	@Inject
 	private PortalServiceLocal ps;
 	
+	@Inject
+	private ConfigHolder config;
+	
 	@Override
 	public ArticuloDTO crearArticulo(CreateArticuloRequestDTO dto) {
 		ArticuloDTO nuevoArticuloDTO = null;
@@ -58,7 +61,7 @@ public class ArticulosService implements ArticulosServiceLocal {
         	// Registrar en Logística y Monitoreo
         	lms.enviarAudit(NivelAudit.INFO, "Registrado nuevo artículo, código de artículo: " + articulo.getCodArticulo());        	
         	// Generar notificación para módulos interesados
-        	NotificacionNuevoArticuloDTO notificacionNuevoArticulo = new NotificacionNuevoArticuloDTO("GO1",
+        	NotificacionNuevoArticuloDTO notificacionNuevoArticulo = new NotificacionNuevoArticuloDTO(config.getIdDeposito(),
 					articulo.getCodArticulo(), articulo.getNombre(), articulo.getDescripcion(), articulo.getMarca(),
 					articulo.getPrecio(), articulo.getFoto(), articulo.getOrigen(), articulo.getTipo().toString(),
 					articulo.getDatosExtra());

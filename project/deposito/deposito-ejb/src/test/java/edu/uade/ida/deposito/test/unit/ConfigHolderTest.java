@@ -73,6 +73,14 @@ public class ConfigHolderTest {
 		assertTrue(jec.getPassword() != null && jec.getPassword().length() > 0);
 		assertTrue(jec.getUser() != null && jec.getUser().length() > 0);
 		assertTrue(jec.getProviderUrl() != null && jec.getProviderUrl().length() > 0);
-		
+	}
+	
+	@Test
+	public void testGetRestEndpoint() {
+		String[] moduleIds = new String[]{"G05", "G08"};
+		String rest1 = config.getRESTEndpointURL(ConfigModulo.DESPACHO, moduleIds[0]);
+		assertTrue(rest1 != null && rest1.length() > 0);
+		String rest2 = config.getRESTEndpointURL(ConfigModulo.DESPACHO, moduleIds[1]);
+		assertTrue(rest2 != null && rest2.length() > 0);
 	}
 }

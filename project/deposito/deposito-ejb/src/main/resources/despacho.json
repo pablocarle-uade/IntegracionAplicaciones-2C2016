@@ -3,48 +3,47 @@
 		{
 			id: "G11",
 			restEndpoint: {
-				url: "http://186.22.186.235:8010",
+				url: "http://172.16.164.51:8080",
 				resource: "/mocks_web/rest/despacho/entregaArticulos",
 				method: "post"
 			},
 			jmsEndpoint: {
-				providerUrl: "http-remoting://186.22.186.235:8010",
+				providerUrl: "http-remoting://172.16.164.51:8080",
 				jmsQueue: "jms/queue/DespachoNuevoArticulo",
 				jmsTopic: null,
-				user: "guest",
-				password: "guest"
+				user: "test",
+				password: "test1234"
 			}
-		}/*,
+		},
 		{
 			id: "G08",
 			restEndpoint: {
-				url: "http://jbosswilfly-pcarleuade.rhcloud.com",
-				resource: "/mocks_web/rest/despacho/entregaArticulos",
+				url: "http://172.16.164.50:8080",
+				resource: "/DespachoWeb/rest/services/recepcionStock",
 				method: "post"
 			},
 			jmsEndpoint: {
-				providerUrl: "http-remoting://jbosswilfly-pcarleuade.rhcloud.com",
+				providerUrl: "http-remoting://172.16.164.50:8080",
 				jmsQueue: "jms/queue/DespachoNuevoArticulo",
 				jmsTopic: null,
-				user: "guest",
-				password: "guest"
+				user: "user1",
+				password: "user1"
 			}
 		},
 		{
 			id: "G05",
 			restEndpoint: {
-				url: "http://jbosswilfly-pcarleuade.rhcloud.com",
-				resource: "/mocks_web/rest/despacho/entregaArticulos",
+				url: "http://172.16.164.58:8080",
+				resource: "/website/rest/despachador/nuevoDespacho",
 				method: "post"
 			},
 			jmsEndpoint: {
-				providerUrl: "http-remoting://jbosswilfly-pcarleuade.rhcloud.com",
-				jmsQueue: "jms/queue/DespachoNuevoArticulo",
+				providerUrl: "http-remoting://172.16.164.58:8080",
+				jmsQueue: "jms/queue/nuevoArticuloDeposito",
 				jmsTopic: null,
 				user: "guest",
 				password: "guest"
 			}
 		}
-		*/
 	]
 }
