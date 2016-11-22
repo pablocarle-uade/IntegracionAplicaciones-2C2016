@@ -1,20 +1,10 @@
 {
 	servers: [
 		{
-			id: "G13",
+			id: "G10",
 			jmsEndpoint: {
-				providerUrl: "http-remoting://172.16.164.52:8080",
-				jmsQueue: "jms/queue/deposito",
-				jmsTopic: null,
-				user: "guest",
-				password: "guest"
-			}
-		},
-		{
-			id: "G07",
-			jmsEndpoint: {
-				providerUrl: "http-remoting://172.16.164.49:8080",
-				jmsQueue: "jms/queue/deposito",
+				providerUrl: "http-remoting://10.0.0.104:8080",
+				jmsQueue: "jms/queue/deposito2",
 				jmsTopic: null,
 				user: "guest",
 				password: "guest"
@@ -23,23 +13,12 @@
 		{
 			id: "G03",
 			jmsEndpoint: {
-				providerUrl: "http-remoting://172.16.164.56:8080",
+				providerUrl: "http-remoting://10.0.0.101:8080",
 				jmsQueue: "jms/queue/deposito",
 				jmsTopic: null,
 				user: "guest",
 				password: "guest"
 			}
 		}
-		/*,
-		{
-			id: "G10",
-			jmsEndpoint: {
-				providerUrl: "http-remoting://172.16.164.54:8080",
-				jmsQueue: "jms/queue/deposito2",
-				jmsTopic: null,
-				user: "guest",
-				password: "guest"
-			}
-		}*/
 	]
 }

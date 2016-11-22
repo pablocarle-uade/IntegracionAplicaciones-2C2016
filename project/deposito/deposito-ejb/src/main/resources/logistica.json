@@ -1,34 +1,19 @@
 {
 	servers: [
 		{
-			id: "logistica4",
+			id: "logistica2",
 			modo: "async", //async
 			syncParams: {
-				url: "http://172.16.164.41:8080",
-				resource: "/LogisticaWebServices/rest/eventos/recibir"
+				url: "http://10.0.0.110:8080",
+				resource: "/LogisticaREST/rest/services/guardarLog"
 			},
 			asyncParams: {
-				providerUrl: "http-remoting://172.16.164.41:8080",
+				providerUrl: "http-remoting://10.0.0.110:8080",
 				jmsQueue: "jms/queue/eventoAuditoria",
 				jmsTopic: null,
 				user: "guest",
 				password: "guest"
 			}
-		}/*,
-		{
-                        id: "logistica4",
-                        modo: "async", //async
-                        syncParams: {
-                                url: "http://186.22.186.235:8010",
-                                resource: "/mocks_web/rest/logMonAudit/recibir"
-                        },
-                        asyncParams: {
-                                providerUrl: "http-remoting://186.22.186.235:8010",
-                                jmsQueue: "jms/queue/eventoAuditoria",
-                                jmsTopic: null,
-                                user: "guest",
-                                password: "guest"
-                        }
-                }*/	
+		}
 	]
 }
