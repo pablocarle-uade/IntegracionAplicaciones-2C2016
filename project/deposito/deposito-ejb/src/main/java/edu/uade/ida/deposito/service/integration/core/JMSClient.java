@@ -47,7 +47,7 @@ public class JMSClient {
         } catch (Exception e) {
         	log.log(this, Level.WARNING, "JMSClient invoke failed: " + e.getMessage(), e);
         	e.printStackTrace();
-            throw e;
+            // throw e;
         } finally {
             if (namingContext != null) { namingContext.close(); }
             if (context != null) { context.close(); }
